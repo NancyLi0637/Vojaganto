@@ -1,0 +1,10 @@
+{
+  "short_name": "Vojaganto Client App",
+  "name": "Vojaganto",
+  "icons": [
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
