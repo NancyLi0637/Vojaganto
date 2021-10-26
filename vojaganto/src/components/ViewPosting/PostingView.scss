@@ -1,0 +1,82 @@
+@import "../../styles/global_vars";
+
+.posting-view {
+    height: 80vh;
+    overflow-y: auto;
+
+    .posting-metadata-container {
+        position: relative; 
+
+        .posting-title {
+            text-transform: uppercase;
+            font-weight: 1200;
+            letter-spacing: 2px;
+        }
+    
+        .posting-info-container {
+            .posting-info {
+                list-style: none;
+                padding-left: 0;
+    
+                .info-item {
+                    font-weight: normal;
+                    font-size: large;
+                }
+            }
+        }
+
+        .posting-author-container {
+            position: absolute;
+            top: 0;
+            right: 10%;
+
+            .posting-author-avatar {
+                margin: .5rem;
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                background-color: aquamarine;
+            }
+
+            .posting-author-name {
+                text-align: center;
+                font-weight: bold;
+                font-size: large;
+            }
+        }
+    
+    }
+
+    .posting-image-container {
+        width: 80%;
+        @include my($margin: 2rem);
+        
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+
+        .posting-images {
+            display:inline-block;
+        }
+
+        .posting-image {
+            @include mx($margin: 1rem);
+            margin-bottom: 1rem;
+
+            display: inline-block;
+            height: 300px;
+            width: auto;
+            object-fit: contain;
+            
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}

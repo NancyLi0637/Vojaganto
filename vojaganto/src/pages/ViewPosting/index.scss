@@ -1,0 +1,5 @@
+@import "../../styles/global_vars";
+.view-posting-main {
+    @include px($padding: 5%);
+    // @include my($margin: 1rem);
+}
