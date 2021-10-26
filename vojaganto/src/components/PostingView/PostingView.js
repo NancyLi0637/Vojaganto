@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import "./PostingView.scss"
 
@@ -32,14 +33,21 @@ class PostingView extends React.Component {
 
                     <div className="posting-info-container">
                         <ul className="posting-info">
-                            <li className="info-item">{posting.journey.title}</li>
+
+                            <li className="info-item">
+                                <Link className="nav-item" to={"/journey/" + posting.journey._id}>
+                                    {posting.journey.title}
+                                </Link>
+                            </li>
                             <li className="info-item">{posting.date}</li>
                             <li className="info-item">{posting.destination}</li>
                         </ul>
                     </div>
 
                     <div className="posting-author-container">
-                        <div className="posting-author-avatar"></div>
+                        <div className="posting-author-avatar">
+                            <img src={posting.author.avatar} alt={posting.author.name} />
+                        </div>
                         <div className="posting-author-name">{posting.author.name}</div>
                     </div>
                 </div>
@@ -59,7 +67,12 @@ class PostingView extends React.Component {
                 </div>
 
                 <div className="posting-body-container">
-                    {posting.body}
+                    {posting.body.split('\n').map(paragraph => {
+                        console.log(paragraph)
+                        return (
+                            <p>{paragraph} <br /></p> 
+                        )
+                    })}
                 </div>
             </div>
         )

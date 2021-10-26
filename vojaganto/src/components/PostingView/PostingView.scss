@@ -1,41 +1,63 @@
 @import "../../styles/global_vars";
 
 .posting-view {
-    height: 80vh;
+    height: 90vh;
     overflow-y: auto;
 
     .posting-metadata-container {
         position: relative; 
-
+        $left-width: 80%;
+       
         .posting-title {
+            width: $left-width;
             text-transform: uppercase;
-            font-weight: 1200;
             letter-spacing: 2px;
+            font-size: calc(1vw + 2rem);
+            flex-wrap: wrap;
         }
     
         .posting-info-container {
+            width: $left-width;
+            color: $dark;
+
             .posting-info {
                 list-style: none;
                 padding-left: 0;
     
                 .info-item {
-                    font-weight: normal;
-                    font-size: large;
+                    font-size: larger;
                 }
+            }
+
+            a {
+                text-decoration: none;
+            }
+            *:active {
+                color: $dark;
             }
         }
 
         .posting-author-container {
+            width: 20%;
+            
             position: absolute;
             top: 0;
-            right: 10%;
+            right: 0;
 
             .posting-author-avatar {
                 margin: .5rem;
+                @include mx();
+
                 width: 120px;
                 height: 120px;
-                border-radius: 50%;
-                background-color: aquamarine;
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                    border-radius: 50%;
+                    @include box-shadow();
+                }
             }
 
             .posting-author-name {
@@ -48,8 +70,9 @@
     }
 
     .posting-image-container {
-        width: 80%;
+        width: 95%;
         @include my($margin: 2rem);
+        @include mx();
         
         display: flex;
         flex-direction: row;
@@ -78,5 +101,12 @@
                 object-fit: cover;
             }
         }
+    }
+
+    .posting-body-container {
+        padding-right: 1rem;
+        padding-bottom: 5rem;
+
+        font-size: large;
     }
 }

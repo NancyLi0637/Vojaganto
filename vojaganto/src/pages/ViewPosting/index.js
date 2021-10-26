@@ -1,25 +1,26 @@
 import React from 'react';
 
 import Navbar from 'components/Navbar';
-import PostingView from 'components/ViewPosting/PostingView';
+import PostingView from 'components/PostingView/PostingView';
 
 import "./index.scss"
 // TODO: a mock data
 const mockPosting = {
     pid: 5,
-    title: "Trip to Toronto",
+    title: "Trip to Toronto Trip  Toronto",
     author: {
         uid: 10,
         username: "rainyuxuan",
-        name: "Liu Yuxuan"
+        name: "Liu Yuxuan",
+        avatar: "http://pic.22520.cn/up/200916/1600266254104343.jpg"
     },
     journey: {
-        jid: 1,
+        _id: 1,
         title: "Journey to Canada"
     },
     date: (new Date()).toLocaleDateString("en-CA"),
     destination: "Toronto, ON, Canada",
-    body: "This is my trip to Toronto!",
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. \n Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
     images: [
         "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/10/2f/e4/toronto.jpg?w=1200&h=-1&s=1",
         "https://images.dailyhive.com/20191023094158/DqJwDvUWwAICGuS-1.jpeg",
@@ -42,13 +43,13 @@ class ViewPostingPage extends React.Component {
     }
 
     render() {
-        // const { currUser } = this.props
+        const { currUser } = this.props
 
         return (
             <div className="page view-posting-page">
                 <div className="main-view view-posting-main">
                     {this.state.posting ?
-                        <PostingView posting={this.state.posting} />
+                        <PostingView posting={this.state.posting} currUser={currUser} />
                         : <div className="posting-placeholder">Loading Posting</div>
                     }
 

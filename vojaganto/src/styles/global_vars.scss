@@ -2,6 +2,10 @@ $dark: #313131;
 $dark-gray: #3a3a3a;
 $light: #f3f3f3;
 
+$serif: 'Lora', Georgia, 'Times New Roman', Times, serif;
+$sans-serif: 'Rubik', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+
 @mixin round-border($radius: 15px) {
   border-radius: $radius;
 }

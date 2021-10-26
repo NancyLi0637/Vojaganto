@@ -1,7 +1,18 @@
 @import "./styles/common";
 @import "./styles/global_vars";
-* {
-    font-family:'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $sans-serif;
+    font-weight: 600;
+}
+
+div, p, li {
+    font-family: $serif;
+    font-weight: 500;
 }
 
 body {
