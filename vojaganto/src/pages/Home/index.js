@@ -8,11 +8,10 @@ import pic3 from "./pictures/pic3.jpg";
 import pic4 from "./pictures/pic4.jpg";
 import pic5 from "./pictures/pic5.jpg";
 import pic6 from "./pictures/pic6.jpg";
-import pic7 from "./pictures/pic7.jpg";
 import pic8 from "./pictures/pic8.jpg";
-import map from "./pictures/map.png";
 
 import Navbar from "components/Navbar";
+import Map from "components/Map";
 
 import "./style.scss";
 
@@ -39,26 +38,29 @@ class HomePage extends React.Component {
                         <Grid container direction="row">
                             <Grid item container direction="column" xs={4} md={4} lg={4} xl={4}>
                                 <Grid item>
-                                    <img src={pic1} alt="pic1" style={{height: "200px"}}/>
+                                    <img src={pic1} alt="pic1" />
                                 </Grid>
                                 <Grid item>
-                                    <img src={pic4} alt="pic4" style={{height: "270px"}}/>
-                                </Grid>
-                            </Grid>
-                            <Grid item container direction="column" xs={4} md={4} lg={4} xl={4}>
-                                <Grid item>
-                                    <img src={pic2} alt="pic2" style={{height: "280px"}}/>
-                                </Grid>
-                                <Grid item>
-                                    <img src={pic5} alt="pic5" style={{height: "300px"}}/>
+                                    <img src={pic4} alt="pic4" />
                                 </Grid>
                             </Grid>
                             <Grid item container direction="column" xs={4} md={4} lg={4} xl={4}>
                                 <Grid item>
-                                    <img src={pic3} alt="pic3" style={{height: "260px"}}/>
+                                    <img src={pic3} alt="pic3"/>
                                 </Grid>
                                 <Grid item>
-                                    <img src={pic6} alt="pic6" style={{height: "200px"}}/>
+                                    <img src={pic6} alt="pic6"/>
+                                </Grid>
+                                <Grid item>
+                                    <img src={pic8} alt="pic8"/>
+                                </Grid>
+                            </Grid>
+                            <Grid item container direction="column" xs={4} md={4} lg={4} xl={4}>
+                                <Grid item>
+                                    <img src={pic5} alt="pic5"/>
+                                </Grid>
+                                <Grid item>
+                                    <img src={pic2} alt="pic2"/>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -68,9 +70,11 @@ class HomePage extends React.Component {
                     <Navbar/>
 
                 </div>
+
                 <div className="map-view home-map">
-                    <img src={map} alt="map" style={{maxWidth: "100%", height: "780px", marginTop: "-40px"}}/>
+                    <Map/>
                 </div>
+
             </div>
         )
     }
