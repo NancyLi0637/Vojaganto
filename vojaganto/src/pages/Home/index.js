@@ -36,39 +36,37 @@ class HomePage extends React.Component {
 
                     <div className="image-block">
                        
-                        <Grid container spacing={24}>
-                            <Grid item>
-                                <img src={pic1} alt="pic1" style={{height: "200px"}}/>
+                        <Grid container direction="row">
+                            <Grid item container direction="column" xs={4} md={4} lg={4} xl={4}>
+                                <Grid item>
+                                    <img src={pic1} alt="pic1" style={{height: "200px"}}/>
+                                </Grid>
+                                <Grid item>
+                                    <img src={pic4} alt="pic4" style={{height: "270px"}}/>
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                            <img src={pic2} alt="pic2" style={{height: "280px"}}/>
+                            <Grid item container direction="column" xs={4} md={4} lg={4} xl={4}>
+                                <Grid item>
+                                    <img src={pic2} alt="pic2" style={{height: "280px"}}/>
+                                </Grid>
+                                <Grid item>
+                                    <img src={pic5} alt="pic5" style={{height: "300px"}}/>
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                            <img src={pic3} alt="pic3" style={{height: "260px"}}/>
-                            </Grid>
-                            <Grid item>
-                                <img src={pic4} alt="pic4" style={{height: "270px"}}/>
-                            </Grid>
-                        </Grid>
-                      
-                        <Grid container spacing={24}>
-                            <Grid item>
-                                <img src={pic5} alt="pic4" style={{height: "300px"}}/>
-                            </Grid>
-                            <Grid item>
-                                <img src={pic6} alt="pic5" style={{height: "200px"}}/>
-                            </Grid>
-                            <Grid item>
-                                <img src={pic7} alt="pic6" style={{height: "230px"}}/>
-                            </Grid>
-                            <Grid item>
-                                <img src={pic8} alt="pic6" style={{height: "250px"}}/>
+                            <Grid item container direction="column" xs={4} md={4} lg={4} xl={4}>
+                                <Grid item>
+                                    <img src={pic3} alt="pic3" style={{height: "260px"}}/>
+                                </Grid>
+                                <Grid item>
+                                    <img src={pic6} alt="pic6" style={{height: "200px"}}/>
+                                </Grid>
                             </Grid>
                         </Grid>
-                       
+
                     </div>
                         
                     <Navbar/>
+
                 </div>
                 <div className="map-view home-map">
                     <img src={map} alt="map" style={{maxWidth: "100%", height: "780px", marginTop: "-40px"}}/>
