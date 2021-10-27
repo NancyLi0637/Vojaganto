@@ -1,0 +1,14 @@
+@import "../../styles/global_vars";
+
+.marker {
+    float: right;
+    margin-right: 60px;
+}
+
+.location-marker {
+    position: fixed;
+    bottom: 40px;
+    float: right;
+
+    transform: scale(1.5);
+}
