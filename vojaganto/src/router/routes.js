@@ -4,6 +4,10 @@ import JourneyPage from "pages/Journey";
 import ViewPostingPage from "pages/ViewPosting";
 import EditPosting from "pages/EditPosting";
 import ProfilePage from "pages/Profile";
+import AdminHome from "pages/AdminHome"
+import AdminLogin from "pages/AdminLogin"
+import AdminUserDash from "pages/AdminUserDash"
+import AdminPostDash from "pages/AdminPostDash"
 
 
 const ROUTES = [
@@ -13,6 +17,10 @@ const ROUTES = [
     { path: "/edit", key: "EDIT", exact: true, component: EditPosting },
 
     { path: "/profile/:uid", key: "PROFILE", exact: true, component: ProfilePage },
+    { path: "/admin-login", key: "ADMINLOGIN", exact: true, component: AdminLogin },
+    { path: "/admin-home/:uid", key: "ADMINHOME", exact: true, component: AdminHome },
+    { path: "/admin-user-dash/:uid", key: "ADMINUSERDASH", exact: true, component: AdminUserDash },
+    { path: "/admin-post-dash/:uid", key: "ADMINPOSTDASH", exact: true, component: AdminPostDash },
 ];
 
 export default ROUTES;
