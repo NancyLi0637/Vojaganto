@@ -20,27 +20,27 @@
         align-items: center;
         color: $light;
         text-decoration: none;
+
+        img{
+            margin-right: .5rem;
+            width: 1.5rem;
+        }
     }
     .admin-nav-item:hover {
         background-color: $dark-gray;
     }
-}
 
-.admin-nav-blocker{
-    position: sticky;
-    float: left;
-    display: flex;
-    flex-direction: column;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    padding: .5rem;
-    padding-top: 3rem;
-    width: 12vw;
-    z-index: -1;
-}
-
-img{
-    margin-right: .5rem;
-    width: 1.5rem;
+    .admin-nav-blocker{
+        position: sticky;
+        float: left;
+        display: flex;
+        flex-direction: column;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        padding: .5rem;
+        padding-top: 3rem;
+        width: 12vw;
+        z-index: -1;
+    }
 }
