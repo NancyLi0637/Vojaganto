@@ -1,10 +1,12 @@
 import React from 'react';
 
 import Navbar from 'components/Navbar';
-import PostingView from 'components/PostingView/PostingView';
+import PostingView from 'components/PostingView';
 
 import "./index.scss"
+
 // TODO: a mock data
+import avatar from 'assets/images/66385278_p8.jpg';
 const mockPosting = {
     pid: 5,
     title: "Trip to Toronto Trip  Toronto",
@@ -12,7 +14,7 @@ const mockPosting = {
         uid: 10,
         username: "rainyuxuan",
         name: "Liu Yuxuan",
-        avatar: "http://pic.22520.cn/up/200916/1600266254104343.jpg"
+        avatar: avatar
     },
     journey: {
         _id: 1,

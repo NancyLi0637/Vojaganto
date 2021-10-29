@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from 'components/Navbar';
 
-import EditPostingView from 'components/EditPostingView/EditPostingView';
+import EditPostingView from 'components/EditPostingView';
 
 import "./index.scss";
 
