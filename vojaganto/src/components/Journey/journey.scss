@@ -1,0 +1,34 @@
+@import "../../styles/global_vars";
+
+.journey-page {
+  .trip-type {
+    @include mx;
+    @include my($margin: 3rem);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: calc(1vw + 2rem);
+    flex-wrap: wrap;
+    font-weight: normal;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .trip-category {
+    @include mx($margin: 1rm);
+    //@include my($margin: 3rem);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    flex-wrap: wrap;
+  }
+  .journey-list {
+    overflow-y: auto;
+    /*
+        .journey-list-posting{
+
+        @include mx();
+        margin-bottom: 3rem;
+        @include py();
+        
+    }
+    */
+  }
+}

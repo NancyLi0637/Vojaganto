@@ -1,0 +1,9 @@
+@import "../../styles/global_vars";
+
+.posting-list-page {
+  .journey-list-posting {
+    @include mx();
+    margin-bottom: 3rem;
+    @include py();
+  }
+}
