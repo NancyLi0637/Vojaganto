@@ -5,6 +5,8 @@ import ProfileTripCategory from "components/ProfileTripCategory";
 import "./profile.scss";
 
 class Profile extends React.Component {
+
+
   render() {
     const profileInfo = this.props.profileInfo;
     const tripType = this.props.tripType;
@@ -13,9 +15,10 @@ class Profile extends React.Component {
     return (
       <div className="profile-page">
         <div className="edit-profile-container">
-          <Link className="edit-profile" to="/edit">
+          <input className="edit-profile" to="/edit">
+             {/*TODO: Replace this with a prompt for editing profile */}
             Edit Profile
-          </Link>
+          </input>
         </div>
         <ProfileInfo
           className="profile-information"
