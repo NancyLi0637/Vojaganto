@@ -49,7 +49,7 @@ class AdminLoginForm extends React.Component {
                                    placeholder="Password"
                             />
                         </div>
-                        <Link className="link" to={`/admin-home/${current_adminid}`}>
+                        <Link className="link" to={`/admin/home`}>
                             Submit
                         </Link>
                     </div>
@@ -59,7 +59,7 @@ class AdminLoginForm extends React.Component {
             return (
                 <div>
                     <div className="admin-login">
-                        <Link to={`/admin-home/${current_adminid}`}>
+                        <Link to={`/admin/home`}>
                             Welcome to Admin Dashboard
                         </Link>
                     </div>
