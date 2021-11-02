@@ -1,0 +1,39 @@
+@import "../../styles/global_vars";
+
+.profile-info-page {
+  display: flex;
+
+  .profile-avatar-container {
+    height: 160px;
+    width: 160px;
+    min-height: 160px;
+    min-width: 160px;
+    @include my();
+    .profile-image {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      @include round-border($radius: 50%);
+    }
+  }
+  .profile-text {
+    float: left;
+    overflow-y: hidden;
+    @include mx($margin: 3rem);
+    @include my();
+    .user-nick-name {
+      @include my($margin: 0.6rem);
+    }
+    .user-name {
+      @include my($margin: 0.6rem);
+      font-weight: normal;
+      color: dimgrey;
+    }
+    .user-content-body {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+}

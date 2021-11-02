@@ -1,0 +1,38 @@
+@import "../../styles/global_vars";
+
+.journey-list-posting {
+  display: flex;
+  position: relative;
+  //line-height: 1vh;
+  height: 21vh;
+  width: 100%;
+  @include my();
+  .journey-list-posting-text {
+    @include mx($margin: 1%);
+    width: 100%;
+    .journey-posting-date {
+      @include my();
+    }
+    .journey-posting-title {
+      @include my($margin: 0.5rem);
+      @include py();
+    }
+    .journey-posting-body {
+      @include my();
+      font-weight: normal;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+  .journey-list-posting-image {
+    position: relative;
+    height: 100%;
+    object-fit: cover;
+    width: 30%;
+    float: left;
+    @include mx();
+    @include round-border();
+  }
+}

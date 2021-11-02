@@ -1,0 +1,13 @@
+@import "../../styles/global_vars";
+
+.image-block {
+  position: relative;
+}
+
+.image-block img{
+ 
+  border-radius: 50px;
+  margin: 10px;
+  width: 90%;
+  max-height: 1000px;
+}

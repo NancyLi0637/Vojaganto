@@ -12,15 +12,18 @@ import AdminPostDash from "pages/AdminPostDash"
 
 const ROUTES = [
     { path: "/", key: "HOME", exact: true, component: HomePage },
+
     { path: "/journey/:jid", key: "JOURNEY", exact: true, component: JourneyPage },
-    { path: "/trip/:tid", key: "TRIP", exact: true, component: ViewPostingPage },
+    { path: "/trip/:pid", key: "TRIP", exact: true, component: ViewPostingPage },
+
     { path: "/edit", key: "EDIT", exact: true, component: EditPosting },
 
     { path: "/profile/:uid", key: "PROFILE", exact: true, component: ProfilePage },
-    { path: "/admin-login", key: "ADMINLOGIN", exact: true, component: AdminLogin },
-    { path: "/admin-home/:uid", key: "ADMINHOME", exact: true, component: AdminHome },
-    { path: "/admin-user-dash/:uid", key: "ADMINUSERDASH", exact: true, component: AdminUserDash },
-    { path: "/admin-post-dash/:uid", key: "ADMINPOSTDASH", exact: true, component: AdminPostDash },
+
+    { path: "/admin/login", key: "ADMINLOGIN", exact: true, component: AdminLogin },
+    { path: "/admin/home", key: "ADMINHOME", exact: true, component: AdminHome },
+    { path: "/admin/users", key: "ADMINUSERDASH", exact: true, component: AdminUserDash },
+    { path: "/admin/postings", key: "ADMINPOSTDASH", exact: true, component: AdminPostDash },
 ];
 
 export default ROUTES;

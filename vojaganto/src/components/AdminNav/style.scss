@@ -29,6 +29,11 @@
     .admin-nav-item:hover {
         background-color: $dark-gray;
     }
+
+    img{
+        margin-right: .5rem;
+        width: 1.5rem;
+    }
 }
 
 .admin-nav-blocker{
@@ -44,3 +49,4 @@
     width: 12vw;
     z-index: -1;
 }
+

@@ -1,0 +1,11 @@
+@import "../../styles/global_vars";
+.view-posting-main {
+    @include px($padding: 5%);
+    // @include my($margin: 1rem);
+
+    // Hide scroll bar
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+        display: none;
+    }
+}
