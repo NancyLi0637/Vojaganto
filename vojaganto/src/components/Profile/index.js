@@ -15,10 +15,10 @@ class Profile extends React.Component {
     return (
       <div className="profile-page">
         <div className="edit-profile-container">
-          <input className="edit-profile" to="/edit">
-             {/*TODO: Replace this with a prompt for editing profile */}
+          <button className="edit-profile">
+             {/*TODO: Replace this with a prompt for editing profile, this should not be to /edit */}
             Edit Profile
-          </input>
+          </button>
         </div>
         <ProfileInfo
           className="profile-information"
