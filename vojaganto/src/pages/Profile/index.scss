@@ -1,0 +1,15 @@
+@import "../../styles/global_vars";
+
+.profile-page {
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .profile-page-main {
+    @include px($padding: 5%);
+    @include py($padding: 1%);
+
+    overflow-y: auto;
+  }
+}
