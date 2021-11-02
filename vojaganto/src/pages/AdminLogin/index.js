@@ -1,10 +1,14 @@
 import React from 'react';
+import AdminLoginForm from 'components/AdminLoginForm';
+import './style.scss'
 
 class AdminLogin extends React.Component{
+
     render(){
         return (
-            <div>
-                <h1>AdminLogin PAGE</h1>
+            <div className="admin-login">
+                <div className="bg-img"></div>
+                <AdminLoginForm/>
             </div>
         )
     }
