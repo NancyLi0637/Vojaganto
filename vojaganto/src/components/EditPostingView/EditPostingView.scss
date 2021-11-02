@@ -1,0 +1,98 @@
+@import "../../styles/global_vars";
+
+.edit-posting-view {
+    height: 90vh;
+    overflow-y: auto;
+
+    input:focus { 
+        outline: none !important;
+    }
+    textarea:focus { 
+        outline: none !important;
+    }
+
+    .posting-form {
+        margin-top: 1.5rem;
+
+        input, textarea {
+            font-family: $sans-serif;
+        }
+
+        .edit-input {
+            @include my($margin: .3rem);
+            border: none;
+        }
+
+        .edit-metadata-container {
+            .edit-title {
+                width: 90%;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-size: calc(1vw + 2rem);
+
+                font-family: $serif;
+                font-weight: 600;
+            }
+
+            .posting-info-container {
+                display: flex;
+                flex-direction: column;
+                width: 70%;
+
+                .edit-meta {
+                    font-size: larger;
+                }
+            }
+        }
+
+        .edit-image-upload-btn {
+            margin-top: 1rem;
+            width: 150px;
+            height: 150px;
+            border: 2px dashed gray;
+            padding-top: auto;
+        }
+
+
+        .edit-control-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-right: 3rem;
+            margin-bottom: 5rem;
+            margin-top: 2rem;
+
+            .edit-public-container {
+                margin-right: 1rem;
+                font-size: 1.5rem;
+
+                .edit-public-checkbox {
+                    width: 1rem;
+                    height: 1rem;
+                }
+            }
+
+            .edit-post-btn {
+                font-size: 1.5rem;
+                @include py($padding: .5rem);
+                @include px($padding: 1.5rem);
+
+                border: none;
+                background-color: $dark;
+                color: $light;
+                @include box-shadow();
+                @include round-border($radius: 100px);
+
+                &:hover {
+                    background-color: #1d1d1d;
+                }
+
+                &:active {
+                    background-color: #1d1d1d;
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+
+}

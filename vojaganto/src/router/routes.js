@@ -9,7 +9,7 @@ import ProfilePage from "pages/Profile";
 const ROUTES = [
     { path: "/", key: "HOME", exact: true, component: HomePage },
     { path: "/journey/:jid", key: "JOURNEY", exact: true, component: JourneyPage },
-    { path: "/trip/:tid", key: "TRIP", exact: true, component: ViewPostingPage },
+    { path: "/trip/:pid", key: "TRIP", exact: true, component: ViewPostingPage },
     { path: "/edit", key: "EDIT", exact: true, component: EditPosting },
 
     { path: "/profile/:uid", key: "PROFILE", exact: true, component: ProfilePage },

@@ -1,0 +1,17 @@
+@import "../../styles/global_vars";
+
+.editor {
+    @include my($margin: 1rem);  
+    textarea {
+        width: 95%;
+        height: 300px;
+
+        resize: none;
+
+        border: none;
+        background-color: #f3f3f3;
+        padding: .5rem;
+
+        font-size: large;
+    }
+}
