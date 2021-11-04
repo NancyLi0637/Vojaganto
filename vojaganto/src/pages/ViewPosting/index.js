@@ -3,6 +3,8 @@ import React from 'react';
 import Navbar from 'components/Navbar';
 import PostingView from 'components/PostingView';
 
+import Map from 'components/Map';
+
 import "./index.scss"
 
 // TODO: a mock data
@@ -58,7 +60,7 @@ class ViewPostingPage extends React.Component {
                     <Navbar />
                 </div>
                 <div className="map-view view-posting-map">
-                    {/* TODO: */}
+                    <Map />
                 </div>
             </div>
         )

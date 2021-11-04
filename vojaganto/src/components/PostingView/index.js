@@ -68,7 +68,6 @@ class PostingView extends React.Component {
 
                 <div className="posting-body-container">
                     {posting.body.split('\n').map(paragraph => {
-                        console.log(paragraph)
                         return (
                             <p>{paragraph} <br /></p> 
                         )
