@@ -3,5 +3,9 @@
 .profile-page {
   .edit-profile-container {
     text-align: right;
+
+    .edit-profile {
+      @include button($shadow: 0);
+    }
   }
 }

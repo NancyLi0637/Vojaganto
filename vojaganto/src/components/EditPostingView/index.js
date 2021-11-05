@@ -10,7 +10,7 @@ class EditPostingView extends React.Component {
         super(props)
     }
 
-    
+
     render() {
         const { currUser, posting, handleInputChange, submitPosting } = this.props
 
@@ -56,12 +56,22 @@ class EditPostingView extends React.Component {
                     </div>
 
                     <div className="edit-image-container">
-                        <div className="posting-images">
+                        <div className="add-image-container">
                             <input type="file"
                                 name="image"
                                 className="edit-input edit-image-upload-btn"
                                 multiple
                             />
+                        </div>
+                        <div className="posting-images">
+
+                            {posting.images.map((img) => {
+                                return (
+                                    <div className="posting-image">
+                                        <img src={img} alt={img} />
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
 

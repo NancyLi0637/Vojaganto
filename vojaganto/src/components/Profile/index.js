@@ -16,7 +16,7 @@ class Profile extends React.Component {
       <div className="profile-page">
         <div className="edit-profile-container">
           <button className="edit-profile">
-             {/*TODO: Replace this with a prompt for editing profile, this should not be to /edit */}
+            {/*TODO: Replace this with a prompt for editing profile, this should not be to /edit */}
             Edit Profile
           </button>
         </div>

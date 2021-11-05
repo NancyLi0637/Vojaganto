@@ -24,12 +24,24 @@ import "./PostingView.scss"
 class PostingView extends React.Component {
 
     render() {
-        const { posting } = this.props
+        const { currUser, posting } = this.props
 
         return (
             <div className="posting-view">
                 <div className="posting-metadata-container">
                     <h1 className="posting-title">{posting.title}</h1>
+
+                    {
+                        // Display Edit Button when the logged-in user is the author of the article.
+                        (currUser && currUser.uid === posting.author.uid) ?
+                            <div className="edit-container">
+                                <Link to={`/edit/${posting.pid}`}>
+                                <button className="edit-btn">Edit</button>    
+                                </Link>
+                            </div>
+                            :
+                            undefined
+                    }
 
                     <div className="posting-info-container">
                         <ul className="posting-info">
@@ -63,13 +75,12 @@ class PostingView extends React.Component {
                             )
                         })}
                     </div>
-
                 </div>
 
                 <div className="posting-body-container">
                     {posting.body.split('\n').map(paragraph => {
                         return (
-                            <p>{paragraph} <br /></p> 
+                            <p>{paragraph} <br /></p>
                         )
                     })}
                 </div>

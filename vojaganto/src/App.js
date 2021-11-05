@@ -5,10 +5,14 @@ import "./App.scss";
 
 
 class App extends React.Component {
+  state={
+    currUser: undefined
+  }
+  
   render() {
     return (
       <BrowserRouter>
-        <RenderRoutes />
+        <RenderRoutes currUser={this.state.currUser} />
       </BrowserRouter>
     );
   }

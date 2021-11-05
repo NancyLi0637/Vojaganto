@@ -45,12 +45,46 @@
             }
         }
 
-        .edit-image-upload-btn {
-            margin-top: 1rem;
-            width: 150px;
-            height: 150px;
-            border: 2px dashed gray;
-            padding-top: auto;
+        .edit-image-container {
+            width: 95%;
+            @include my($margin: 2rem);
+            @include mx();
+            
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+    
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+
+            .edit-image-upload-btn {
+                // margin-top: 1rem;
+                margin: 0;
+                width: 150px;
+                height: 150px;
+                border: 2px dashed gray;
+                padding-top: auto;
+            }
+    
+            .posting-images {
+                display:inline-block;
+            }
+    
+            .posting-image {
+                @include mx($margin: 1rem);
+
+                display: inline-block;
+                height: 150px;
+                width: auto;
+                object-fit: contain;
+                
+                img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                }
+            }
         }
 
 

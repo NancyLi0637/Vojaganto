@@ -37,10 +37,22 @@ const emptyPosting = {
 class EditPostingPage extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-            posting: {
-                ...emptyPosting,
-                author: this.props.currUser,
+        
+
+        if (this.props.match.params.pid !== undefined){
+            console.log(1)
+            this.state = {
+                posting: {
+                    ...mockPosting,
+                    author: this.props.currUser,
+                }
+            }
+        } else {
+            this.state = {
+                posting: {
+                    ...emptyPosting,
+                    author: this.props.currUser,
+                }
             }
         }
     }
