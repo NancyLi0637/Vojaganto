@@ -1,0 +1,43 @@
+@import "../../styles/global_vars";
+
+$row_radius: .5rem;
+
+.AdminUserTable{
+    margin: auto;
+    margin-top: 5vh;
+    border-collapse: separate;
+    border-spacing: 0 .2rem;
+    width: 80vw;
+    font-size: large;
+
+    th{
+        text-align: left;
+        padding: .5rem;
+    }
+    
+
+    .AdminUserRow{
+        background-color: $dark;
+        color: $light;
+        border-radius: $row_radius;
+        
+
+        .AdminUserData{
+            padding: .5rem;
+        }
+
+        .LeftCol{
+            border-bottom-left-radius: $row_radius;
+            border-top-left-radius: $row_radius;
+        }
+
+        .RightCol{
+            border-bottom-right-radius: $row_radius;
+            border-top-right-radius: $row_radius;
+        }
+    }
+
+    .AdminUserRow:hover{
+        box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+    }
+}

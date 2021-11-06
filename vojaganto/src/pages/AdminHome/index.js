@@ -9,7 +9,7 @@ class AdminHome extends React.Component{
         const { currUser } = this.props
 
         return (
-            <div class="page admin-home-page">
+            <div className="page admin-home-page">
                 <div className="admin-home-main">
                     <AdminNav/>
                     <h1>Welcome Administor {`${currUser}`}</h1>
