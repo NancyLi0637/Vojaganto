@@ -6,13 +6,8 @@ import "./EditPostingView.scss"
 
 
 class EditPostingView extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
-    
     render() {
-        const { currUser, posting, handleInputChange, submitPosting } = this.props
+        const { posting, handleInputChange, handleImageUpload, submitPosting } = this.props
 
         return (
             <div className="edit-posting-view">
@@ -56,12 +51,23 @@ class EditPostingView extends React.Component {
                     </div>
 
                     <div className="edit-image-container">
-                        <div className="posting-images">
+                        <div className="add-image-container">
                             <input type="file"
                                 name="image"
                                 className="edit-input edit-image-upload-btn"
                                 multiple
+                                onChange={handleImageUpload}
                             />
+                        </div>
+                        <div className="posting-images">
+
+                            {posting.images.map((img) => {
+                                return (
+                                    <div className="posting-image">
+                                        <img src={img} alt={img} />
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
 

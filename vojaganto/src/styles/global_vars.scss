@@ -34,3 +34,20 @@ $sans-serif: 'Rubik', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lu
   padding-top: $padding;
   padding-bottom: $padding;
 }
+
+@mixin button($px: 2rem, $py: .5rem, $bg: $dark, $color: white, $bg-hover: $dark-gray, $font-size: large, $radius: 0, $shadow: 3px) {
+  @include px($px);
+  @include py($py);
+  @include box-shadow($scale: $shadow);
+  font-size: $font-size;
+
+  background-color: $bg;
+  border: none;
+  color: $color;
+  transition-duration: .3s;
+
+  &:hover {
+      background-color: $bg-hover;
+  }
+}
+

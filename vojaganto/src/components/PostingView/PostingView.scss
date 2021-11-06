@@ -15,6 +15,13 @@
             font-size: calc(1vw + 2rem);
             flex-wrap: wrap;
         }
+
+        .edit-container {
+            .edit-btn {
+                @include button($shadow: 0);
+                cursor: pointer;
+            }
+        }
     
         .posting-info-container {
             width: $left-width;

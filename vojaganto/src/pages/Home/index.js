@@ -17,6 +17,7 @@ import "./style.scss";
 
 class HomePage extends React.Component {
     render() {
+        const {currUser} = this.props
         return (
             <div className="page home-page">
                 <div className="main-view home-main">
@@ -67,7 +68,7 @@ class HomePage extends React.Component {
 
                     </div>
                         
-                    <Navbar/>
+                    <Navbar currUser={currUser}/>
 
                 </div>
 
