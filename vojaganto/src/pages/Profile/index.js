@@ -55,8 +55,8 @@ const postingList = {
 const profileInfo = {
   image:
     "https://www.planetware.com/wpimages/2019/11/canada-in-pictures-beautiful-places-to-photograph-morraine-lake.jpg",
-  nickName: "AAA",
-  userName: "aaa",
+  name: "AAA",
+  username: "aaa",
   body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
   //body: "Travelling and happy"
 };
@@ -82,6 +82,7 @@ class ProfilePage extends React.Component {
     });
   }
   render() {
+    const { currUser } = this.props;
     return (
       <div className="page profile-page">
         <div className="main-view profile-page-main">
@@ -91,7 +92,7 @@ class ProfilePage extends React.Component {
             profileInfo={this.state.profileInfo}
           />
         </div>
-        <Navbar />
+        <Navbar currUser={currUser} />
         <div className="map-view journey-map">{/* TODO: */}</div>
       </div>
     );

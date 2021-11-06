@@ -7,19 +7,22 @@ import CreateIcon from '@material-ui/icons/Create';
 class Navbar extends React.Component {
 
     render() {
-        const { current_userid } = this.props
+        const { currUser } = this.props
+        if (!currUser){
+            return null
+        }
         return (
             <div className="navbar">
                 <div className="navbar-main">
                     <Link className="nav-item" to="/">
                         HOME
                     </Link>
-                    <Link className="nav-item" to={`/profile/${current_userid}`}>
+                    <Link className="nav-item" to={`/profile/${currUser.uid}`}>
                         PROFILE
                     </Link>
                 </div>
                 <div className="navbar-edit">
-                    <Link className="nav-item to-edit" to={`/new-posting`}>
+                    <Link className="nav-item to-edit" to="/new-posting">
                         <CreateIcon/>
                     </Link>
                 </div>

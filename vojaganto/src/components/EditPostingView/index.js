@@ -12,7 +12,7 @@ class EditPostingView extends React.Component {
 
 
     render() {
-        const { currUser, posting, handleInputChange, submitPosting } = this.props
+        const { posting, handleInputChange, submitPosting } = this.props
 
         return (
             <div className="edit-posting-view">

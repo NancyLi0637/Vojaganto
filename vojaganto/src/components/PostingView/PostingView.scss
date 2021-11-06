@@ -19,6 +19,7 @@
         .edit-container {
             .edit-btn {
                 @include button($shadow: 0);
+                cursor: pointer;
             }
         }
     

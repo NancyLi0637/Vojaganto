@@ -56,6 +56,7 @@ class JourneyPage extends React.Component {
   }
 
   render() {
+    const {currUser} = this.props;
     return (
       <div className="page journey">
         <div className="main-view journey-main-view">
@@ -64,7 +65,7 @@ class JourneyPage extends React.Component {
             tripType={this.state.tripType}
             postingList={this.state.postingList}
           />
-          <Navbar />
+          <Navbar currUser={currUser} />
         </div>
         <div className="map-view journey-map">{/* TODO: */}</div>
       </div>

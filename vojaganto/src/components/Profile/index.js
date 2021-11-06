@@ -8,9 +8,7 @@ class Profile extends React.Component {
 
 
   render() {
-    const profileInfo = this.props.profileInfo;
-    const tripType = this.props.tripType;
-    const postingList = this.props.postingList;
+    const {profileInfo, tripType, postingList} = this.props;
 
     return (
       <div className="profile-page">

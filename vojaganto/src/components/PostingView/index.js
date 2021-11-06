@@ -3,24 +3,6 @@ import { Link } from 'react-router-dom';
 
 import "./PostingView.scss"
 
-// const mockPosting = {
-//     pid: 5,
-//     title: "Trip to Toronto",
-//     author: {
-//         uid: 10,
-//         username: "rainyuxuan",
-//         name: "Liu Yuxuan"
-//     },
-//     journey: {
-//         jid: 1,
-//         title: "Journey to Canada"
-//     },
-//     date: Date.now(),
-//     destination: "Toronto, ON, Canada",
-//     body: "This is my trip to Toronto!",
-//     images: []
-// }
-
 class PostingView extends React.Component {
 
     render() {
@@ -36,11 +18,11 @@ class PostingView extends React.Component {
                         (currUser && currUser.uid === posting.author.uid) ?
                             <div className="edit-container">
                                 <Link to={`/edit/${posting.pid}`}>
-                                <button className="edit-btn">Edit</button>    
+                                    <button className="edit-btn">Edit</button>
                                 </Link>
                             </div>
                             :
-                            undefined
+                            null
                     }
 
                     <div className="posting-info-container">

@@ -13,9 +13,9 @@ const mockPosting = {
     pid: 5,
     title: "Trip to Toronto Trip  Toronto",
     author: {
-        uid: 10,
-        username: "rainyuxuan",
-        name: "Liu Yuxuan",
+        uid: 0,
+        username: "user",
+        name: "User Doe",
         avatar: avatar
     },
     journey: {
@@ -57,7 +57,7 @@ class ViewPostingPage extends React.Component {
                         : <div className="posting-placeholder">Loading Posting</div>
                     }
 
-                    <Navbar />
+                    <Navbar currUser={currUser} />
                 </div>
                 <div className="map-view view-posting-map">
                     <Map />
