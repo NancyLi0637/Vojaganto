@@ -4,7 +4,7 @@ import Navbar from 'components/Navbar';
 import Map from 'components/Map';
 import EditPostingView from 'components/EditPostingView';
 
-import { handleInputChange, submitPosting } from 'actions/EditPosting';
+import { handleInputChange, handleImageUpload, submitPosting } from 'actions/EditPosting';
 
 import "./index.scss";
 
@@ -106,6 +106,7 @@ class EditPostingPage extends React.Component {
                         posting={this.state.posting}
                         handleInputChange={(e) => handleInputChange(this, e)}
                         submitPosting={() => submitPosting(this)}
+                        handleImageUpload={(e) => handleImageUpload(this, e)}
                     />
 
                     <Navbar currUser={currUser} />
