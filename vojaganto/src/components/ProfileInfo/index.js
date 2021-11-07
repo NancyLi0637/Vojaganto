@@ -4,14 +4,14 @@ import "./profileinfo.scss";
 
 class ProfileInfo extends React.Component {
   render() {
-    const {profileInfo} = this.props;
+    const { profileInfo } = this.props;
     return (
       <div className="profile-info-page">
         <div className="profile-avatar-container">
           <img
             className="profile-image"
-            src={profileInfo.image}
-            alt="profile image"
+            src={profileInfo.avatar}
+            alt="profile"
           />
         </div>
         <div className="profile-text">

@@ -24,7 +24,7 @@ const mockAdmin = {
 
 class App extends React.Component {
   state = {
-    currUser: mockUser
+    currUser: null 
   }
 
   render() {

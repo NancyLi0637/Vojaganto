@@ -16,6 +16,8 @@
     .journey-posting-title {
       @include my($margin: 0.5rem);
       @include py();
+      text-decoration: none;
+      color: black;
     }
     .journey-posting-body {
       @include my();
