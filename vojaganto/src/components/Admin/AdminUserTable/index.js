@@ -4,19 +4,8 @@ import "./style.scss";
 class AdminUserTable extends React.Component {
 
     render() {
-        // const { users } = this.props
-        const users = [
-            {
-                username: "user1",
-                nickname: "abc",
-                last_login: Date.now()
-            },
-            {
-                username: "user2",
-                nickname: "def",
-                last_login: Date.now()
-            }
-        ]
+        const { users } = this.props
+        
 
         const format_users = users.map(user => ({
             username: user.username,
@@ -27,13 +16,13 @@ class AdminUserTable extends React.Component {
             <div>
                 <table className="AdminUserTable">
                     <tr className="AdminUserHeaderRow">
-                        <th className="AdminUserHeader">
+                        <th className="AdminUserHeader LeftCol">
                             Username
                         </th>
                         <th className="AdminUserHeader">
                             Nickname
                         </th>
-                        <th className="AdminUserHeader">
+                        <th className="AdminUserHeader RightCol">
                             Last Login
                         </th>
                     </tr>

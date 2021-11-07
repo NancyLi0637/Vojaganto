@@ -33,9 +33,13 @@
         }
     }
 
-    .link{
+    .warn{
+        color: $dark;
+    }
+
+    .submit{
         @include round-border($radius: 10px);
-        @include box-shadow;
+        
         margin-top: 1rem;
         font-size: 110%;
         font-weight: bold;
@@ -45,5 +49,11 @@
         background-color: $dark;
         color: $light;
         text-decoration: none;
+        border: 0;
+    }
+
+    .submit:hover{
+        box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+        background-color: $dark-gray;
     }
 }

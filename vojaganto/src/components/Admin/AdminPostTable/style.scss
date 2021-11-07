@@ -15,10 +15,23 @@ $row_radius: .5rem;
         padding: .5rem;
     }
     
-
-    .AdminPostRow{
+    .AdminPostHeaderRow{
         background-color: $dark;
         color: $light;
+
+        .LeftCol{
+            border-bottom-left-radius: $row_radius;
+            border-top-left-radius: $row_radius;
+        }
+
+        .RightCol{
+            border-bottom-right-radius: $row_radius;
+            border-top-right-radius: $row_radius;
+        }
+    }
+
+    .AdminPostRow{
+        color: $dark;
         border-radius: $row_radius;
         
 
