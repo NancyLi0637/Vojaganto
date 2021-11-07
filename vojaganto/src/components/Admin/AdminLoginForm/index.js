@@ -45,7 +45,7 @@ class AdminLoginForm extends React.Component {
         const { setCurrUser } = this.props
         console.log("logging in...")
 
-        if (this.state.username_input == mockAdmin.username && this.state.password_input == mockAdmin.password) {
+        if (this.state.username_input === mockAdmin.username && this.state.password_input === mockAdmin.password) {
             console.log("logging in succeful")
             setCurrUser(mockAdmin)
         } else {
@@ -59,7 +59,7 @@ class AdminLoginForm extends React.Component {
     render() {
         const{currUser} = this.props
 
-        if (currUser == undefined || currUser.role == 0) {
+        if (currUser === undefined || currUser.role === 0) {
             return (
                 <div>
                     <div className="admin-login-form">
