@@ -20,11 +20,13 @@ const postingCardColumns = [
     {
         postings: [
             {
+                pid: 1,
                 title: "Lorem ipsum",
                 date: new Date().toUTCString().substring(0, 17),
                 image: pic1, 
             },
             {   
+                pid: 2,
                 title: "Lorem ipsum",
                 date: new Date().toUTCString().substring(0, 17),
                 image: pic4,
@@ -34,16 +36,19 @@ const postingCardColumns = [
     {
         postings: [
             {
+                pid: 3,
                 title: "Lorem ipsum",
                 date: new Date().toUTCString().substring(0, 17),
                 image: pic3, 
             },
             {   
+                pid: 4,
                 title: "Lorem ipsum",
                 date: new Date().toUTCString().substring(0, 17),
                 image: pic6,
             },
             {
+                pid: 5,
                 title: "Lorem ipsum",
                 date: new Date().toUTCString().substring(0, 17),
                 image: pic8,
@@ -53,11 +58,13 @@ const postingCardColumns = [
     {
         postings: [
             {
+                pid: 6,
                 title: "Lorem ipsum",
                 date: new Date().toUTCString().substring(0, 17),
                 image: pic5, 
             },
             {   
+                pid: 7,
                 title: "Lorem ipsum",
                 date: new Date().toUTCString().substring(0, 17),
                 image: pic2,
