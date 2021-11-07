@@ -2,12 +2,41 @@
 
 .home-view {
   
-    height: 90vh;
-    overflow-y: auto;
+  height: 90vh;
+  overflow-y: auto;
 
-    .posting-card-columns{
-      display: flex;
-      flex-direction: row;
+  .web-header{
+    position: relative;
+     
+    .web-title{
+      margin-left: 30px;
     }
+
+    .login{
+      width: 20%;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      .login-button{
+        background-color: #333333; 
+        color: #FFFFFF; 
+        border-radius: 15px;
+        margin-right: 20px;
+        display: flex;
+        flex-direction: row;
+
+        .login-register-text{
+          margin-top: 3px;
+        }
+      }
+    }
+  }
+
+  .posting-card-columns{
+    display: flex;
+    flex-direction: row;
+  }
   
-  }  
+}  
