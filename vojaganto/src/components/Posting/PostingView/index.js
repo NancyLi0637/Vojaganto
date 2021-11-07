@@ -3,33 +3,27 @@ import { Link } from 'react-router-dom';
 
 import "./PostingView.scss"
 
-// const mockPosting = {
-//     pid: 5,
-//     title: "Trip to Toronto",
-//     author: {
-//         uid: 10,
-//         username: "rainyuxuan",
-//         name: "Liu Yuxuan"
-//     },
-//     journey: {
-//         jid: 1,
-//         title: "Journey to Canada"
-//     },
-//     date: Date.now(),
-//     destination: "Toronto, ON, Canada",
-//     body: "This is my trip to Toronto!",
-//     images: []
-// }
-
 class PostingView extends React.Component {
 
     render() {
-        const { posting } = this.props
+        const { currUser, posting } = this.props
 
         return (
             <div className="posting-view">
                 <div className="posting-metadata-container">
                     <h1 className="posting-title">{posting.title}</h1>
+
+                    {
+                        // Display Edit Button when the logged-in user is the author of the article.
+                        (currUser && currUser.uid === posting.author.uid) ?
+                            <div className="edit-container">
+                                <Link to={`/edit/${posting.pid}`}>
+                                    <button className="edit-btn">Edit</button>
+                                </Link>
+                            </div>
+                            :
+                            null
+                    }
 
                     <div className="posting-info-container">
                         <ul className="posting-info">
@@ -48,7 +42,7 @@ class PostingView extends React.Component {
                         <div className="posting-author-avatar">
                             <img src={posting.author.avatar} alt={posting.author.name} />
                         </div>
-                        <div className="posting-author-name">{posting.author.name}</div>
+                        <Link to={`/profile/${posting.author.uid}`}><div className="posting-author-name">{posting.author.name}</div></Link>
                     </div>
                 </div>
 
@@ -63,13 +57,12 @@ class PostingView extends React.Component {
                             )
                         })}
                     </div>
-
                 </div>
 
                 <div className="posting-body-container">
                     {posting.body.split('\n').map(paragraph => {
                         return (
-                            <p>{paragraph} <br /></p> 
+                            <p>{paragraph} <br /></p>
                         )
                     })}
                 </div>

@@ -3,19 +3,17 @@ import HomeView from "components/HomeView";
 import Navbar from "components/Navbar";
 import Map from "components/MapPlugin/Map";
 
-
-import pic1 from "./pictures/pic1.jpg";
-import pic2 from "./pictures/pic2.jpeg";
-import pic3 from "./pictures/pic3.jpg";
-import pic4 from "./pictures/pic4.jpg";
-import pic5 from "./pictures/pic5.jpg";
-import pic6 from "./pictures/pic6.jpg";
-import pic8 from "./pictures/pic8.jpg";
+import pic1 from "assets/images/home/pic1.jpg";
+import pic2 from "assets/images/home/pic2.jpeg";
+import pic3 from "assets/images/home/pic3.jpg";
+import pic4 from "assets/images/home/pic4.jpg";
+import pic5 from "assets/images/home/pic5.jpg";
+import pic6 from "assets/images/home/pic6.jpg";
+import pic8 from "assets/images/home/pic8.jpg";
 
 
 import "./style.scss";
 
-const webTitle = "Vojaĝanto";
 const postingCardColumns = [
     {
         postings: [
@@ -23,9 +21,9 @@ const postingCardColumns = [
                 pid: 1,
                 title: "Lorem ipsum",
                 date: new Date().toUTCString().substring(0, 17),
-                image: pic1, 
+                image: pic1,
             },
-            {   
+            {
                 pid: 2,
                 title: "Lorem ipsum",
                 date: new Date().toUTCString().substring(0, 17),
@@ -39,9 +37,9 @@ const postingCardColumns = [
                 pid: 3,
                 title: "Lorem ipsum",
                 date: new Date().toUTCString().substring(0, 17),
-                image: pic3, 
+                image: pic3,
             },
-            {   
+            {
                 pid: 4,
                 title: "Lorem ipsum",
                 date: new Date().toUTCString().substring(0, 17),
@@ -61,9 +59,9 @@ const postingCardColumns = [
                 pid: 6,
                 title: "Lorem ipsum",
                 date: new Date().toUTCString().substring(0, 17),
-                image: pic5, 
+                image: pic5,
             },
-            {   
+            {
                 pid: 7,
                 title: "Lorem ipsum",
                 date: new Date().toUTCString().substring(0, 17),
@@ -75,35 +73,29 @@ const postingCardColumns = [
 
 
 class HomePage extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            webTitle: webTitle,
             postingCardColumns: postingCardColumns,
         };
     }
 
-    componentDidMount(){
-        this.setState({
-            webTitle: webTitle,
-            postingCardColumns: postingCardColumns,
-        });
-    }
-
     render() {
+        const { currUser, setCurrUser } = this.props
         return (
             <div className="page home-page">
                 <div className="main-view home-main">
-                    <HomeView 
-                        webTitle = {this.state.webTitle}
-                        postingCardColumns = {this.state.postingCardColumns}
+                    <HomeView
+                        postingCardColumns={this.state.postingCardColumns}
+                        currUser={currUser}
+                        setCurrUser={setCurrUser}
                     />
-                   
-                    <Navbar/>
+
+                    <Navbar currUser={currUser} />
                 </div>
 
                 <div className="map-view home-map">
-                    <Map/>
+                    <Map />
                 </div>
             </div>
         )

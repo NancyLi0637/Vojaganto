@@ -4,7 +4,7 @@ import "./profileinfo.scss";
 
 class ProfileInfo extends React.Component {
   render() {
-    const profileInfo = this.props.profileInfo;
+    const {profileInfo} = this.props;
     return (
       <div className="profile-info-page">
         <div className="profile-avatar-container">
@@ -15,8 +15,8 @@ class ProfileInfo extends React.Component {
           />
         </div>
         <div className="profile-text">
-          <h1 className="user-nick-name">{profileInfo.nickName}</h1>
-          <h2 className="user-name">{profileInfo.userName}</h2>
+          <h1 className="user-nick-name">{profileInfo.name}</h1>
+          <h2 className="user-name">{profileInfo.username}</h2>
           <span className="user-content-body">{profileInfo.body}</span>
         </div>
       </div>

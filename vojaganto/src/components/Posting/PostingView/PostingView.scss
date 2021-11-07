@@ -1,4 +1,4 @@
-@import "../../styles/global_vars";
+@import "../../../styles/global_vars";
 
 .posting-view {
     height: 90vh;
@@ -14,6 +14,15 @@
             letter-spacing: 2px;
             font-size: calc(1vw + 2rem);
             flex-wrap: wrap;
+            font-family: $serif;
+            font-weight: 600;
+        }
+
+        .edit-container {
+            .edit-btn {
+                @include button($shadow: 0);
+                cursor: pointer;
+            }
         }
     
         .posting-info-container {
@@ -59,10 +68,15 @@
                 }
             }
 
+            a {
+                text-decoration: none;
+            }
             .posting-author-name {
                 text-align: center;
-                font-weight: bold;
+                // font-weight: bold;
                 font-size: large;
+                text-decoration: none;
+                color: $dark;
             }
         }
     

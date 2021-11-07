@@ -2,37 +2,33 @@ import React from 'react';
 
 import PostingCardColumn from "components/PostingCardColumn";
 
-import UserLoginWindow from 'components/UserLoginWindow';
+import UserLoginWindow from 'components/LoginRegister/UserLoginWindow';
 
 import "./style.scss";
 
-class HomeView extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            webTitle: this.props.webTitle,
-            postingCardColumns: this.props.postingCardColumns,
-        };
-    }
-
-    render(){
-        return(
+class HomeView extends React.Component {
+    render() {
+        const { currUser, setCurrUser } = this.props
+        return (
             <div className="home-view">
                 <div className="web-header">
                     <h1 className="web-title">
-                        {this.state.webTitle}
+                        Vojaĝanto
                     </h1>
 
-                    <UserLoginWindow />
+                    <UserLoginWindow
+                        currUser={currUser}
+                        setCurrUser={setCurrUser}
+                    />
                 </div>
 
                 <div className="posting-card-columns">
-                    {this.state.postingCardColumns.map((postingCardColumn) => (
-                        <PostingCardColumn postingCardColumn={postingCardColumn}/>
+                    {this.props.postingCardColumns.map((postingCardColumn) => (
+                        <PostingCardColumn postingCardColumn={postingCardColumn} />
                     ))}
                 </div>
             </div>
-           
+
         );
     }
 }
