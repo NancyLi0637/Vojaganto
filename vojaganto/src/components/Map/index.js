@@ -1,24 +1,34 @@
 import React from 'react';
 import map from "./map.png";
 import LocationMarker from "components/LocationMarker";
-import LoginIcon from "@material-ui/icons/AccountCircle";
-import {Button} from "@material-ui/core";
+
+import "./style.scss";
+
+//const addLocation = "hi";
 
 class Map extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            addLocation: this.props.addLocation,
+            //addLocation: addLocation,
+        };
+    }
 
     render(){
 
         return (
-            <div>
+            <div className='home-map'>
+                 {/*Get map from api later*/}
+                <img src={map} alt="map"/>
 
-                    <Button style={{backgroundColor: '#333333', color: '#FFFFFF', borderRadius: "50px",
-                        float: "right"}} variant="contained">
-                        Toronto, ON, CA
-                    </Button>
-
-                {/*Get map from api later*/}
-                <img src={map} alt="map" style={{maxWidth: "100%", height: "780px", marginTop: "-40px"}}/>
-                <LocationMarker/>
+                <div className='location'>
+                    <button className="location-button">Toronto, ON, CA</button>
+                </div>
+                
+                {this.state.addLocation ? <LocationMarker /> : <span/>}
+                
             </div>
         )
 

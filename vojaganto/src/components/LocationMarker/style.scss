@@ -1,14 +1,38 @@
 @import "../../styles/global_vars";
 
 .marker {
-    float: right;
-    margin-right: 60px;
-}
-
-.location-marker {
-    position: fixed;
+    position: absolute;
+    right: 20px;
     bottom: 40px;
-    float: right;
 
-    transform: scale(1.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include mx;
+    background-color: $dark;
+    width: 56px;
+    height: 56px;
+
+    @include box-shadow;
+    @include round-border($radius: 50%);
+
+    transition-duration: .3s;
+    &:hover {
+        background-color: $dark-gray;
+    }
+
+    .add-location {
+        @include px($padding: .5rem);
+        @include py($padding: .5rem);
+        @include round-border($radius: 10px);
+        color: $light;
+        text-decoration: none;
+
+        svg {
+            width: 32px;
+            height: 32px;
+        }
+    }
+    
 }
