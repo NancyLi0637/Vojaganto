@@ -1,17 +1,17 @@
 @import "../../../styles/global_vars";
 
-.user-login-modal{
+.user-register-modal{
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
- 
+    
     @include px($padding: 4rem);
     @include py($padding: 2rem);
 
     @include flex-display;
 
-    .user-login-form {
+    .user-register-form {
         @include flex-display;
     }
 
@@ -23,12 +23,12 @@
     @include round-border($radius: 5px);
     @include box-shadow;
 
-    .login-title {
+    .register-title {
         margin-bottom: 2rem;
         margin-top: 0;
     }
 
-    .user-login-input {
+    .user-register-input {
         width: 20rem;
         display: flex;
         align-items: center;
@@ -49,7 +49,7 @@
         }
     }
 
-    .login-submit-button{
+    .register-submit-button{
         @include button($color: $light, $bg: $dark-gray);
         @include mx($margin: .5rem);
         margin-top: 1rem;
