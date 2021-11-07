@@ -2,21 +2,24 @@
 
 .home-view {
   
-  height: 90vh;
+  height: 100vh;
   overflow-y: auto;
 
   .web-header{
     position: relative;
-     
-    .web-title{
-      margin-left: 30px;
-    }
+    @include px($padding: 32px);
 
+    .web-title {
+      font-weight: 500;
+      font-family: $serif;
+      margin-left: 8px;
+    }
   }
 
   .posting-card-columns{
     display: flex;
     flex-direction: row;
+    @include px($padding: 32px);
   }
   
 }  

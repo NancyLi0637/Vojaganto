@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AdminNav from 'components/AdminNav'
+import AdminNav from 'components/Admin/AdminNav'
 
 import './style.scss'
 

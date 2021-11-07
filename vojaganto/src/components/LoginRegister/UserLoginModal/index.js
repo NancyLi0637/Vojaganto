@@ -1,6 +1,4 @@
 import React from 'react';
-import { verifyUser } from 'actions/UserLogin';
-import { Redirect } from 'react-router-dom';
 import "./style.scss";
 
 const mockUser = {
@@ -93,8 +91,6 @@ class UserLogin extends React.Component {
                             Login
                         </button>
                     </div>
-
-
                 </form>
             </div>
         );
