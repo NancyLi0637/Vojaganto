@@ -25,7 +25,7 @@ class AdminPostTable extends React.Component {
             <div>
                 <table className="AdminPostTable">
                     <tr className="AdminPostHeaderRow">
-                        <th className="AdminPostHeader">
+                        <th className="AdminPostHeader LeftCol">
                             Post ID
                         </th>
                         <th className="AdminPostHeader">
@@ -36,6 +36,9 @@ class AdminPostTable extends React.Component {
                         </th>
                         <th className="AdminPostHeader">
                             Publish Time
+                        </th>
+                        <th className="AdminPostHeader RightCol">
+
                         </th>
                     </tr>
                     {format_posts.map(post => (
