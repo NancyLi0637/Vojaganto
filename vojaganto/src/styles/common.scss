@@ -1,14 +1,15 @@
 .page {
     display: flex;
     flex-direction: row;
+    overflow-y: hidden;
 }
 
 .main-view {
     height: 100vh;
-    width: 70vw;
+    width: 60vw;
 }
 
 .map-view {
     height: 100vh;
-    width: 30vw;
+    width: 40vw;
 }

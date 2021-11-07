@@ -1,0 +1,55 @@
+@import "../../../styles/global_vars";
+
+.user-login-modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // width: 30%;
+    // height: 30%;  
+    @include px($padding: 4rem);
+    @include py($padding: 2rem);
+
+    @include flex-display;
+
+    .user-login-form {
+        @include flex-display;
+    }
+
+    z-index: 1000;
+
+    background-color: $dark;
+    color: $light;
+
+    @include round-border($radius: 5px);
+    @include box-shadow;
+
+    .login-title {
+        margin-bottom: 2rem;
+        margin-top: 0;
+    }
+
+    .user-login-input {
+        width: 20rem;
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        input {
+            margin-left: auto;
+            border: 0;
+            padding: .5rem;
+            @include round-border($radius: 5px);
+        }
+    }
+
+    .login-submit-button{
+        @include button($color: $light, $bg: $dark-gray);
+        @include mx($margin: .5rem);
+        margin-top: 1rem;
+        font-size: 110%;
+
+        text-align: center;
+        text-decoration: none;
+    }
+}

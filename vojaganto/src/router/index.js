@@ -2,16 +2,15 @@ import React from "react";
 
 import { Route, Switch } from "react-router-dom";
 
-
 import HomePage from "pages/Home";
 import JourneyPage from "pages/Journey";
 import ViewPostingPage from "pages/ViewPosting";
 import EditPostingPage from "pages/EditPosting";
 import ProfilePage from "pages/Profile";
-import AdminHome from "pages/AdminHome"
-import AdminLogin from "pages/AdminLogin"
-import AdminUserDash from "pages/AdminUserDash"
-import AdminPostDash from "pages/AdminPostDash"
+import AdminHome from "pages/AdminPages/AdminHome"
+import AdminLogin from "pages/AdminPages/AdminLogin"
+import AdminUserDash from "pages/AdminPages/AdminUserDash"
+import AdminPostDash from "pages/AdminPages/AdminPostDash"
 
 export default class RenderRoutes extends React.Component {
 
@@ -20,7 +19,7 @@ export default class RenderRoutes extends React.Component {
         return (
             <Switch>
                 {/* HOME */}
-                <Route exact path="/" render={(props) => <HomePage currUser={currUser} {...props} />} />
+                <Route exact path="/" render={(props) => <HomePage currUser={currUser} setCurrUser={setCurrUser} {...props} />} />
 
                 {/* VIEW */}
                 <Route exact path="/journey/:jid" render={(props) => <JourneyPage currUser={currUser} {...props} />} />

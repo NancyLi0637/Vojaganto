@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Navbar from 'components/Navbar';
-import PostingView from 'components/PostingView';
+import PostingView from 'components/Posting/PostingView';
 
-import Map from 'components/Map';
+import Map from 'components/MapPlugin/Map';
 
 import "./index.scss"
 

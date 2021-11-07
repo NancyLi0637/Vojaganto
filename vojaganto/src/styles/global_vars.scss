@@ -45,9 +45,18 @@ $sans-serif: 'Rubik', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lu
   border: none;
   color: $color;
   transition-duration: .3s;
+  border-radius: $radius;
+
+  cursor: pointer;
 
   &:hover {
       background-color: $bg-hover;
   }
 }
 
+@mixin flex-display($dir: column, $jc: center, $ai: center) {
+  display: flex;
+  flex-direction: $dir;
+  justify-content: $jc;
+  align-items: $ai;
+}

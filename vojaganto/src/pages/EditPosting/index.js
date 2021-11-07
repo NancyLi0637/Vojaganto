@@ -1,10 +1,10 @@
 import React from 'react';
 import { Redirect } from "react-router-dom";
 import Navbar from 'components/Navbar';
-import Map from 'components/Map';
-import EditPostingView from 'components/EditPostingView';
+import Map from 'components/MapPlugin/Map';
+import EditPostingView from 'components/Posting/EditPostingView';
 
-import { handleInputChange, handleImageUpload, submitPosting } from 'actions/EditPosting';
+import { handleInputChange, handleImageUpload, handleDeleteImage, submitPosting, deletePosting } from 'actions/EditPosting';
 
 import "./index.scss";
 
@@ -75,10 +75,14 @@ class EditPostingPage extends React.Component {
         }
     }
 
+    deletePosting() {
+        console.log("DELETED POSTING id=",  "new posting")
+    }
+
     render() {
         const { currUser } = this.props;
 
-        if (!currUser){
+        if (!currUser) {
             return <Redirect to="/" />
         }
 
@@ -106,13 +110,15 @@ class EditPostingPage extends React.Component {
                         posting={this.state.posting}
                         handleInputChange={(e) => handleInputChange(this, e)}
                         submitPosting={() => submitPosting(this)}
+                        deletePosting={() => deletePosting(this, this.state.posting.pid || undefined)}
                         handleImageUpload={(e) => handleImageUpload(this, e)}
+                        handleDeleteImage={(idx) => handleDeleteImage(this, idx)}
                     />
 
                     <Navbar currUser={currUser} />
                 </div>
                 <div className="map-view edit-posting-map">
-                    <Map />
+                    <Map enableAddLocation={true} />
                 </div>
             </div>
         )
