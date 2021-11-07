@@ -1,9 +1,10 @@
 import React from 'react';
+import { Redirect } from "react-router-dom";
 import Navbar from 'components/Navbar';
-import Map from 'components/Map';
-import EditPostingView from 'components/EditPostingView';
+import Map from 'components/MapPlugin/Map';
+import EditPostingView from 'components/Posting/EditPostingView';
 
-import { handleInputChange, submitPosting } from 'actions/EditPosting';
+import { handleInputChange, handleImageUpload, handleDeleteImage, submitPosting, deletePosting } from 'actions/EditPosting';
 
 import "./index.scss";
 
@@ -20,7 +21,12 @@ const mockPosting = {
         "https://images.dailyhive.com/20191023094158/DqJwDvUWwAICGuS-1.jpeg",
         "https://www-cdn.icef.com/wp-content/uploads/2021/02/icef-toronto-2022.png?x48335",
     ],
-    public: true
+    public: true,
+    author: {
+        uid: 0,
+        username: "user",
+        name: "User Doe"
+    }
 }
 
 const emptyPosting = {
@@ -37,7 +43,9 @@ const emptyPosting = {
 class EditPostingPage extends React.Component {
     constructor(props) {
         super(props)
+
         this.state = {
+            new: true,
             posting: {
                 ...emptyPosting,
                 author: this.props.currUser,
@@ -45,10 +53,55 @@ class EditPostingPage extends React.Component {
         }
     }
 
-    
+    componentDidMount() {
+        let pid = this.props.match.params.pid
+        if (pid !== undefined) {
+            // User is trying to edit the post.
+            this.setState({
+                new: false,
+                posting: {
+                    ...mockPosting,
+                }
+            })
+        } else {
+            // User is trying to create a new post
+            this.setState({
+                new: true,
+                posting: {
+                    ...emptyPosting,
+                    author: this.props.currUser,
+                }
+            })
+        }
+    }
+
+    deletePosting() {
+        console.log("DELETED POSTING id=",  "new posting")
+    }
 
     render() {
         const { currUser } = this.props;
+
+        if (!currUser) {
+            return <Redirect to="/" />
+        }
+
+        if (!this.state.new && currUser && currUser.uid !== this.state.posting.author.uid) {
+            // CurrUser accessing a post that does not belong to him.
+            return (
+                <div className="page edit-posting-page">
+                    <div className="main-view edit-posting-main">
+                        <h1>NO ACCESS PERMISSION</h1>
+
+                        <Navbar currUser={currUser} />
+                    </div>
+                    <div className="map-view edit-posting-map">
+                        <Map />
+                    </div>
+                </div>
+            )
+        }
+
         return (
             <div className="page edit-posting-page">
                 <div className="main-view edit-posting-main">
@@ -57,12 +110,15 @@ class EditPostingPage extends React.Component {
                         posting={this.state.posting}
                         handleInputChange={(e) => handleInputChange(this, e)}
                         submitPosting={() => submitPosting(this)}
+                        deletePosting={() => deletePosting(this, this.state.posting.pid || undefined)}
+                        handleImageUpload={(e) => handleImageUpload(this, e)}
+                        handleDeleteImage={(idx) => handleDeleteImage(this, idx)}
                     />
 
-                    <Navbar />
+                    <Navbar currUser={currUser} />
                 </div>
                 <div className="map-view edit-posting-map">
-                    <Map />
+                    <Map enableAddLocation={true} />
                 </div>
             </div>
         )

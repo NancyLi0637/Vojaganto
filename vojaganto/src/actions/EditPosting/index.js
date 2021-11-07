@@ -30,15 +30,73 @@ function handleInputChange(component, event) {
             }
         }));
     }
-};
+}
 
 /**
- * 
+ * Update component state to append new image url.
+ * @param {*} component 
+ * @param {*} event 
+ */
+function handleImageUpload(component, event) {
+    const target = event.target;
+    const files = target.files;
+    
+    // Get uploaded images from input
+    const newFiles = [];
+    for (let f of files) {
+        newFiles.push(URL.createObjectURL(f))
+    }   
+    // console.log(files)
+
+    // A copy of the new state
+    const newImages = [...component.state.posting.images, ...newFiles]
+
+    // Set component state
+    component.setState(prevState => ({
+        ...prevState,
+        posting: {
+            ...prevState.posting,
+            images: newImages
+        }
+    }))
+}
+
+function handleDeleteImage(component, index) {
+    const newImages = [...component.state.posting.images];
+    newImages.splice(index, 1);
+
+    // Set component state
+    component.setState(prevState => ({
+        ...prevState,
+        posting: {
+            ...prevState.posting,
+            images: newImages
+        }
+    }))
+}
+
+/**
+ * Create a posting to the server.
  * @param {*} component 
  */
 function submitPosting(component) {
     console.log("submit")
     console.log(component.state)
+    // Collect inputs from state
+
+    // Post to server
+
+    // Redirect to Profile
 }
 
-export { handleInputChange, submitPosting }
+function deletePosting(component, pid) {
+    if (pid !== undefined){
+        console.log(`DELETED Posting ${pid}`)
+    } else {
+        console.log("DELETED new posting")
+    }
+}
+
+
+
+export { handleInputChange, handleImageUpload, handleDeleteImage, submitPosting, deletePosting }
