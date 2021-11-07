@@ -8,24 +8,32 @@ class Navbar extends React.Component {
 
     render() {
         const { currUser } = this.props
-        if (!currUser){
-            return null
-        }
+        
         return (
             <div className="navbar">
                 <div className="navbar-main">
                     <Link className="nav-item" to="/">
                         HOME
                     </Link>
-                    <Link className="nav-item" to={`/profile/${currUser.uid}`}>
-                        PROFILE
-                    </Link>
+                    {
+                        currUser ?
+                            <Link className="nav-item" to={`/profile/${currUser.uid}`}>
+                                PROFILE
+                            </Link>
+                            : null
+                    }
+
                 </div>
-                <div className="navbar-edit">
-                    <Link className="nav-item to-edit" to="/new-posting">
-                        <CreateIcon/>
-                    </Link>
-                </div>
+                {
+                    currUser ?
+                        <div className="navbar-edit">
+                            <Link className="nav-item to-edit" to="/new-posting">
+                                <CreateIcon />
+                            </Link>
+                        </div>
+                        : null
+                }
+
             </div>
 
         )
