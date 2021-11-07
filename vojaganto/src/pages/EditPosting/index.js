@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from 'components/Navbar';
-import Map from 'components/Map';
-import EditPostingView from 'components/EditPostingView';
+import Map from 'components/MapPlugin/Map';
+import EditPostingView from 'components/Posting/EditPostingView';
 
 import { handleInputChange, submitPosting } from 'actions/EditPosting';
 

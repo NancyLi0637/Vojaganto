@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Editor from 'components/Editor';
+import Editor from 'components/Posting/Editor';
 
 import "./EditPostingView.scss"
 

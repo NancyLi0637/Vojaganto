@@ -1,6 +1,6 @@
 import React from 'react';
 import map from "./map.png";
-import LocationMarker from "components/LocationMarker";
+import LocationMarker from "components/MapPlugin/LocationMarker";
 
 import "./style.scss";
 

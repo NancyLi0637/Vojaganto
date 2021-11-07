@@ -1,7 +1,7 @@
 import React from 'react';
 import HomeView from "components/HomeView";
 import Navbar from "components/Navbar";
-import Map from "components/Map";
+import Map from "components/MapPlugin/Map";
 
 
 import pic1 from "./pictures/pic1.jpg";
