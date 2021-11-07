@@ -1,0 +1,31 @@
+@import "../../styles/global_vars";
+
+.posting-card{
+    position: relative;
+
+    .posting-info-container{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        color: $light;
+
+        .posting-info{
+            list-style: none;
+            padding-bottom: 0;
+
+            .posting-title{
+                font: bold;
+                padding-bottom: 0;
+            }
+        }       
+    }
+
+    .posting-cover{
+        border-radius: 30px;
+        margin: 10px;
+        height: 30%;
+        width: 90%;
+        max-height: 1000px;
+    }
+}
+

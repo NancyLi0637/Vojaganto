@@ -1,0 +1,22 @@
+@import "../../styles/global_vars";
+
+.home-view {
+  
+  height: 90vh;
+  overflow-y: auto;
+
+  .web-header{
+    position: relative;
+     
+    .web-title{
+      margin-left: 30px;
+    }
+
+  }
+
+  .posting-card-columns{
+    display: flex;
+    flex-direction: row;
+  }
+  
+}  

@@ -1,13 +1,12 @@
 @import "../../styles/global_vars";
 
-.image-block {
-  position: relative;
+.home-page{
+  // Hide scroll bar
+  scrollbar-width: none;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
 }
 
-.image-block img{
- 
-  border-radius: 50px;
-  margin: 10px;
-  width: 90%;
-  max-height: 1000px;
-}
+

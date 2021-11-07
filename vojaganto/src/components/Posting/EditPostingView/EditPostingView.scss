@@ -1,4 +1,4 @@
-@import "../../styles/global_vars";
+@import "../../../styles/global_vars";
 
 .edit-posting-view {
     height: 90vh;
@@ -78,20 +78,28 @@
                 height: 150px;
                 width: auto;
                 object-fit: contain;
+
+                position: relative;
                 
                 img {
                     height: 100%;
                     width: 100%;
                     object-fit: cover;
                 }
+
+                .img-del-btn {
+                    position: absolute;
+                    top: 0;
+                    right: -5px;
+                    @include button();
+                }
+
             }
         }
 
 
         .edit-control-container {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
+            @include flex-display($dir: row, $jc: flex-end);
             margin-right: 3rem;
             margin-bottom: 5rem;
             margin-top: 2rem;
@@ -107,24 +115,22 @@
             }
 
             .edit-post-btn {
+                @include button($shadow: 0px);
                 font-size: 1.5rem;
-                @include py($padding: .5rem);
-                @include px($padding: 1.5rem);
+                // @include py($padding: .5rem);
+                // @include px($padding: 1.5rem);
 
                 border: none;
-                background-color: $dark;
-                color: $light;
-                @include box-shadow();
                 @include round-border($radius: 100px);
 
-                &:hover {
-                    background-color: #1d1d1d;
-                }
+                
+            }
 
-                &:active {
-                    background-color: #1d1d1d;
-                    box-shadow: none;
-                }
+            .edit-delete-btn {
+                @include button($bg: gray, $shadow: 0px);
+                font-size: 1.5rem;
+                @include round-border($radius: 100px);
+                margin-right: auto;
             }
         }
     }

@@ -42,7 +42,7 @@ class PostingView extends React.Component {
                         <div className="posting-author-avatar">
                             <img src={posting.author.avatar} alt={posting.author.name} />
                         </div>
-                        <div className="posting-author-name">{posting.author.name}</div>
+                        <Link to={`/profile/${posting.author.uid}`}><div className="posting-author-name">{posting.author.name}</div></Link>
                     </div>
                 </div>
 

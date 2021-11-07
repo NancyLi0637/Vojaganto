@@ -1,6 +1,6 @@
-
 function setCurrUser(app, newUser) {
-    app.setState(newUser)
+    console.log("Set Curr User", newUser)
+    app.setState({ currUser: newUser })
 }
 
-export {setCurrUser}
+export { setCurrUser }

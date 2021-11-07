@@ -12,15 +12,16 @@ import AdminHome from "pages/AdminHome"
 import AdminLogin from "pages/AdminLogin"
 import AdminUserDash from "pages/AdminUserDash"
 import AdminPostDash from "pages/AdminPostDash"
+import { setCurrUser } from "actions/Auth";
 
 export default class RenderRoutes extends React.Component {
 
     render() {
-        const { currUser } = this.props
+        const { currUser, setCurrUser } = this.props
         return (
             <Switch>
                 {/* HOME */}
-                <Route exact path="/" render={(props) => <HomePage currUser={currUser} {...props} />} />
+                <Route exact path="/" render={(props) => <HomePage currUser={currUser} setCurrUser={setCurrUser} {...props} />} />
 
                 {/* VIEW */}
                 <Route exact path="/journey/:jid" render={(props) => <JourneyPage currUser={currUser} {...props} />} />

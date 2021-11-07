@@ -61,6 +61,20 @@ function handleImageUpload(component, event) {
     }))
 }
 
+function handleDeleteImage(component, index) {
+    const newImages = [...component.state.posting.images];
+    newImages.splice(index, 1);
+
+    // Set component state
+    component.setState(prevState => ({
+        ...prevState,
+        posting: {
+            ...prevState.posting,
+            images: newImages
+        }
+    }))
+}
+
 /**
  * Create a posting to the server.
  * @param {*} component 
@@ -75,4 +89,14 @@ function submitPosting(component) {
     // Redirect to Profile
 }
 
-export { handleInputChange, handleImageUpload, submitPosting }
+function deletePosting(component, pid) {
+    if (pid !== undefined){
+        console.log(`DELETED Posting ${pid}`)
+    } else {
+        console.log("DELETED new posting")
+    }
+}
+
+
+
+export { handleInputChange, handleImageUpload, handleDeleteImage, submitPosting, deletePosting }

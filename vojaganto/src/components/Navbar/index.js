@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import "./Navbar.scss";
+import "./nav.scss";
 
 import CreateIcon from '@material-ui/icons/Create';
 
