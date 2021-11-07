@@ -7,8 +7,8 @@ import UserLogin from 'components/UserLogin';
 
 import './style.scss';
 
-const userName = " ";
-const userPassword = " ";
+const userName = "";
+const userPassword = "";
 
 class UserLoginWindow extends React.Component{
     constructor(props){
