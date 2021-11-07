@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Grid} from '@material-ui/core';
 import LoginIcon from '@material-ui/icons/AccountCircle';
 
 import PostingCardColumn from "components/PostingCardColumn";
