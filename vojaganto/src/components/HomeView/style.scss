@@ -1,0 +1,13 @@
+@import "../../styles/global_vars";
+
+.home-view {
+  
+    height: 90vh;
+    overflow-y: auto;
+
+    .posting-card-columns{
+      display: flex;
+      flex-direction: row;
+    }
+  
+  }  
