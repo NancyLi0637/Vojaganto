@@ -11,7 +11,7 @@ class PostingCardColumn extends React.Component{
     render(){
         return(
             <div className="posting-card-column-page">
-                {this.state.postingCardColumn.images.map((postingCard) => (
+                {this.state.postingCardColumn.postings.map((postingCard) => (
                     <PostingCard postingCard={postingCard}/>
                 ))}
             </div>
