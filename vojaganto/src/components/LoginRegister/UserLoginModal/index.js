@@ -23,6 +23,7 @@ class UserLogin extends React.Component {
         this.state = {
             usernameInput: "",
             passwordInput: "",
+            warningMessage: undefined
         }
     }
 
@@ -36,6 +37,10 @@ class UserLogin extends React.Component {
         });
     };
 
+    setWarningMessage = warningMessage => {
+        this.setState({ warningMessage })
+    }
+
     submitLogin = () => {
         const { setCurrUser, handleCloseModal } = this.props
 
@@ -48,12 +53,12 @@ class UserLogin extends React.Component {
             setCurrUser(mockUser)
             handleCloseModal()
         } else {
-            console.log("Invalid credential")
+            this.setWarningMessage("Invalid credential!")
         }
     }
 
     render() {
-        if (!this.props.loginModalDisplay){
+        if (!this.props.loginModalDisplay) {
             return null
         }
 
@@ -81,6 +86,15 @@ class UserLogin extends React.Component {
                             placeholder="Password"
                         />
                     </div>
+
+                    {
+                        this.state.warningMessage ?
+                            <div className="user-login-warning">
+                                { this.state.warningMessage }
+                            </div> :
+                            null
+                    }
+
 
                     <div>
                         <button type="button" className='login-submit-button' onClick={this.props.handleCloseModal}>
