@@ -1,8 +1,8 @@
 import React from 'react';
 
-import LoginIcon from '@material-ui/icons/AccountCircle';
-
 import PostingCardColumn from "components/PostingCardColumn";
+
+import UserLoginWindow from 'components/UserLoginWindow';
 
 import "./style.scss";
 
@@ -22,14 +22,8 @@ class HomeView extends React.Component{
                     <h1 className="web-title">
                         {this.state.webTitle}
                     </h1>
-                    
-                   
-                    <div className="login">
-                        <button className='login-button'>
-                            <LoginIcon />
-                            <div className='login-register-text'> LOGIN/REGISTER </div>
-                        </button>
-                     </div>
+
+                    <UserLoginWindow />
                 </div>
 
                 <div className="posting-card-columns">
