@@ -1,11 +1,11 @@
-@import "../../styles/global_vars";
+@import "../../../styles/global_vars";
 
 .admin-login{
     .bg-img{
         position: fixed;
         top: 0;
         left: 0;
-        background-image: url("./../../asset/AdminLogin/background.jpg");
+        background-image: url("./../../../assets/images/AdminLogin/background.jpg");
         background-size: cover;
         filter: blur(8px);
         width: 100%;

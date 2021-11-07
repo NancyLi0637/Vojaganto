@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminLoginForm from 'components/AdminLoginForm';
+import AdminLoginForm from 'components/Admin/AdminLoginForm';
 import './style.scss'
 
 class AdminLogin extends React.Component{

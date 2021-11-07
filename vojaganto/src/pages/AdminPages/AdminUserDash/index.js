@@ -1,7 +1,7 @@
 import React from 'react';
 
-import AdminNav from 'components/AdminNav'
-import AdminUserTable from 'components/AdminUserTable'
+import AdminNav from 'components/Admin/AdminNav'
+import AdminUserTable from 'components/Admin/AdminUserTable'
 
 import './style.scss'
 

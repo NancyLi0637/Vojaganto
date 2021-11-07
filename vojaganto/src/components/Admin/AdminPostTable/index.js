@@ -1,7 +1,7 @@
 import React from 'react';
 import "./style.scss";
 
-import {removePost} from 'actions/AdminTable/index';
+import {removePost} from 'actions/Admin/AdminTable/index';
 
 class AdminPostTable extends React.Component {
 
