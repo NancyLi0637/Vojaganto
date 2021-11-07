@@ -18,13 +18,51 @@ import "./style.scss";
 const webTitle = "Vojaĝanto";
 const postingCardColumns = [
     {
-        images: [pic1, pic4],
+        postings: [
+            {
+                title: "Lorem ipsum",
+                date: new Date().toUTCString().substring(0, 17),
+                image: pic1, 
+            },
+            {   
+                title: "Lorem ipsum",
+                date: new Date().toUTCString().substring(0, 17),
+                image: pic4,
+            },
+        ],
     },
     {
-        images: [pic3, pic6, pic8],
+        postings: [
+            {
+                title: "Lorem ipsum",
+                date: new Date().toUTCString().substring(0, 17),
+                image: pic3, 
+            },
+            {   
+                title: "Lorem ipsum",
+                date: new Date().toUTCString().substring(0, 17),
+                image: pic6,
+            },
+            {
+                title: "Lorem ipsum",
+                date: new Date().toUTCString().substring(0, 17),
+                image: pic8,
+            }
+        ],
     },
     {
-        images: [pic5, pic2]
+        postings: [
+            {
+                title: "Lorem ipsum",
+                date: new Date().toUTCString().substring(0, 17),
+                image: pic5, 
+            },
+            {   
+                title: "Lorem ipsum",
+                date: new Date().toUTCString().substring(0, 17),
+                image: pic2,
+            },
+        ],
     },
 ];
 
