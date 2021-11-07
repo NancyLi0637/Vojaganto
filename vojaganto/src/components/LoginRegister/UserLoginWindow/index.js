@@ -13,12 +13,10 @@ class UserLoginWindow extends React.Component {
     }
 
     handleOpenModal = () => {
-        console.log("handleOpenModal")
         this.setState({ loginModalDisplay: true });
     }
 
     handleCloseModal = () => {
-        console.log("handleCloseModal")
         this.setState({ loginModalDisplay: false });
     }
 
