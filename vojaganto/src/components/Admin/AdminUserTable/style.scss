@@ -14,11 +14,25 @@ $row_radius: .5rem;
         text-align: left;
         padding: .5rem;
     }
+
+    .AdminUserHeaderRow{
+        background-color: $dark;
+        color: $light;
+
+        .LeftCol{
+            border-bottom-left-radius: $row_radius;
+            border-top-left-radius: $row_radius;
+        }
+
+        .RightCol{
+            border-bottom-right-radius: $row_radius;
+            border-top-right-radius: $row_radius;
+        }
+    }
     
 
     .AdminUserRow{
-        background-color: $dark;
-        color: $light;
+        color: $dark;
         border-radius: $row_radius;
         
 

@@ -2,7 +2,7 @@ import React from "react";
 
 import Navbar from "components/Navbar";
 import { Redirect } from "react-router";
-import Map from "components/Map";
+import Map from "components/MapPlugin/Map";
 
 import Profile from "components/Profile";
 import avatar from "assets/images/66385278_p8.jpg";
@@ -80,7 +80,7 @@ const profileInfo = {
   */
   uid: 0,
   avatar: avatar,
-  username: "User",
+  username: "user",
   name: "User Doe",
   body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
   //body: "Travelling and happy"
@@ -99,19 +99,13 @@ class ProfilePage extends React.Component {
       // TODO: find a default value for postingList
     };
   }
-  componentDidMount() {
-    this.setState({
-      tripType: tripType,
-      postingList: postingList,
-      profileInfo: profileInfo,
-    });
-  }
 
   applyEdition = (nickName, description, avatar) => {
     console.log("Applied Profile Change");
     const originalUserName = this.state.profileInfo.username;
     this.setState({
       profileInfo: {
+        uid: 0,
         avatar: avatar,
         name: nickName,
         username: originalUserName,
@@ -122,43 +116,24 @@ class ProfilePage extends React.Component {
 
   render() {
     const { currUser, setCurrUser } = this.props;
-    if (!currUser) {
-      return <Redirect to="/" />;
-    }
-
-    if (currUser && currUser.uid.toString() !== this.state.uid) {
-      // CurrUser accessing a post that does not belong to him.
-      return (
-        <div className="page edit-posting-page">
-          <div className="main-view edit-posting-main">
-            <h1>NO ACCESS PERMISSION</h1>
-
-            <Navbar currUser={currUser} />
-          </div>
-          <div className="map-view edit-posting-map">
-            <Map />
-          </div>
+    return (
+      <div className="page profile-page">
+        <div className="main-view profile-page-main">
+          <Profile
+            currUser={currUser}
+            tripType={this.state.tripType}
+            postingList={this.state.postingList}
+            profileInfo={this.state.profileInfo}
+            applyEdition={this.applyEdition}
+            setCurrUser={setCurrUser}
+          />
         </div>
-      );
-    } else {
-      return (
-        <div className="page profile-page">
-          <div className="main-view profile-page-main">
-            <Profile
-              tripType={this.state.tripType}
-              postingList={this.state.postingList}
-              profileInfo={this.state.profileInfo}
-              applyEdition={this.applyEdition}
-              setCurrUser={setCurrUser}
-            />
-          </div>
-          <Navbar currUser={currUser} />
-          <div className="map-view edit-posting-map">
-            <Map />
-          </div>
+        <Navbar currUser={currUser} />
+        <div className="map-view edit-posting-map">
+          <Map />
         </div>
-      );
-    }
+      </div>
+    );
   }
 }
 

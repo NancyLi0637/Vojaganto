@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Redirect } from "react-router-dom";
 import AdminNav from 'components/Admin/AdminNav'
 import AdminPostTable from 'components/Admin/AdminPostTable'
 
@@ -7,6 +7,12 @@ import './style.scss'
 
 class AdminPostDash extends React.Component{
     render(){
+        const { currUser } = this.props
+        if (!currUser || currUser.role != 1) {
+            return <Redirect to="/admin/login" />
+        }
+
+        // This data will be pull from server
         const posts = [
             {
                 id: 1,

@@ -1,7 +1,7 @@
 import React from "react";
 import ProfileInfo from "components/ProfileInfo";
 import ProfileTripCategory from "components/ProfileTripCategory";
-import ProfileEditorPrompt from "components/ProfileEditorPrompt";
+import ProfileEditorPrompt from "components/ProfileEditorModal";
 import "./profile.scss";
 
 class Profile extends React.Component {
@@ -25,13 +25,21 @@ class Profile extends React.Component {
     const applyEdition = this.props.applyEdition;
     const setCurrUser = this.props.setCurrUser;
 
+    const { currUser } = this.props;
+    console.log(currUser, profileInfo)
     return (
+      
       <div className="profile-page">
-        <div className="edit-profile-container">
-          <button className="edit-profile" onClick={this.toggleEditProfile}>
-            Edit Profile
-          </button>
-        </div>
+        {
+          currUser !== undefined && currUser.uid === profileInfo.uid ?
+            <div className="edit-profile-container">
+              <button className="edit-profile" onClick={this.toggleEditProfile}>
+                Edit Profile
+              </button>
+            </div>
+            : null
+        }
+
         <ProfileInfo
           className="profile-information"
           profileInfo={profileInfo}

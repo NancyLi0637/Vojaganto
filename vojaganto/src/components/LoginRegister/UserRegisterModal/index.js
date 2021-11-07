@@ -1,5 +1,4 @@
 import React from 'react';
-import UserRegisterModal from '../UserRegisterModal';
 import "./style.scss";
 
 const mockUser = {
@@ -10,15 +9,14 @@ const mockUser = {
     role: 0
 }
 
-
-class UserLogin extends React.Component {
+class UserRegisterModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             usernameInput: "",
             passwordInput: "",
+            confirmInput: "",
             warningMessage: undefined,
-            registerModalDisplay: false,
         }
     }
 
@@ -36,39 +34,42 @@ class UserLogin extends React.Component {
         this.setState({ warningMessage })
     }
 
-    submitLogin = () => {
-        const { setCurrUser, handleCloseModal } = this.props
+    submitRegister = () => {
+        const { handleCloseModal, handleCloseRegisterModal } = this.props
 
         const username = this.state.usernameInput
         const password = this.state.passwordInput
+        const confirm = this.state.confirmInput
 
-        if (username === mockUser.username && password === mockUser.password) {
-            // Correct credential, login user
-            setCurrUser(mockUser)
+        if (confirm !== password){
+            this.setWarningMessage("Password does not match!")
+            return
+        }
+
+        if(username === mockUser.username){
+            this.setWarningMessage("User already exists!")
+        }
+        else if (username && password) {
+            // Correct credential, register user
+            console.log("Registered!")
             handleCloseModal()
-        } else {
-            this.setWarningMessage("Invalid credential!")
+            handleCloseRegisterModal()
+        } 
+        else {
+            this.setWarningMessage("Fields cannot be empty!")
         }
     }
 
-    handleOpenRegisterModal = () => {
-        this.setState({registerModalDisplay: true});
-    }
-
-    handleCloseRegisterModal = () => {
-        this.setState({registerModalDisplay: false});
-    }
-
     render() {
-        if (!this.props.loginModalDisplay) {
+        if (!this.props.registerModalDisplay) {
             return null
         }
 
         return (
-            <div className="user-login-modal">
-                <form className="user-login-form">
-                    <h2 className="login-title">Login</h2>
-                    <div className="user-login-input">
+            <div className="user-register-modal">
+                <form className="user-register-form">
+                    <h2 className="register-title">Register</h2>
+                    <div className="user-register-input">
                         <span>Username</span>
                         <input
                             value={this.state.usernameInput}
@@ -78,7 +79,7 @@ class UserLogin extends React.Component {
                             placeholder="Username"
                         />
                     </div>
-                    <div className="user-login-input">
+                    <div className="user-register-input">
                         <span>Password</span>
                         <input
                             value={this.state.passwordInput}
@@ -88,32 +89,33 @@ class UserLogin extends React.Component {
                             placeholder="Password"
                         />
                     </div>
-                    <div className="register-message">
-                        <u className="message" onClick={this.handleOpenRegisterModal}>Click here to register</u>
-
-                        <UserRegisterModal
-                            registerModalDisplay={this.state.registerModalDisplay}
-                            handleCloseModal={this.props.handleCloseModal}
-                            handleCloseRegisterModal={this.handleCloseRegisterModal}
+                    <div className="user-register-input">
+                        <span>Confirm Password</span>
+                        <input
+                            value={this.state.confirmInput}
+                            onChange={this.handleInputChange}
+                            type="password"
+                            name="confirmInput"
+                            placeholder="Confirm Password"
                         />
                     </div>
 
                     {
                         this.state.warningMessage ?
-                            <div className="user-login-warning">
+                            <div className="user-register-warning">
                                 { this.state.warningMessage }
                             </div> :
                             null
                     }
 
-
+            
                     <div>
-                        <button type="button" className='login-submit-button' onClick={this.props.handleCloseModal}>
+                        <button type="button" className='register-submit-button' onClick={this.props.handleCloseRegisterModal}>
                             Cancel
                         </button>
 
-                        <button type="button" className='login-submit-button' onClick={this.submitLogin}>
-                            Login
+                        <button type="button" className='register-submit-button' onClick={this.submitRegister}>
+                            Register
                         </button>
                     </div>
                 </form>
@@ -122,4 +124,4 @@ class UserLogin extends React.Component {
     }
 }
 
-export default UserLogin
+export default UserRegisterModal
