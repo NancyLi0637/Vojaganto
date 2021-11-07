@@ -42,13 +42,6 @@
         }
     }
 
-    .register-message {
-        align-self: end;
-        .message{
-            color: #00bfff;
-        }
-    }
-
     .register-submit-button{
         @include button($color: $light, $bg: $dark-gray);
         @include mx($margin: .5rem);

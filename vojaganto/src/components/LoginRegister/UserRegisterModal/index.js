@@ -15,6 +15,7 @@ class UserRegisterModal extends React.Component {
         this.state = {
             usernameInput: "",
             passwordInput: "",
+            confirmInput: "",
             warningMessage: undefined,
         }
     }
@@ -38,8 +39,14 @@ class UserRegisterModal extends React.Component {
 
         const username = this.state.usernameInput
         const password = this.state.passwordInput
+        const confirm = this.state.confirmInput
 
-        if(username === 'user' && password === 'user'){
+        if (confirm !== password){
+            this.setWarningMessage("Password does not match!")
+            return
+        }
+
+        if(username === mockUser.username){
             this.setWarningMessage("User already exists!")
         }
         else if (username && password) {
@@ -80,6 +87,16 @@ class UserRegisterModal extends React.Component {
                             type="password"
                             name="passwordInput"
                             placeholder="Password"
+                        />
+                    </div>
+                    <div className="user-register-input">
+                        <span>Confirm Password</span>
+                        <input
+                            value={this.state.confirmInput}
+                            onChange={this.handleInputChange}
+                            type="password"
+                            name="confirmInput"
+                            placeholder="Confirm Password"
                         />
                     </div>
 

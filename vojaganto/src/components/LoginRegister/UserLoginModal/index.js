@@ -95,8 +95,6 @@ class UserLogin extends React.Component {
                             registerModalDisplay={this.state.registerModalDisplay}
                             handleCloseModal={this.props.handleCloseModal}
                             handleCloseRegisterModal={this.handleCloseRegisterModal}
-
-        
                         />
                     </div>
 
