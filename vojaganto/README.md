@@ -25,7 +25,33 @@ Since the data are currently mocked and will eventually be fetched from the serv
 
 ### Authentication
 
+#### Log in ####
+At this phase, a user can only login with `user` as the username and password. Entering any other information will receive a warning.
+
+#### Register ####
+Leaving the fields empty or entering `user`/`admin` as a username will receive a warning. Any other info can be used to register an account, but will only have a `Registered` message logged in the console. In phase 2, we will connect to a database for storing the registered information.
+
+
 ### Home Page
+
+The default route is `/`
+
+This page is the entrance for an user to access an existing account. On the right side of this page is a map which will be introduced at the end of this file.
+
+#### View a public post ####
+On the left side are all the public postings posted by all users. A user can click into any of the postings to view it without logging into an account.  
+
+#### Log in ####
+To login into or register an account, a user will simply click the `login/register` button on the top right of the left view. A user can click `Cancel` to exit the login window.
+
+#### Register ####
+A user can register an account by clicking `Click here to register` in the login in popup. Clicking on the `Cancel` button will exit the register window and return to the login window.
+
+#### Log out ####
+Once a user logs in, the original login/register button will be changed to a `Log out` button. A user can click this button to log out of the account.
+
+#### Nav bar ####
+Once a user logs in, a navigation bar will appear at the bottom of the page. Clicking on the `Home` will be directed to the Home page and clicking on the `Profile` will be directed to the Profile Page. Clicking on the pencil button beside the nav bar will allow a user to create a new post, which is further explained in the next section.
 
 ### View Postings
 
@@ -80,6 +106,10 @@ The posts management page has route `/admin/postings`
 This page is the same as the users management page, but an admin will have the ability to remove an existing post.
 
 ### Map
+
+At this phase, we are using a simpe image as the map. In the next phase, we will use a third-party library to implement functions such as `locating` and `adding a new location`.
+
+At the top right is the current location. If a user is logged in and clicks on the pen button beside the nav bar, then a button for adding location will show at the bottom right of the map. It is currently not implemented because we will use a library later.
 
 ## External Libraries
 
