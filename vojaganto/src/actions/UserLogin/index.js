@@ -1,8 +1,5 @@
-export const verifyUser = props => {
-    const userName = props.userName;
-    const userPassword = props.userPassword;
-    
-    console.log(userName==='user');
+export const verifyUser = (userName, userPassword) => {
+   
 
     if(userName==="user" && userPassword==="user"){
         return true;
