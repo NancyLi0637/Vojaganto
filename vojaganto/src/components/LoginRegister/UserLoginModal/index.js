@@ -1,6 +1,6 @@
 import React from 'react';
 import UserRegisterModal from '../UserRegisterModal';
-import { verifyUser } from 'actions/UserLogin';
+import { verifyLogin } from 'actions/UserAuthen';
 import "./style.scss";
 
 const mockUser = {
@@ -43,7 +43,7 @@ class UserLogin extends React.Component {
         const username = this.state.usernameInput
         const password = this.state.passwordInput
 
-        if (verifyUser(username, password)) {
+        if (verifyLogin(username, password)) {
             // Correct credential, login user
             setCurrUser(mockUser)
             handleCloseModal()
