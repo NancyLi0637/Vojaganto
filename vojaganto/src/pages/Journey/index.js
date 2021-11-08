@@ -6,6 +6,9 @@ import Map from "components/MapPlugin/Map";
 
 import Journey from "components/Journey";
 import "./index.scss";
+import pic1 from "assets/images/home/pic1.jpg";
+import pic2 from "assets/images/home/pic2.jpeg";
+import pic3 from "assets/images/home/pic3.jpg";
 
 const postingList = [
   {
@@ -13,27 +16,21 @@ const postingList = [
     date: new Date().toUTCString(),
     title: "Title",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
-    image: [
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/10/2f/e4/toronto.jpg?w=1200&h=-1&s=1",
-    ],
+    image: [pic1],
   },
   {
     pid: 1,
     date: new Date().toUTCString(),
     title: "Hello",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
-    image: [
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/10/2f/e4/toronto.jpg?w=1200&h=-1&s=1",
-    ],
+    image: [pic2],
   },
   {
     pid: 2,
     date: new Date().toUTCString(),
     title: "Demo",
     body: "Travelling and happy",
-    image: [
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/10/2f/e4/toronto.jpg?w=1200&h=-1&s=1",
-    ],
+    image: [pic3],
   },
 ];
 const tripType = "Trip to the North";

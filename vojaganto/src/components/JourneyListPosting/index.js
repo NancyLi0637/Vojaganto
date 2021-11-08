@@ -12,12 +12,11 @@ class JourneyListPosting extends React.Component {
           <h3 className="journey-posting-date">
             <b>{posting.date.toString().substring(0, 11)}</b>
           </h3>
-          <Link
+          <h5
             className="journey-posting-title"
-            to={"/trip/" + posting.pid.toString()}
           >
             {posting.title}
-          </Link>
+          </h5>
           <h5 className="journey-posting-body">{posting.body}</h5>
         </div>
         <img

@@ -3,6 +3,7 @@
 .journey-list-posting {
   display: flex;
   position: relative;
+  color: black;
   //line-height: 1vh;
   height: 21vh;
   width: 100%;
@@ -17,7 +18,6 @@
       @include my($margin: 0.5rem);
       @include py();
       text-decoration: none;
-      color: black;
     }
     .journey-posting-body {
       @include my();

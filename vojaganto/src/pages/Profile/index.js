@@ -6,6 +6,13 @@ import Map from "components/MapPlugin/Map";
 
 import Profile from "components/Profile";
 import avatar from "assets/images/66385278_p8.jpg";
+import pic1 from "assets/images/home/pic1.jpg";
+import pic2 from "assets/images/home/pic2.jpeg";
+import pic3 from "assets/images/home/pic3.jpg";
+import pic5 from "assets/images/home/pic5.jpg";
+import pic6 from "assets/images/home/pic6.jpg";
+
+
 
 import "./index.scss";
 
@@ -18,27 +25,21 @@ const postingList = {
         date: new Date().toUTCString(),
         title: "Title",
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
-        image: [
-          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/10/2f/e4/toronto.jpg?w=1200&h=-1&s=1",
-        ],
+        image: [pic1]
       },
       {
         pid: 101,
         date: new Date().toUTCString(),
         title: "Hello",
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
-        image: [
-          "https://dynaimage.cdn.cnn.com/cnn/q_auto,w_634,c_fill,g_auto,h_357,ar_16:9/http%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F190517174512-15-summer-travel-tahiti.jpg",
-        ],
+        image: [pic2],
       },
       {
         pid: 102,
         date: new Date().toUTCString(),
         title: "Demo",
         body: "Travelling and happy",
-        image: [
-          "https://www.industrialempathy.com/img/remote/ZiClJf-640w.webp",
-        ],
+        image: [pic3],
       },
     ],
   },
@@ -50,9 +51,7 @@ const postingList = {
         date: new Date().toUTCString(),
         title: "Title",
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
-        image: [
-          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/10/2f/e4/toronto.jpg?w=1200&h=-1&s=1",
-        ],
+        image: [pic5],
       },
     ],
   },
@@ -64,9 +63,7 @@ const postingList = {
         date: new Date().toUTCString(),
         title: "Title",
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
-        image: [
-          "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/10/2f/e4/toronto.jpg?w=1200&h=-1&s=1",
-        ],
+        image: [pic6],
       },
     ],
   },

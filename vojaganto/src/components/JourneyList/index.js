@@ -1,7 +1,7 @@
 import React from "react";
 
 import JourneyListPosting from "components/JourneyListPosting";
-
+import { Link } from "react-router-dom";
 import "./JourneyList.scss";
 
 class JourneyList extends React.Component {
@@ -10,11 +10,16 @@ class JourneyList extends React.Component {
     return (
       <div className="posting-list-page">
         {postingList.map((posting) => (
+          <Link
+          className="journey-posting-link"
+          to={"/trip/" + posting.pid.toString()}
+          >
           <JourneyListPosting
             key={posting.pid}
             className="journey-list-posting"
             posting={posting}
           />
+          </Link>
         ))}
       </div>
     );
