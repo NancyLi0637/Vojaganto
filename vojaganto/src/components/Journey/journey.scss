@@ -5,23 +5,13 @@
     @include mx;
     @include my($margin: 3rem);
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     font-size: calc(1vw + 2rem);
     flex-wrap: wrap;
-    font-weight: normal;
-    font-family: "Times New Roman", Times, serif;
+    font-family: $serif;
   }
 
   .journey-list {
     overflow-y: auto;
-    /*
-        .journey-list-posting{
-
-        @include mx();
-        margin-bottom: 3rem;
-        @include py();
-        
-    }
-    */
   }
 }
