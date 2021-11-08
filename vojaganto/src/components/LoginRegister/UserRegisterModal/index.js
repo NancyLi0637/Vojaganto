@@ -1,4 +1,5 @@
 import React from 'react';
+import {verifyRegister} from "actions/UserAuthen";
 import "./style.scss";
 
 const mockUser = {
@@ -46,7 +47,7 @@ class UserRegisterModal extends React.Component {
             return
         }
 
-        if(username === mockUser.username){
+        if(!verifyRegister(username)){
             this.setWarningMessage("User already exists!")
         }
         else if (username && password) {

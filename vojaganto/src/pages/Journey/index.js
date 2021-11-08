@@ -43,10 +43,12 @@ class JourneyPage extends React.Component {
 
       tripType: null,
       postingList: postingList,
-      //TODO: Turn this into a default value
     };
   }
   componentDidMount() {
+    // Currently, we are using mock postinglist data and hardcoded this part 
+    // In the future, we should change this to a fetch to the server to get the correct trip type 
+    // and posting list according to the journeyId state
     this.setState({
       tripType: tripType,
       postingList: postingList,
