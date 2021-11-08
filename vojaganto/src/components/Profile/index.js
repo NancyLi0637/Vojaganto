@@ -28,8 +28,8 @@ class Profile extends React.Component {
     const currUser = this.props.currUser;
 
     return (
-      
-      <div className="profile-page">
+
+      <div className="profile-view">
         {
           currUser !== undefined && currUser.uid === profileInfo.uid ?
             <div className="edit-profile-container">
@@ -44,15 +44,17 @@ class Profile extends React.Component {
           className="profile-information"
           profileInfo={profileInfo}
         />
-        {tripType.map((tripType) => {
-          return (
-            <ProfileTripCategory
-              key={tripType}
-              tripType={tripType}
-              postingList={postingList[tripType]}
-            />
-          );
-        })}
+        {
+          tripType.map((tripType) => {
+            return (
+              <ProfileTripCategory
+                key={tripType}
+                tripType={tripType}
+                postingList={postingList[tripType]}
+              />
+            );
+          })
+        }
 
         <ProfileEditorPrompt
           className="edit-profile-prompt"
@@ -61,17 +63,6 @@ class Profile extends React.Component {
           toggleEditProfile={this.toggleEditProfile}
           applyEdition={applyEdition}
         />
-        {
-          currUser !== undefined && currUser.uid === profileInfo.uid ?
-          <button
-              className="user-logout"
-              onClick={() => setCurrUser(undefined)}
-          >
-            Log out
-          </button>
-          : null
-        }
-
       </div>
     );
   }

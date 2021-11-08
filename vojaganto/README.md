@@ -47,7 +47,7 @@ A journey page contains a collection of postings with the same journey category 
 ### Profile Page
 Profile page contains the user information (avatar, username, nickname, user description) and the postings posted by the user (organized according to its journey category tag); Only the user himself/herself can edit that profile page, and if a person is not logged in to the corresponding user account but accessed it directly through url extension `/profile/uid`, that user can only see the posting and profile information without permission to edit anything.
 #### View Profile `/profile/uid`
-This is the page that displays the profile of the user whose user id is the uid from the url, and if the current user logged in as the owner of the profile, he/she will see a edit profile button on the top right corner of the profile page, as well as a sign out button at the bottom left corner of the profile page; In mock, there is only one profile page and the content will not be varied by uid (However, if the user is logged in as the owner of the profile page, that user can see the edit profile option and sign out option on the profile page).
+This is the page that displays the profile of the user whose user id is the uid from the url, and if the current user logged in as the owner of the profile, he/she will see a edit profile button on the top right corner of the profile page; In mock, there is only one profile page and the content will not be varied by uid (However, if the user is logged in as the owner of the profile page, that user can see the edit profile option on the profile page).
 
 
 #### Edit Profile

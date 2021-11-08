@@ -16,11 +16,13 @@
       @include round-border($radius: 50%);
     }
   }
+
   .profile-text {
     float: left;
     overflow-y: hidden;
     @include mx($margin: 3rem);
     @include my();
+    
     .user-nick-name {
       @include my($margin: 0.6rem);
     }
