@@ -12,13 +12,6 @@
     font-family: "Times New Roman", Times, serif;
   }
 
-  .trip-category {
-    @include mx($margin: 1rm);
-    //@include my($margin: 3rem);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    flex-wrap: wrap;
-  }
   .journey-list {
     overflow-y: auto;
     /*
