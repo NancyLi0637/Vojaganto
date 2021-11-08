@@ -25,8 +25,8 @@ class Profile extends React.Component {
     const applyEdition = this.props.applyEdition;
     const setCurrUser = this.props.setCurrUser;
 
-    const { currUser } = this.props;
-    console.log(currUser, profileInfo)
+    const currUser = this.props.currUser;
+
     return (
       
       <div className="profile-page">
@@ -61,12 +61,17 @@ class Profile extends React.Component {
           toggleEditProfile={this.toggleEditProfile}
           applyEdition={applyEdition}
         />
-        <button
-          className="user-logout"
-          onClick={() => setCurrUser({ currUser: null })}
-        >
-          Log out
-        </button>
+        {
+          currUser !== undefined && currUser.uid === profileInfo.uid ?
+          <button
+              className="user-logout"
+              onClick={() => setCurrUser(undefined)}
+          >
+            Log out
+          </button>
+          : null
+        }
+
       </div>
     );
   }

@@ -26,6 +26,7 @@
       -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      // Refence: This feature of limiting the word to 3 lines is inspired by this post: https://stackoverflow.com/questions/20792639/how-to-display-only-the-first-few-lines-of-a-div-clamping
     }
   }
   .journey-list-posting-image {

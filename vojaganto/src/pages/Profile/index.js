@@ -70,11 +70,6 @@ const postingList = {
 };
 
 const profileInfo = {
-  /*
-  avatar:
-    "https://www.planetware.com/wpimages/2019/11/canada-in-pictures-beautiful-places-to-photograph-morraine-lake.jpg",
-  name: "AAA",
-  */
   uid: 0,
   avatar: avatar,
   username: "user",
@@ -93,11 +88,14 @@ class ProfilePage extends React.Component {
       tripType: tripType,
       postingList: postingList,
       profileInfo: profileInfo,
-      // TODO: find a default value for postingList
+      // Currently, we are using mock data for tripType, postingList and profileInfo and hardcoded this part.
+      // In the future, we should use a fetch to get those information from server using the uid.
+      // Hardcoded this part for demonstration
     };
   }
 
   applyEdition = (nickName, description, avatar) => {
+    // This console.log will be replaced with a post request to the server in the future. For now, it prints a log to the console to show that the change can be updated.
     console.log("Applied Profile Change");
     const originalUserName = this.state.profileInfo.username;
     this.setState({
