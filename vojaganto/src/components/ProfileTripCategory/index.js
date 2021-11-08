@@ -12,11 +12,14 @@ class ProfileTripCategory extends React.Component {
     return (
       <div className="trip-type-component">
         <h3 className="trip-type">
-          <Link className="trip-journey-link" to="/journey/underfined">
+          <Link
+            className="trip-journey-link"
+            to={"/journey/" + postingList.journeyId.toString()}
+          >
             {tripType}
           </Link>
         </h3>
-        <JourneyList postingList={postingList} />
+        <JourneyList postingList={postingList.journeyPosting} />
       </div>
     );
   }
