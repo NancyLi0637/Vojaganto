@@ -17,7 +17,7 @@ class PostingCard extends React.Component {
                     <img
                         className="posting-cover"
                         src={posting.images[0]}
-                        alt="no image"
+                        alt=""
                     />
                 </div>
             </Link>

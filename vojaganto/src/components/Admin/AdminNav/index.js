@@ -10,22 +10,22 @@ import JournalIcon from "assets/icons/journal.png";
 class AdminNav extends React.Component {
 
     render() {
-        const { currUser } = this.props
+        // const { currUser } = this.props
         return (
             <div>
                 <div className="admin-nav">
                     <Link className="admin-nav-item" to={`/admin/home`}>
-                        <img src={HomeIcon} />
+                        <img src={HomeIcon} alt="" />
                         <span>Home</span>
                     </Link>
                     <br />
                     <Link className="admin-nav-item" to={`/admin/users`}>
-                        <img src={UserIcon} />
+                        <img src={UserIcon} alt="" />
                         <span>Manage User</span>
                     </Link>
                     <br />
                     <Link className="admin-nav-item" to={`/admin/postings`}>
-                        <img src={JournalIcon} />
+                        <img src={JournalIcon} alt="" />
                         Manage Post
                     </Link>
                 </div>

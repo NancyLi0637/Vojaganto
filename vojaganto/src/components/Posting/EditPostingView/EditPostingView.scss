@@ -49,7 +49,7 @@
             @include my($margin: 2rem);
             @include mx();
 
-            @include flex-display($dir: row, $jc: start);
+            @include flex-display($dir: row, $jc: flex-start);
     
             overflow-x: auto;
             overflow-y: hidden;

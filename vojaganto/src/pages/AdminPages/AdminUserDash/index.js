@@ -8,7 +8,7 @@ import './style.scss'
 class AdminUserDash extends React.Component{
     render(){
         const { currUser } = this.props
-        if (!currUser || currUser.role != 1) {
+        if (!currUser || currUser.role !== 1) {
             return <Redirect to="/admin/login" />
         }
 

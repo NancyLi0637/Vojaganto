@@ -2,13 +2,6 @@ import React from 'react';
 import {verifyRegister} from "actions/UserAuthen";
 import "./style.scss";
 
-const mockUser = {
-    uid: 0,
-    username: 'user',
-    password: 'user',
-    name: 'User Doe',
-    role: 0
-}
 
 class UserRegisterModal extends React.Component {
     constructor(props) {

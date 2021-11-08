@@ -23,7 +23,7 @@ class Profile extends React.Component {
     const tripType = this.props.tripType;
     const postingList = this.props.postingList;
     const applyEdition = this.props.applyEdition;
-    const setCurrUser = this.props.setCurrUser;
+    // const setCurrUser = this.props.setCurrUser;
 
     const currUser = this.props.currUser;
 

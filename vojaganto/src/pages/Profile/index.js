@@ -1,7 +1,6 @@
 import React from "react";
 
 import Navbar from "components/Navbar";
-import { Redirect } from "react-router";
 import Map from "components/MapPlugin/Map";
 
 import Profile from "components/Profile";

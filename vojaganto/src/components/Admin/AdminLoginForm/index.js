@@ -1,15 +1,6 @@
 import React from 'react';
 import { Redirect } from "react-router-dom";
 import "./style.scss";
-import { Link } from 'react-router-dom';
-
-const mockUser = {
-    uid: 0,
-    username: 'user',
-    password: 'user',
-    name: 'User Doe',
-    role: 0
-}
 
 const mockAdmin = {
     uid: 1,
