@@ -4,6 +4,8 @@ Vojaĝanto is a React app for people who enjoy travelling and who want to journa
 
 ## Setup Instruction
 
+Note: Make sure you are in the folder `vojaganto` and on the `main` branch before you run the following commands.
+
 ```shell
 # Install node modules dependencies
 npm install
@@ -23,15 +25,41 @@ Since the data are currently mocked and will eventually be fetched from the serv
 
 ### Authentication
 
+#### Log in ####
+At this phase, a user can only login with `user` as the username and password. Entering any other information will receive a warning.
+
+#### Register ####
+Leaving the fields empty or entering `user`/`admin` as a username will receive a warning. Any other info can be used to register an account, but will only have a `Registered` message logged in the console. In phase 2, we will connect to a database for storing the registered information.
+
+
 ### Home Page
+
+The default route is `/`
+
+This page is the entrance for an user to access an existing account. On the right side of this page is a map which will be introduced at the end of this file.
+
+#### View a public post ####
+On the left side are all the public postings posted by all users. A user can click into any of the postings to view it without logging into an account.  
+
+#### Log in ####
+To login into or register an account, a user will simply click the `login/register` button on the top right of the left view. A user can click `Cancel` to exit the login window.
+
+#### Register ####
+A user can register an account by clicking `Click here to register` in the login in popup. Clicking on the `Cancel` button will exit the register window and return to the login window.
+
+#### Log out ####
+Once a user logs in, the original login/register button will be changed to a `Log out` button. A user can click this button to log out of the account.
+
+#### Nav bar ####
+Once a user logs in, a navigation bar will appear at the bottom of the page. Clicking on the `Home` will be directed to the Home page and clicking on the `Profile` will be directed to the Profile Page. Clicking on the pencil button beside the nav bar will allow a user to create a new post, which is further explained in the next section.
 
 ### View Postings
 
-Posting, or *trip*, refers to an article that is posted by a user to record their trip. It contains information including title, date, journey, author, destination, images, and the body.
+Posting, or *trip*, refers to an article that is posted by a user to record their trip. It contains information including the title, the date, the journey, the author, the destination, the images, and the body.
 
 #### View Individual Posting `/trip/:pid`
 
-User can view the posting of corresponding `pid`, e.g., accessing `/trip/1` will display the posting with pid 1; in mock, there is only one posting and will not be varied by pid.
+User can view the posting of the corresponding `pid`, e.g., accessing `/trip/1` will display the posting with pid 1; in mock, there is only one posting and will not be varied by pid.
 
 #### Edit Posting `/edit`
 
@@ -57,33 +85,37 @@ This is a modal that hovers on the view profile page, and the user will be able 
 
 There is no direct access methods from client pages to the admin dashboard.
 
-The only way to access admin dashboard is to add url extension `/admin/login` at default route
+The only way to access admin dashboard is to add url extension `/admin/login` at the end of the default route.
 
-There are four pages for the admin dashboard: login, home, user management, post management
+There are four pages for the admin dashboard: login, home, user management, and post management.
 
-If access pages other than login using not admin account, you will be redirect to the login page
+If an user tries to access pages other than the login page without using the admin account, the user will be redirected to the admin login page.
 
 #### Admin Login
 
-The mock admin account has *admin* as both username and password.
+The mock admin account has *admin* as both the username and the password.
 
-Login with other username or password will only show warning.
+Login with other username or password will only show a warning.
 
 #### Admin Dashboard
 
 The admin home page has route `/admin/home`
 
-There is nothing on the home page except a welcome message with current admin username and the navbar.
+There is nothing on the home page except a welcome message with the current admin username and the navbar.
 
 The users management page has route `/admin/users`
 
-This page will have a table showing all users we have, and info about them like username, nickname and last login time.
+This page will have a table showing all users we have, and their info such as the username, the nickname and the last login time.
 
 The posts management page has route `/admin/postings`
 
-This page is same as the users management page, but admin will have the ability to remove an exist post.
+This page is the same as the users management page, but an admin will have the ability to remove an existing post.
 
 ### Map
+
+At this phase, we are using a simpe image as the map. In the next phase, we will use a third-party library to implement functions such as `locating` and `adding a new location`.
+
+At the top right is the current location. If a user is logged in and clicks on the pen button beside the nav bar, then a button for adding location will show at the bottom right of the map. It is currently not implemented because we will use a library later.
 
 ## External Libraries
 
