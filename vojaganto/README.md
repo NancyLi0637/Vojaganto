@@ -4,6 +4,8 @@ Vojaĝanto is a React app for people who enjoy travelling and who want to journa
 
 ## Setup Instruction
 
+Note: Make sure you are in the folder `vojaganto` and on the `main` branch before you run the following commands.
+
 ```shell
 # Install node modules dependencies
 npm install
@@ -27,11 +29,11 @@ Since the data are currently mocked and will eventually be fetched from the serv
 
 ### View Postings
 
-Posting, or *trip*, refers to an article that is posted by a user to record their trip. It contains information including title, date, journey, author, destination, images, and the body.
+Posting, or *trip*, refers to an article that is posted by a user to record their trip. It contains information including the title, the date, the journey, the author, the destination, the images, and the body.
 
 #### View Individual Posting `/trip/:pid`
 
-User can view the posting of corresponding `pid`, e.g., accessing `/trip/1` will display the posting with pid 1; in mock, there is only one posting and will not be varied by pid.
+User can view the posting of the corresponding `pid`, e.g., accessing `/trip/1` will display the posting with pid 1; in mock, there is only one posting and will not be varied by pid.
 
 #### Edit Posting `/edit`
 
@@ -51,31 +53,31 @@ A logged-in user can create new posting by clicking the "pen" button on the navb
 
 There is no direct access methods from client pages to the admin dashboard.
 
-The only way to access admin dashboard is to add url extension `/admin/login` at default route
+The only way to access admin dashboard is to add url extension `/admin/login` at the end of the default route.
 
-There are four pages for the admin dashboard: login, home, user management, post management
+There are four pages for the admin dashboard: login, home, user management, and post management.
 
-If access pages other than login using not admin account, you will be redirect to the login page
+If an user tries to access pages other than the login page without using the admin account, the user will be redirected to the admin login page.
 
 #### Admin Login
 
-The mock admin account has *admin* as both username and password.
+The mock admin account has *admin* as both the username and the password.
 
-Login with other username or password will only show warning.
+Login with other username or password will only show a warning.
 
 #### Admin Dashboard
 
 The admin home page has route `/admin/home`
 
-There is nothing on the home page except a welcome message with current admin username and the navbar.
+There is nothing on the home page except a welcome message with the current admin username and the navbar.
 
 The users management page has route `/admin/users`
 
-This page will have a table showing all users we have, and info about them like username, nickname and last login time.
+This page will have a table showing all users we have, and their info such as the username, the nickname and the last login time.
 
 The posts management page has route `/admin/postings`
 
-This page is same as the users management page, but admin will have the ability to remove an exist post.
+This page is the same as the users management page, but an admin will have the ability to remove an existing post.
 
 ### Map
 
