@@ -5,20 +5,30 @@
   position: relative;
   color: black;
   //line-height: 1vh;
-  height: 21vh;
+  height: 180px;
   width: 100%;
-  @include my();
+  @include my;
+  @include mx;
+  margin-bottom: 1.5rem;
+  @include py();
+
   .journey-list-posting-text {
-    @include mx($margin: 1%);
+    @include mx($margin: 0);
     width: 100%;
+
     .journey-posting-date {
       @include my();
+      // font-weight: bold;
     }
+
     .journey-posting-title {
-      @include my($margin: 0.5rem);
+      @include my($margin: .5rem);
       @include py();
       text-decoration: none;
+      font-weight: 500;
+      font-size: large;
     }
+
     .journey-posting-body {
       @include my();
       font-weight: normal;
@@ -28,13 +38,22 @@
       overflow: hidden;
     }
   }
-  .journey-list-posting-image {
-    position: relative;
+  .journey-list-posting-image-container {
+    margin-left: 1rem;
+    width: 500px;
     height: 100%;
-    object-fit: cover;
-    width: 30%;
-    float: left;
-    @include mx();
-    @include round-border();
+    .journey-list-posting-image {
+      position: relative;
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+      // max-width: 400px;
+      @include mx();
+      
+      // float: left;
+      
+      @include round-border();
+    }
   }
+  
 }

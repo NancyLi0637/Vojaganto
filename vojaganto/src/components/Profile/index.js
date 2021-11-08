@@ -26,10 +26,9 @@ class Profile extends React.Component {
     const setCurrUser = this.props.setCurrUser;
 
     const { currUser } = this.props;
-    console.log(currUser, profileInfo)
     return (
-      
-      <div className="profile-page">
+
+      <div className="profile-view">
         {
           currUser !== undefined && currUser.uid === profileInfo.uid ?
             <div className="edit-profile-container">
@@ -44,15 +43,17 @@ class Profile extends React.Component {
           className="profile-information"
           profileInfo={profileInfo}
         />
-        {tripType.map((tripType) => {
-          return (
-            <ProfileTripCategory
-              key={tripType}
-              tripType={tripType}
-              postingList={postingList[tripType]}
-            />
-          );
-        })}
+        {
+          tripType.map((tripType) => {
+            return (
+              <ProfileTripCategory
+                key={tripType}
+                tripType={tripType}
+                postingList={postingList[tripType]}
+              />
+            );
+          })
+        }
 
         <ProfileEditorPrompt
           className="edit-profile-prompt"
@@ -61,12 +62,12 @@ class Profile extends React.Component {
           toggleEditProfile={this.toggleEditProfile}
           applyEdition={applyEdition}
         />
-        <button
+        {/* <button
           className="user-logout"
           onClick={() => setCurrUser({ currUser: null })}
         >
           Log out
-        </button>
+        </button> */}
       </div>
     );
   }

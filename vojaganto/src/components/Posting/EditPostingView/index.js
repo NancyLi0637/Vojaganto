@@ -30,7 +30,7 @@ class EditPostingView extends React.Component {
                                 id="postingJourneyInput"
                                 placeholder="JOURNEY"
                                 onChange={handleInputChange}
-                                value={posting.journey}
+                                value={posting.journey.title || posting.journey}
                             />
                             <input type="date"
                                 name="date"

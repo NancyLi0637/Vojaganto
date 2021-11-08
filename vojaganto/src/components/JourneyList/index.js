@@ -11,14 +11,13 @@ class JourneyList extends React.Component {
       <div className="posting-list-page">
         {postingList.map((posting) => (
           <Link
-          className="journey-posting-link"
-          to={"/trip/" + posting.pid.toString()}
+            className="journey-posting-link"
+            to={"/trip/" + posting.pid.toString()}
           >
-          <JourneyListPosting
-            key={posting.pid}
-            className="journey-list-posting"
-            posting={posting}
-          />
+            <JourneyListPosting
+              key={posting.pid}
+              posting={posting}
+            />
           </Link>
         ))}
       </div>
