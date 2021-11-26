@@ -1,5 +1,5 @@
 {
-  "name": "vojaganto-server",
+  "name": "vojaganto",
   "version": "1.0.0",
   "description": "The server-side for vojaganto app.",
   "main": "app.js",
@@ -8,7 +8,7 @@
     "start": "node app.js",
     "dev": "nodemon app.js",
     "setup": "npm install && cd vojaganto && npm install && cd ..",
-    "build-run": "cd vojaganto && npm run build && cd .. && node server.js",
+    "build-run": "cd vojaganto && npm run build && cd .. && node app.js",
     "client": "cd vojaganto && npm start && cd .."
   },
   "author": "team28",
