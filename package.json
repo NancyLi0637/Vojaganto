@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "setup": "npm install && cd vojaganto && npm install && cd ..",
+    "build-run": "cd vojaganto && npm run build && cd .. && node server.js",
+    "client": "cd vojaganto && npm start && cd .."
   },
   "author": "team28",
   "license": "ISC",
@@ -16,6 +19,7 @@
     "express": "^4.17.1",
     "mongoose": "^6.0.13",
     "multer": "^1.4.3",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "path": "^0.12.7"
   }
 }
