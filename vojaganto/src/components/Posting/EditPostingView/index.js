@@ -63,7 +63,7 @@ class EditPostingView extends React.Component {
 
                             {posting.images.map((img, idx) => {
                                 return (
-                                    <div className="posting-image">
+                                    <div key={idx} className="posting-image">
                                         <button type="button" className="img-del-btn" onClick={() => handleDeleteImage(idx)}>delete</button>
                                         <img src={img} alt={img} />
                                     </div>

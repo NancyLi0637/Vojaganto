@@ -12,21 +12,21 @@ import pic3 from "assets/images/home/pic3.jpg";
 
 const postingList = [
   {
-    pid: 0,
+    _id: 0,
     date: new Date().toUTCString(),
     title: "Title",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
     image: [pic1],
   },
   {
-    pid: 1,
+    _id: 1,
     date: new Date().toUTCString(),
     title: "Hello",
     body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
     image: [pic2],
   },
   {
-    pid: 2,
+    _id: 2,
     date: new Date().toUTCString(),
     title: "Demo",
     body: "Travelling and happy",
@@ -39,7 +39,7 @@ class JourneyPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      journeyId: this.props.match.params.jid,
+      _id: this.props.match.params.jid,
 
       tripType: null,
       postingList: postingList,

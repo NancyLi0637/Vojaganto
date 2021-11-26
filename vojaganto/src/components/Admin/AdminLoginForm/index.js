@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import "./style.scss";
 
 const mockAdmin = {
-    uid: 1,
+    _id: 1,
     username: 'admin',
     password: "admin",
     name: 'Admin doe',

@@ -17,24 +17,24 @@ import "./index.scss";
 
 const postingList = {
   "Travel to Canada": {
-    journeyId: 0,
+    _id: 0,
     journeyPosting: [
       {
-        pid: 100,
+        _id: 100,
         date: new Date().toUTCString(),
         title: "Title",
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
         image: [pic1]
       },
       {
-        pid: 101,
+        _id: 101,
         date: new Date().toUTCString(),
         title: "Hello",
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
         image: [pic2],
       },
       {
-        pid: 102,
+        _id: 102,
         date: new Date().toUTCString(),
         title: "Demo",
         body: "Travelling and happy",
@@ -43,10 +43,10 @@ const postingList = {
     ],
   },
   "Travel to North": {
-    journeyId: 1,
+    _id: 1,
     journeyPosting: [
       {
-        pid: 103,
+        _id: 103,
         date: new Date().toUTCString(),
         title: "Title",
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
@@ -55,10 +55,10 @@ const postingList = {
     ],
   },
   Traveling: {
-    journeyId: 2,
+    _id: 2,
     journeyPosting: [
       {
-        pid: 105,
+        _id: 105,
         date: new Date().toUTCString(),
         title: "Title",
         body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
@@ -69,7 +69,7 @@ const postingList = {
 };
 
 const profileInfo = {
-  uid: 0,
+  _id: 0,
   avatar: avatar,
   username: "user",
   name: "User Doe",
@@ -82,7 +82,7 @@ class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      uid: this.props.match.params.uid,
+      _id: this.props.match.params.uid,
       tripType: tripType,
       postingList: postingList,
       profileInfo: profileInfo,
@@ -98,7 +98,7 @@ class ProfilePage extends React.Component {
     const originalUserName = this.state.profileInfo.username;
     this.setState({
       profileInfo: {
-        uid: 0,
+        _id: 0,
         avatar: avatar,
         name: nickName,
         username: originalUserName,

@@ -11,8 +11,8 @@ class PostingCardColumn extends React.Component{
     render(){
         return(
             <div className="posting-card-column-page">
-                {this.state.postingCardColumn.postings.map((posting) => (
-                    <PostingCard posting={posting}/>
+                {this.state.postingCardColumn.postings.map((posting, idx) => (
+                    <PostingCard key={idx} posting={posting}/>
                 ))}
             </div>
         );

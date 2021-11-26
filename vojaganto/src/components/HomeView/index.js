@@ -23,8 +23,8 @@ class HomeView extends React.Component {
                 </div>
 
                 <div className="posting-card-columns">
-                    {this.props.postingCardColumns.map((postingCardColumn) => (
-                        <PostingCardColumn postingCardColumn={postingCardColumn} />
+                    {this.props.postingCardColumns.map((postingCardColumn, idx) => (
+                        <PostingCardColumn key={idx} postingCardColumn={postingCardColumn} />
                     ))}
                 </div>
             </div>

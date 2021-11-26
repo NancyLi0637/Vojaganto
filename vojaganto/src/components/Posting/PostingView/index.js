@@ -15,9 +15,9 @@ class PostingView extends React.Component {
 
                     {
                         // Display Edit Button when the logged-in user is the author of the article.
-                        (currUser && currUser.uid === posting.author.uid) ?
+                        (currUser && currUser._id === posting.author._id) ?
                             <div className="edit-container">
-                                <Link to={`/edit/${posting.pid}`}>
+                                <Link to={`/edit/${posting._id}`}>
                                     <button className="edit-btn">Edit</button>
                                 </Link>
                             </div>
@@ -42,16 +42,16 @@ class PostingView extends React.Component {
                         <div className="posting-author-avatar">
                             <img src={posting.author.avatar} alt={posting.author.name} />
                         </div>
-                        <Link to={`/profile/${posting.author.uid}`}><div className="posting-author-name">{posting.author.name}</div></Link>
+                        <Link to={`/profile/${posting.author._id}`}><div className="posting-author-name">{posting.author.name}</div></Link>
                     </div>
                 </div>
 
 
                 <div className="posting-image-container">
                     <div className="posting-images">
-                        {posting.images.map((img) => {
+                        {posting.images.map((img, idx) => {
                             return (
-                                <div className="posting-image">
+                                <div key={idx} className="posting-image">
                                     <img src={img} alt={img} />
                                 </div>
                             )
@@ -60,9 +60,9 @@ class PostingView extends React.Component {
                 </div>
 
                 <div className="posting-body-container">
-                    {posting.body.split('\n').map(paragraph => {
+                    {posting.body.split('\n').map((paragraph, idx) => {
                         return (
-                            <p>{paragraph} <br /></p>
+                            <p key={idx}>{paragraph} <br /></p>
                         )
                     })}
                 </div>

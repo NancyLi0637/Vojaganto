@@ -31,7 +31,7 @@ class Profile extends React.Component {
 
       <div className="profile-view">
         {
-          currUser !== undefined && currUser.uid === profileInfo.uid ?
+          currUser !== undefined && currUser._id === profileInfo._id ?
             <div className="edit-profile-container">
               <button className="edit-profile" onClick={this.toggleEditProfile}>
                 Edit Profile

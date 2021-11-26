@@ -14,7 +14,7 @@ class ProfileTripCategory extends React.Component {
         <h3 className="trip-type">
           <Link
             className="trip-journey-link"
-            to={"/journey/" + postingList.journeyId.toString()}
+            to={"/journey/" + postingList._id.toString()}
           >
             {tripType}
           </Link>

@@ -4,7 +4,7 @@ import { verifyLogin } from 'actions/UserAuthen';
 import "./style.scss";
 
 const mockUser = {
-    uid: 0,
+    _id: 0,
     username: 'user',
     password: 'user',
     name: 'User Doe',

@@ -9,13 +9,14 @@ class JourneyList extends React.Component {
     const postingList = this.props.postingList;
     return (
       <div className="posting-list-page">
-        {postingList.map((posting) => (
+        {postingList.map((posting, idx) => (
           <Link
+            key={idx}
             className="journey-posting-link"
-            to={"/trip/" + posting.pid.toString()}
+            to={"/trip/" + posting._id.toString()}
           >
             <JourneyListPosting
-              key={posting.pid}
+              key={posting._id}
               posting={posting}
             />
           </Link>
