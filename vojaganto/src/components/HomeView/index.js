@@ -6,7 +6,20 @@ import UserLoginWindow from 'components/LoginRegister/UserLoginWindow';
 
 import "./style.scss";
 
+import { handleInputChange } from 'actions';
+import { setHomePostingColumns } from 'actions/Posting'
+
 class HomeView extends React.Component {
+    state = {
+        postingCardColumns: [],
+        search: ""
+    }
+
+    componentDidMount() {
+        // TODO: UpdatePostingCardColumns
+        setHomePostingColumns(this, this.state.search)
+    }
+
     render() {
         const { currUser, setCurrUser } = this.props
         return (
@@ -16,6 +29,11 @@ class HomeView extends React.Component {
                         Vojaĝanto
                     </h1>
 
+                    <div className="home-search">
+                        <input type="text" className="home-search-input" name="search" placeholder="Search for trips!" onChange={(e) => handleInputChange(this, e)} />
+                        <button className="home-search-btn" onClick={() => setHomePostingColumns(this, this.state.search)}>Search</button>
+                    </div>
+
                     <UserLoginWindow
                         currUser={currUser}
                         setCurrUser={setCurrUser}
@@ -23,7 +41,7 @@ class HomeView extends React.Component {
                 </div>
 
                 <div className="posting-card-columns">
-                    {this.props.postingCardColumns.map((postingCardColumn, idx) => (
+                    {this.state.postingCardColumns.map((postingCardColumn, idx) => (
                         <PostingCardColumn key={idx} postingCardColumn={postingCardColumn} />
                     ))}
                 </div>

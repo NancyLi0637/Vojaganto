@@ -28,7 +28,7 @@ class AdminPostDash extends React.Component{
             }
         ]
         return (
-            <div class="page admin-post-page">
+            <div className="page admin-post-page">
                 <div className="admin-post-main">
                     <AdminNav/>
                     <AdminPostTable posts={posts}/>

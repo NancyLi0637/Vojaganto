@@ -26,7 +26,7 @@ class AdminUserDash extends React.Component{
             }
         ]
         return (
-            <div class="page admin-user-page">
+            <div className="page admin-user-page">
                 <div className="admin-user-main">
                     <AdminNav/>
                     <AdminUserTable users={users}/>

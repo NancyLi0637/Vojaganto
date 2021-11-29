@@ -8,11 +8,41 @@
   .web-header{
     position: relative;
     @include px($padding: 32px);
-
+    @include flex-display($dir: "row");
+    justify-content: space-between;
     .web-title {
       font-weight: 500;
       font-family: $serif;
       margin-left: 8px;
+      // margin-right: 5rem;
+    }
+
+    .home-search {
+      width: 40%;
+      @include flex-display($dir: "row");
+
+      .home-search-input {
+        height: 1.5rem;
+        border: none;
+        font-size: 1rem;
+        background-color: $light;
+        width: 100%;
+        margin-right: .5rem;
+        
+        @include px($padding: 1rem);
+        @include py($padding: .5rem);
+        @include round-border;
+
+        &:focus, &:active{
+          @include box-shadow;
+        }
+      }
+
+      .home-search-btn {
+        @include button($px: .5rem, $radius: 10px, $shadow: 0px, $font-size: 1rem);
+
+        
+      }
     }
   }
 

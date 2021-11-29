@@ -11,10 +11,11 @@
         .posting-title {
             width: $left-width;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             font-size: calc(1vw + 2rem);
             flex-wrap: wrap;
             font-family: $serif;
+            font-weight: 500;
         }
 
         .edit-container {

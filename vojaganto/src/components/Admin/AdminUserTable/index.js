@@ -36,7 +36,7 @@ class AdminUserTable extends React.Component {
                             </td>
                             <td className="AdminUserData RightCol">
                                 {
-                                    "Date: " + user.last_login.getDate() +
+                                    user.last_login.getDate() +
                                     "/" + (user.last_login.getMonth() + 1) +
                                     "/" + user.last_login.getFullYear() +
                                     " " + user.last_login.getHours() +

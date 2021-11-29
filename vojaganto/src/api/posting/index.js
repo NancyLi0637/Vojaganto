@@ -2,6 +2,13 @@ import * as http from "utils/http"
 import avatar from 'assets/images/66385278_p8.jpg';
 import img1 from 'assets/images/home/pic1.jpg';
 import img2 from 'assets/images/home/pic3.jpg';
+import pic1 from "assets/images/home/pic1.jpg";
+import pic2 from "assets/images/home/pic2.jpeg";
+import pic3 from "assets/images/home/pic3.jpg";
+import pic4 from "assets/images/home/pic4.jpg";
+import pic5 from "assets/images/home/pic5.jpg";
+import pic6 from "assets/images/home/pic6.jpg";
+import pic8 from "assets/images/home/pic8.jpg";
 
 const mockPosting = {
     _id: 5,
@@ -22,9 +29,68 @@ const mockPosting = {
     images: [img1, img2]
 }
 
+
+const postingCardColumns = [
+    {
+        postings: [
+            {
+                _id: 1,
+                title: "Lorem ipsum",
+                date: new Date().toUTCString().substring(0, 17),
+                images: [pic1],
+            },
+            {
+                _id: 2,
+                title: "Lorem ipsum",
+                date: new Date().toUTCString().substring(0, 17),
+                images: [pic4],
+            },
+        ],
+    },
+    {
+        postings: [
+            {
+                _id: 3,
+                title: "Lorem ipsum",
+                date: new Date().toUTCString().substring(0, 17),
+                images: [pic3],
+            },
+            {
+                _id: 4,
+                title: "Lorem ipsum",
+                date: new Date().toUTCString().substring(0, 17),
+                images: [pic6],
+            },
+            {
+                _id: 5,
+                title: "Lorem ipsum",
+                date: new Date().toUTCString().substring(0, 17),
+                images: [pic8],
+            }
+        ],
+    },
+    {
+        postings: [
+            {
+                _id: 6,
+                title: "Lorem ipsum",
+                date: new Date().toUTCString().substring(0, 17),
+                images: [pic5],
+            },
+            {
+                _id: 7,
+                title: "Lorem ipsum",
+                date: new Date().toUTCString().substring(0, 17),
+                images: [pic2],
+            },
+        ],
+    },
+];
+
 async function getHomePostings(params) {
     try {
-        const response = await http.get(`/api/posting`, params)
+        // const response = await http.get(`/api/posting`, params)
+        const response = postingCardColumns
         return response
     } catch (err) {
         throw err

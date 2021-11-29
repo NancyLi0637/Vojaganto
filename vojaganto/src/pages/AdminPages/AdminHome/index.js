@@ -4,8 +4,8 @@ import AdminNav from 'components/Admin/AdminNav'
 
 import './style.scss'
 
-class AdminHome extends React.Component{
-    render(){
+class AdminHome extends React.Component {
+    render() {
         const { currUser } = this.props
 
         if (!currUser || currUser.role !== 1) {
@@ -15,8 +15,8 @@ class AdminHome extends React.Component{
         return (
             <div className="page admin-home-page">
                 <div className="admin-home-main">
-                    <AdminNav/>
-                    <h1>Welcome Administor {`${currUser.username}`}</h1>
+                    <AdminNav />
+                    <h1>Welcome, {`${currUser.username}`}</h1>
                 </div>
             </div>
         )

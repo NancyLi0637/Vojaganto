@@ -122,7 +122,7 @@ async function deletePosting(component, pid) {
     } else {
         // Empty draft
         console.log("DELETED new posting")
-        return null
+        component.props.history.push(`/profile/${component.props.currUser._id}`)
     }
 }
 

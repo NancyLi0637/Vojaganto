@@ -1,7 +1,8 @@
 import React from 'react';
-import {verifyRegister} from "actions/UserAuthen";
+import { verifyRegister } from "actions/UserAuthen";
 import "./style.scss";
 
+import { handleInputChange } from "actions"
 
 class UserRegisterModal extends React.Component {
     constructor(props) {
@@ -14,16 +15,6 @@ class UserRegisterModal extends React.Component {
         }
     }
 
-    handleInputChange = e => {
-        const target = e.target;
-        const value = target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
-    };
-
     setWarningMessage = warningMessage => {
         this.setState({ warningMessage })
     }
@@ -35,12 +26,12 @@ class UserRegisterModal extends React.Component {
         const password = this.state.passwordInput
         const confirm = this.state.confirmInput
 
-        if (confirm !== password){
+        if (confirm !== password) {
             this.setWarningMessage("Password does not match!")
             return
         }
 
-        if(!verifyRegister(username)){
+        if (!verifyRegister(username)) {
             this.setWarningMessage("User already exists!")
         }
         else if (username && password) {
@@ -48,7 +39,7 @@ class UserRegisterModal extends React.Component {
             console.log("Registered!")
             handleCloseModal()
             handleCloseRegisterModal()
-        } 
+        }
         else {
             this.setWarningMessage("Fields cannot be empty!")
         }
@@ -67,7 +58,7 @@ class UserRegisterModal extends React.Component {
                         <span>Username</span>
                         <input
                             value={this.state.usernameInput}
-                            onChange={this.handleInputChange}
+                            onChange={(e) => handleInputChange(this, e)}
                             type="text"
                             name="usernameInput"
                             placeholder="Username"
@@ -77,17 +68,17 @@ class UserRegisterModal extends React.Component {
                         <span>Password</span>
                         <input
                             value={this.state.passwordInput}
-                            onChange={this.handleInputChange}
+                            onChange={(e) => handleInputChange(this, e)}
                             type="password"
                             name="passwordInput"
                             placeholder="Password"
                         />
                     </div>
                     <div className="user-register-input">
-                        <span>Confirm Password</span>
+                        <span>Confirm password</span>
                         <input
                             value={this.state.confirmInput}
-                            onChange={this.handleInputChange}
+                            onChange={(e) => handleInputChange(this, e)}
                             type="password"
                             name="confirmInput"
                             placeholder="Confirm Password"
@@ -97,12 +88,12 @@ class UserRegisterModal extends React.Component {
                     {
                         this.state.warningMessage ?
                             <div className="user-register-warning">
-                                { this.state.warningMessage }
+                                {this.state.warningMessage}
                             </div> :
                             null
                     }
 
-            
+
                     <div>
                         <button type="button" className='register-submit-button' onClick={this.props.handleCloseRegisterModal}>
                             Cancel
