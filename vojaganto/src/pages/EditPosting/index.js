@@ -8,21 +8,6 @@ import * as action from 'actions/EditPosting';
 
 import "./index.scss";
 
-import avatar from 'assets/images/66385278_p8.jpg';
-import img1 from 'assets/images/home/pic1.jpg';
-import img2 from 'assets/images/home/pic3.jpg';
-
-
-const emptyPosting = {
-    title: "",
-    journey: "",
-    date: "",
-    destination: "",
-    body: "",
-    public: false,
-    images: []
-}
-
 
 class EditPostingPage extends React.Component {
     constructor(props) {
@@ -31,7 +16,14 @@ class EditPostingPage extends React.Component {
         this.state = {
             new: true,
             posting: {
-                ...emptyPosting,
+                _id: undefined,
+                title: "",
+                journey: "",
+                date: "",
+                destination: "",
+                body: "",
+                public: false,
+                images: [],
                 author: this.props.currUser,
             }
         }
@@ -43,22 +35,6 @@ class EditPostingPage extends React.Component {
             // User is trying to edit the post.
             // Get posting data
             action.setPostingData(this, pid)
-            
-            // this.setState({
-            //     new: false,
-            //     posting: {
-            //         ...mockPosting,
-            //     }
-            // })
-        } else {
-            // User is trying to create a new post
-            this.setState({
-                new: true,
-                posting: {
-                    ...emptyPosting,
-                    author: this.props.currUser,
-                }
-            })
         }
     }
 

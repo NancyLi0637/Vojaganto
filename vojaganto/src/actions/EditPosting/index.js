@@ -37,7 +37,7 @@ function handleInputChange(component, event) {
  * @param {*} component 
  * @param {*} event 
  */
-function handleImageUpload(component, event) {
+async function handleImageUpload(component, event) {
     const target = event.target;
     const files = target.files;
 
@@ -90,18 +90,19 @@ async function submitPosting(component) {
     const data = component.state.posting
     // Post to server
     try {
-        if ("_id" in data) {
+        if (data._id !== undefined) {
             // Update a posting
-            console.log(`Updating posting #${data._id}`, data)
-            const response = await api.updatePosting(data)
-            return response
+            console.log(`Updating posting ${data._id}`, data)
+            const editedPosting = await api.updatePosting(data._id, data)
+            // console.log(editedPosting)
+            // return response
+            component.props.history.push(`/trip/${editedPosting._id}`)
         } else {
             // Create a new posting
             console.log(`Creating new posting`, data)
-            const response = await api.createPosting(data)
-            return response
+            const newPosting = await api.createPosting(data)
+            component.props.history.push(`/trip/${newPosting._id}`)
         }
-
     } catch (err) {
         throw err
     }
@@ -114,7 +115,7 @@ async function deletePosting(component, pid) {
         try {
             const response = await api.deletePosting(pid)
             console.log(`DELETED Posting ${pid}`, response)
-            return response
+            component.props.history.push(`/profile/${component.props.currUser._id}`)
         } catch (err) {
             throw err
         }
@@ -133,13 +134,27 @@ async function deletePosting(component, pid) {
 async function setPostingData(component, pid) {
     try {
         const oldPosting = await api.getPosting(pid)
-        console.log(`Get oldPosting ${pid}`, oldPosting)
+        console.log(`Get Posting ${pid}`, oldPosting)
         component.setState({ new: false, posting: oldPosting })
     } catch (err) {
         throw err
     }
 }
 
+/**
+ * Fill the component state with old posting by pid.
+ * @param {React.Component} component 
+ * @param {*} pid 
+ */
+ async function getUserJourneys(component, uid) {
+    try {
+        const userJourneys = await api.getUserJourneys(uid)
+        console.log(`Get user's journeys ${uid}`, userJourneys)
+        component.setState({ userJourneys })
+    } catch (err) {
+        throw err
+    }
+}
 
 
 export {
@@ -148,5 +163,6 @@ export {
     handleDeleteImage, 
     submitPosting, 
     deletePosting,
-    setPostingData
+    setPostingData,
+    getUserJourneys
 }

@@ -44,7 +44,7 @@ async function getPosting(pid) {
 async function createPosting(data) {
     try {
         // const response = await http.post('/api/posting', data)
-        const response = data
+        const response = {...data, _id: 66}
         return response
     } catch (err) {
         throw err
@@ -54,6 +54,7 @@ async function createPosting(data) {
 async function updatePosting(pid, data) {
     try {
         // const response = await http.put(`/api/posting/${pid}`, data)
+        // console.log("Update", data)
         const response = data
         return response
     } catch (err) {
@@ -73,7 +74,19 @@ async function deletePosting(pid) {
 
 async function getUserJourneys(uid) {
     try {
-        const response = await http.get(`/api/user/${uid}/journey`)
+        // const response = await http.get(`/api/user/${uid}/journey`)
+        const response = [
+            {
+                _id: "sdhoiwd1oi2hd12dh21213",
+                title: "Journey to Canada"
+            }, {
+                _id: "sdhsaddsai2hd12dh21213",
+                title: "Journey to Toronto"
+            }, {
+                _id: "sd123wd1oi2hd12dh21213",
+                title: "Journey to Montreal"
+            }
+        ]
         return response
     } catch (err) {
         throw err

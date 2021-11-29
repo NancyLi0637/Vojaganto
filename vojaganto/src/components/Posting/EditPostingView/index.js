@@ -4,14 +4,34 @@ import Editor from 'components/Posting/Editor';
 
 import "./EditPostingView.scss"
 
+import { getUserJourneys } from "actions/EditPosting"
+
 
 class EditPostingView extends React.Component {
+    state = {
+        userJourneys: []
+    }
+
+
+    componentDidMount() {
+        getUserJourneys(this, this.props.currUser._id)
+    }
+
     render() {
-        const { posting, handleInputChange, handleImageUpload, submitPosting, deletePosting, handleDeleteImage } = this.props
+        const { currUser, posting, handleInputChange, handleImageUpload, submitPosting, deletePosting, handleDeleteImage } = this.props
 
         return (
             <div className="edit-posting-view">
                 <form className="posting-form" id="postingForm" >
+                    <datalist id="user-journeys">
+                        {
+                            this.state.userJourneys.map((journey, i) => {
+                                return (
+                                    <option key={i} value={journey.title} />
+                                )
+                            })
+                        }
+                    </datalist>
 
                     <div className="edit-metadata-container">
                         <input type="text"
@@ -27,6 +47,8 @@ class EditPostingView extends React.Component {
                             <input type="text"
                                 name="journey"
                                 className="edit-meta edit-input"
+                                list="user-journeys"
+
                                 id="postingJourneyInput"
                                 placeholder="JOURNEY"
                                 onChange={handleInputChange}
