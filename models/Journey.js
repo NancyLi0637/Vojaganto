@@ -11,6 +11,10 @@ const Journey = mongoose.model('Journey', {
     // Color of map pin
     color: {
         type: String
+    },
+    author: {
+        type: String,
+        required: true
     }
 })
 
