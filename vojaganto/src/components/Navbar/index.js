@@ -17,7 +17,7 @@ class Navbar extends React.Component {
                     </Link>
                     {
                         currUser ?
-                            <Link className="nav-item" to={`/profile/${currUser._id}`}>
+                            <Link className="nav-item" to={`/profile/${String(currUser._id)}`}>
                                 PROFILE
                             </Link>
                             : null

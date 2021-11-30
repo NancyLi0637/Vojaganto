@@ -96,18 +96,19 @@ async function submitPosting(component) {
             const editedPosting = await api.updatePosting(data._id, data)
             // console.log(editedPosting)
             // return response
-            component.props.history.push(`/trip/${editedPosting._id}`)
+            alert("Submitted updates!")
+            component.props.history.push(`/trip/${String(editedPosting._id)}`)
         } else {
             // Create a new posting
             console.log(`Creating new posting`, data)
             const newPosting = await api.createPosting(data)
-            component.props.history.push(`/trip/${newPosting._id}`)
+            alert("Created new trip!")
+            component.props.history.push(`/trip/${String(newPosting._id)}`)
         }
     } catch (err) {
-        throw err
+        // throw err
+        alert(String(err))
     }
-
-    // Redirect to Profile
 }
 
 async function deletePosting(component, pid) {
@@ -115,14 +116,17 @@ async function deletePosting(component, pid) {
         try {
             const response = await api.deletePosting(pid)
             console.log(`DELETED Posting ${pid}`, response)
-            component.props.history.push(`/profile/${component.props.currUser._id}`)
+            alert("Deleted posting.")
+            component.props.history.push(`/profile/${String(component.props.currUser._id)}`)
         } catch (err) {
-            throw err
+            // throw err
+            alert(String(err))
         }
     } else {
         // Empty draft
         console.log("DELETED new posting")
-        component.props.history.push(`/profile/${component.props.currUser._id}`)
+        alert("Deleted new posting draft.")
+        component.props.history.push(`/profile/${String(component.props.currUser._id)}`)
     }
 }
 
@@ -137,7 +141,8 @@ async function setPostingData(component, pid) {
         console.log(`Get Posting ${pid}`, oldPosting)
         component.setState({ new: false, posting: oldPosting })
     } catch (err) {
-        throw err
+        // throw err
+        alert(String(err))
     }
 }
 
@@ -152,7 +157,8 @@ async function setPostingData(component, pid) {
         console.log(`Get user's journeys ${uid}`, userJourneys)
         component.setState({ userJourneys })
     } catch (err) {
-        throw err
+        // throw err
+        alert(String(err))
     }
 }
 

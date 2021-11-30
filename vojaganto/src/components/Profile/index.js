@@ -4,12 +4,19 @@ import ProfileTripCategory from "components/ProfileTripCategory";
 import ProfileEditorPrompt from "components/ProfileEditorModal";
 import "./profile.scss";
 
+import { setProfileInfo } from "actions/Profile"
+
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       editProfile: false,
+      profileInfo: {},
     };
+  }
+
+  componentDidMount() {
+    setProfileInfo(this, this.props.profileId)
   }
 
   toggleEditProfile = () => {
@@ -19,30 +26,35 @@ class Profile extends React.Component {
   };
 
   render() {
-    const profileInfo = this.props.profileInfo;
     const tripType = this.props.tripType;
     const postingList = this.props.postingList;
-    const applyEdition = this.props.applyEdition;
     // const setCurrUser = this.props.setCurrUser;
 
-    const currUser = this.props.currUser;
+    const { currUser } = this.props;
 
     return (
 
       <div className="profile-view">
         {
-          currUser !== undefined && currUser._id === profileInfo._id ?
+          currUser && currUser._id == this.props.profileId ?
             <div className="edit-profile-container">
               <button className="edit-profile" onClick={this.toggleEditProfile}>
                 Edit Profile
               </button>
+
+              <ProfileEditorPrompt
+                className="edit-profile-prompt"
+                display={this.state.editProfile}
+                toggleEditProfile={this.toggleEditProfile}
+                profileInfo={this.state.profileInfo}
+              />
             </div>
-            : null
+            : <></>
         }
 
         <ProfileInfo
           className="profile-information"
-          profileInfo={profileInfo}
+          profileInfo={this.state.profileInfo}
         />
         {
           tripType.map((tripType) => {
@@ -56,13 +68,7 @@ class Profile extends React.Component {
           })
         }
 
-        <ProfileEditorPrompt
-          className="edit-profile-prompt"
-          openModal={this.state.editProfile}
-          profileInfo={profileInfo}
-          toggleEditProfile={this.toggleEditProfile}
-          applyEdition={applyEdition}
-        />
+
       </div>
     );
   }

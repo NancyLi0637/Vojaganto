@@ -4,7 +4,7 @@ import Navbar from "components/Navbar";
 import Map from "components/MapPlugin/Map";
 
 import Profile from "components/Profile";
-import avatar from "assets/images/66385278_p8.jpg";
+
 import pic1 from "assets/images/home/pic1.jpg";
 import pic2 from "assets/images/home/pic2.jpeg";
 import pic3 from "assets/images/home/pic3.jpg";
@@ -68,13 +68,7 @@ const postingList = {
   },
 };
 
-const profileInfo = {
-  _id: 0,
-  avatar: avatar,
-  username: "user",
-  name: "User Doe",
-  body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
-};
+
 
 const tripType = ["Travel to Canada", "Travel to North", "Traveling"];
 
@@ -82,10 +76,10 @@ class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      _id: this.props.match.params.uid,
+      // profileId: this.props.match.params.uid,
       tripType: tripType,
       postingList: postingList,
-      profileInfo: profileInfo,
+      // profileInfo: profileInfo,
       // Currently, we are using mock data for tripType, postingList and profileInfo and hardcoded this part.
       // In the future, we should use a fetch to get those information from server using the uid.
       // Hardcoded this part for demonstration
@@ -95,16 +89,16 @@ class ProfilePage extends React.Component {
   applyEdition = (nickName, description, avatar) => {
     // This console.log will be replaced with a post request to the server in the future. For now, it prints a log to the console to show that the change can be updated.
     console.log("Applied Profile Change");
-    const originalUserName = this.state.profileInfo.username;
-    this.setState({
-      profileInfo: {
-        _id: 0,
-        avatar: avatar,
-        name: nickName,
-        username: originalUserName,
-        body: description,
-      },
-    });
+    // const originalUserName = this.state.profileInfo.username;
+    // this.setState({
+    //   profileInfo: {
+    //     _id: 0,
+    //     avatar: avatar,
+    //     name: nickName,
+    //     username: originalUserName,
+    //     body: description,
+    //   },
+    // });
   };
 
   render() {
@@ -116,9 +110,10 @@ class ProfilePage extends React.Component {
             currUser={currUser}
             tripType={this.state.tripType}
             postingList={this.state.postingList}
-            profileInfo={this.state.profileInfo}
-            applyEdition={this.applyEdition}
+            // profileInfo={this.state.profileInfo}
+            // applyEdition={this.applyEdition}
             setCurrUser={setCurrUser}
+            profileId={this.props.match.params.uid}
           />
         </div>
         <Navbar currUser={currUser} />

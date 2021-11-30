@@ -72,7 +72,7 @@
   @include round-border($radius: 5px);
   @include box-shadow;
 
-  .edit-profile-confirm {
+  .edit-profile-btn {
     @include button($color: $light, $bg: $dark-gray);
     @include mx($margin: 0.5rem);
     margin-top: 1rem;

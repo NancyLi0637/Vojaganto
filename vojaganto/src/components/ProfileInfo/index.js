@@ -11,13 +11,13 @@ class ProfileInfo extends React.Component {
           <img
             className="profile-image"
             src={profileInfo.avatar}
-            alt="profile"
+            alt="avatar"
           />
         </div>
         <div className="profile-text">
           <h1 className="user-nick-name">{profileInfo.name}</h1>
           <h2 className="user-name">{profileInfo.username}</h2>
-          <span className="user-content-body">{profileInfo.body}</span>
+          <div className="user-content-body">{profileInfo.description}</div>
         </div>
       </div>
     );

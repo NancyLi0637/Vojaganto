@@ -15,7 +15,7 @@ class PostingView extends React.Component {
 
                     {
                         // Display Edit Button when the logged-in user is the author of the article.
-                        (currUser && currUser._id === posting.author._id) ?
+                        (currUser && currUser._id == posting.author._id) ?
                             <div className="edit-container">
                                 <Link to={`/edit/${posting._id}`}>
                                     <button className="edit-btn">Edit</button>
@@ -29,7 +29,7 @@ class PostingView extends React.Component {
                         <ul className="posting-info">
 
                             <li className="info-item">
-                                <Link className="nav-item" to={"/journey/" + posting.journey._id}>
+                                <Link className="nav-item" to={"/journey/" + String(posting.journey._id)}>
                                     {posting.journey.title}
                                 </Link>
                             </li>
@@ -42,7 +42,7 @@ class PostingView extends React.Component {
                         <div className="posting-author-avatar">
                             <img src={posting.author.avatar} alt={posting.author.name} />
                         </div>
-                        <Link to={`/profile/${posting.author._id}`}><div className="posting-author-name">{posting.author.name}</div></Link>
+                        <Link to={`/profile/${String(posting.author._id)}`}><div className="posting-author-name">{posting.author.name}</div></Link>
                     </div>
                 </div>
 

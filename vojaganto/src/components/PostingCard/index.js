@@ -7,7 +7,7 @@ class PostingCard extends React.Component {
         const posting = this.props.posting
 
         return (
-            <Link to={"/trip/" + posting._id}>
+            <Link to={"/trip/" + String(posting._id)}>
                 <div className="posting-card">
                     <div className='posting-info-container'>
                         <h3 className="posting-info posting-title">{posting.title}</h3>

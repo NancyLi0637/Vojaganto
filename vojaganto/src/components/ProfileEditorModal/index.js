@@ -1,25 +1,26 @@
 import React from "react";
-import "./profileeditor.scss";
+import "./profileEditor.scss";
+
+import { handleInputChange } from "actions";
+import { updateProfileInfo } from "actions/Profile";
 
 class ProfileEditorPrompt extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: this.props.profileInfo.name,
-      description: this.props.profileInfo.body,
-      avatar: this.props.profileInfo.avatar,
+      name: "",
+      avatar: null,
+      description: "",
+      _id: null,
     };
   }
 
-  handleInputChange = (e) => {
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
-
+  
+  componentWillReceiveProps(props) {
     this.setState({
-      [name]: value,
-    });
-  };
+      ...props.profileInfo
+    })
+  }
 
   handleAvatarChange = (event) => {
     const newFile = event.target.files[0];
@@ -28,12 +29,28 @@ class ProfileEditorPrompt extends React.Component {
     });
   };
 
+  /**
+   * Submit profile updates to server.
+   */
+   submitProfile(){
+    const body = {
+      _id: this.state._id,
+      name: this.state.name,
+      avatar: this.state.avatar,
+      description: this.state.description
+    }
+
+    updateProfileInfo(this, this.state._id, body)
+  }
+
+  
+
   render() {
-    const openModal = this.props.openModal;
-    const closePrompt = this.props.toggleEditProfile;
-    const applyEdition = this.props.applyEdition;
-    if (!openModal) {
-      return null;
+    const { display, toggleEditProfile } = this.props
+
+    if (!display) {
+      // Hide the modal
+      return <></>
     } else {
       return (
         <div className="edit-profile-modal">
@@ -71,7 +88,7 @@ class ProfileEditorPrompt extends React.Component {
                   name="name"
                   className="edit-nick-name edit-input"
                   placeholder="nick-name-form"
-                  onChange={this.handleInputChange}
+                  onChange={e => handleInputChange(this, e)}
                   value={this.state.name}
                 />
               </div>
@@ -89,7 +106,7 @@ class ProfileEditorPrompt extends React.Component {
                   name="description"
                   className="edit-user-description edit-input"
                   placeholder="user-description-form"
-                  onChange={this.handleInputChange}
+                  onChange={e => handleInputChange(this, e)}
                   value={this.state.description}
                 />
 
@@ -98,25 +115,17 @@ class ProfileEditorPrompt extends React.Component {
               <div className="modal-buttons">
                 <button
                   type="button"
-                  className="edit-profile-confirm"
-                  id="edit-profile-cancel"
-                  onClick={closePrompt}
+                  className="edit-profile-btn"
+                  onClick={toggleEditProfile}
                 >
                   Cancel
                 </button>
 
                 <button
                   type="button"
-                  className="edit-profile-confirm"
+                  className="edit-profile-btn"
                   id="edit-profile-apply"
-                  onClick={() => {
-                    applyEdition(
-                      this.state.name,
-                      this.state.description,
-                      this.state.avatar
-                    );
-                    closePrompt();
-                  }}
+                  onClick={this.submitProfile.bind(this)}
                 >
                   Apply
                 </button>
