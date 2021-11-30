@@ -1,5 +1,5 @@
 import React from "react";
-import "./profileEditor.scss";
+import "./index.scss";
 
 import { handleInputChange } from "actions";
 import { updateProfileInfo } from "actions/Profile";
