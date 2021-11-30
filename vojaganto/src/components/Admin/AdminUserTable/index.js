@@ -5,46 +5,46 @@ class AdminUserTable extends React.Component {
 
     render() {
         const { users } = this.props
-        
 
-        const format_users = users.map(user => ({
-            username: user.username,
-            nickname: user.nickname,
-            last_login: new Date(user.last_login)
-        }))
         return (
             <div>
-                <table className="AdminUserTable">
-                    <tr className="AdminUserHeaderRow">
-                        <th className="AdminUserHeader LeftCol">
-                            Username
-                        </th>
-                        <th className="AdminUserHeader">
-                            Nickname
-                        </th>
-                        <th className="AdminUserHeader RightCol">
-                            Last Login
-                        </th>
-                    </tr>
-                    {format_users.map(user => (
-                        <tr className="AdminUserRow">
-                            <td className="AdminUserData LeftCol">
-                                {user.username}
-                            </td>
-                            <td className="AdminUserData">
-                                {user.nickname}
-                            </td>
-                            <td className="AdminUserData RightCol">
-                                {
-                                    user.last_login.getDate() +
-                                    "/" + (user.last_login.getMonth() + 1) +
-                                    "/" + user.last_login.getFullYear() +
-                                    " " + user.last_login.getHours() +
-                                    ":" + user.last_login.getMinutes() +
-                                    ":" + user.last_login.getSeconds()}
-                            </td>
+                <table className="admin-user-table admin-table">
+                    <thead>
+                        <tr className="admin-table-headerRow">
+                            <th className="admin-table-header">
+                                Username
+                            </th>
+                            <th className="admin-table-header">
+                                Nickname
+                            </th>
+                            <th className="admin-table-header">
+                                Last Login
+                            </th>
+                            <th className="admin-table-header">
+                                
+                            </th>
                         </tr>
-                    ))}
+                    </thead>
+                    <tbody>
+                        {users.map(user => (
+                            <tr key={user._id} className="admin-data-row">
+                                <td>
+                                    {user.username}
+                                </td>
+                                <td>
+                                    {user.nickname}
+                                </td>
+                                <td>
+                                    {user.lastLogin}
+                                </td>
+                                <td className="actions">
+                                    <button onClick={() => this.props.inactivateUser(user)}>
+                                        Inactivate
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
                 </table>
             </div>
         )

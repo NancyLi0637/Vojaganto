@@ -7,7 +7,7 @@ import { setCurrUser } from "actions/Auth";
 
 class App extends React.Component {
   state = {
-    currUser: {username: "rainyuxuan", _id: 0}
+    currUser: {username: "admin", _id: 0, role: 1}
   }
 
   render() {

@@ -1,73 +1,68 @@
 import React from 'react';
 import "./style.scss";
 
-import {removePost} from 'actions/Admin/AdminTable/index';
-
 class AdminPostTable extends React.Component {
-
-    constructor(props){
-        super(props)
-        this.state = {
-            posts: props.posts
-        }
+    checkDetailContent(posting) {
+        // TODO: Implement
+        console.log(posting)
     }
 
     render() {
-        const { posts } = this.state
-
-        const format_posts = posts.map(post => ({
-            id: post.id,
-            author: post.author,
-            title: post.title,
-            publish_time: new Date(post.publish_time)
-        }))
+        const { postings } = this.props
         return (
             <div>
-                <table className="AdminPostTable">
-                    <tr className="AdminPostHeaderRow">
-                        <th className="AdminPostHeader LeftCol">
-                            Post ID
-                        </th>
-                        <th className="AdminPostHeader">
-                            Author
-                        </th>
-                        <th className="AdminPostHeader">
-                            Title
-                        </th>
-                        <th className="AdminPostHeader">
-                            Publish Time
-                        </th>
-                        <th className="AdminPostHeader RightCol">
+                <table className="admin-post-table admin-table">
+                    <thead className="admin-table-headerRow">
+                        <tr>
+                            <th className="admin-table-header">
+                                Post ID
+                            </th>
+                            <th className="admin-table-header">
+                                Author
+                            </th>
+                            <th className="admin-table-header">
+                                Title
+                            </th>
+                            <th className="admin-table-header">
+                                Journey
+                            </th>
+                            <th className="admin-table-header">
+                                Publish Time
+                            </th>
+                            <th className="admin-table-header">
 
-                        </th>
-                    </tr>
-                    {format_posts.map(post => (
-                        <tr className="AdminPostRow">
-                            <td className="AdminPostData LeftCol">
-                                {post.id}
-                            </td>
-                            <td className="AdminPostData">
-                                {post.author}
-                            </td>
-                            <td className="AdminPostData">
-                                {post.title}
-                            </td>
-                            <td className="AdminPostData">
-                                {
-                                    "Date: " + post.publish_time.getDate() +
-                                    "/" + (post.publish_time.getMonth() + 1) +
-                                    "/" + post.publish_time.getFullYear() +
-                                    " " + post.publish_time.getHours() +
-                                    ":" + post.publish_time.getMinutes() +
-                                    ":" + post.publish_time.getSeconds()}
-                            </td>
-                            <td className="AdminPostData RightCol">
-                                <button onClick={() => removePost(this, post)}>
-                                    DELETE
-                                </button>
-                            </td>
+                            </th>
                         </tr>
-                    ))}
+                    </thead>
+                    <tbody>
+                        {postings.map(posting => (
+                            <tr key={posting._id}  className="admin-data-row">
+                                <td>
+                                    {posting._id}
+                                </td>
+                                <td>
+                                    {posting.author}
+                                </td>
+                                <td>
+                                    {posting.title}
+                                </td>
+                                <td>
+                                    {posting.journey.title}
+                                </td>
+                                <td>
+                                    {posting.publishTime}
+                                </td>
+                                <td className="actions">
+                                    <button onClick={() => this.props.deletePost(posting)}>
+                                        Delete
+                                    </button>
+                                    <button onClick={() => this.checkDetailContent(posting)}>
+                                        View Content
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
                 </table>
             </div>
         )

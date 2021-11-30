@@ -5,31 +5,34 @@ import AdminUserTable from 'components/Admin/AdminUserTable'
 
 import './style.scss'
 
-class AdminUserDash extends React.Component{
-    render(){
+import { handleInputChange } from "actions"
+import { inactivateUser, getUsers } from 'actions/Admin/AdminTable/index';
+
+class AdminUserDash extends React.Component {
+    state = {
+        users: [],
+        search: ""
+    }
+
+    componentDidMount() {
+        getUsers(this, { search: this.state.search })
+    }
+
+    render() {
         const { currUser } = this.props
         if (!currUser || currUser.role !== 1) {
             return <Redirect to="/admin/login" />
         }
 
-        // This data will be pull from server
-        const users = [
-            {
-                username: "user1",
-                nickname: "abc",
-                last_login: Date.now()
-            },
-            {
-                username: "user2",
-                nickname: "def",
-                last_login: Date.now()
-            }
-        ]
         return (
             <div className="page admin-user-page">
+                <AdminNav />
                 <div className="admin-user-main">
-                    <AdminNav/>
-                    <AdminUserTable users={users}/>
+                    <div className="table-search">
+                        <input type="text" className="table-search-input" name="search" placeholder="Search by ID, Username, Name" onChange={(e) => handleInputChange(this, e)} />
+                        <button className="table-search-btn" onClick={() => getUsers(this, { search: this.state.search })}>Search</button>
+                    </div>
+                    <AdminUserTable users={this.state.users} inactivateUser={(user) => inactivateUser(this, user)} />
                 </div>
             </div>
         )

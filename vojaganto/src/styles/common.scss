@@ -1,3 +1,4 @@
+@import "./global_vars";
 .page {
     display: flex;
     flex-direction: row;
@@ -12,4 +13,79 @@
 .map-view {
     height: 100vh;
     width: 40vw;
+}
+
+
+.table-search {
+    width: 60%;
+    @include flex-display($dir: "row");
+    @include mx;
+    @include my($margin: 1rem);
+
+    .table-search-input {
+      height: 1.5rem;
+      border: none;
+      font-size: 1rem;
+      background-color: $light;
+      width: 100%;
+      margin-right: .5rem;
+      
+      @include px($padding: 1rem);
+      @include py($padding: .5rem);
+
+      &:focus, &:active{
+        @include box-shadow;
+      }
+    }
+
+    .table-search-btn {
+      @include button($px: .5rem, $shadow: 0px, $font-size: 1rem);
+    }
+}
+
+  
+.admin-table{
+    margin: auto;
+    border-collapse: separate;
+    border-spacing: 0 .2rem;
+    width: 90%;
+    overflow-x: auto;
+
+    th{
+        text-align: left;
+        padding: .5rem;
+        background-color: $dark;
+        color: $light;
+    }
+    
+    // .admin-table-headerRow{
+    //     background-color: $dark;
+    //     color: $light;
+    // }
+
+    tbody{
+        tr{
+            color: $dark;
+    
+            td {
+                padding: .5rem;
+                max-width: 100px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+    
+            .actions {
+                button{
+                    @include button($px: 5px, $shadow: 0, $font-size: normal);
+                    @include mx($margin: 2px);
+                }
+            }
+
+            &:hover{
+                box-shadow: $light-gray 0 0 1px;
+            }
+        }
+    }
+    
 }

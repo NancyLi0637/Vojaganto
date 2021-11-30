@@ -18,18 +18,23 @@ class AdminNav extends React.Component {
                         <img src={HomeIcon} alt="" />
                         <span>Home</span>
                     </Link>
-                    <br />
+                    
                     <Link className="admin-nav-item" to={`/admin/users`}>
                         <img src={UserIcon} alt="" />
-                        <span>Manage User</span>
+                        <span>Users</span>
                     </Link>
-                    <br />
+                    
                     <Link className="admin-nav-item" to={`/admin/postings`}>
                         <img src={JournalIcon} alt="" />
-                        Manage Post
+                        Postings
+                    </Link>
+
+                    <Link className="admin-nav-item" to={`/admin/login`}>
+                        {/* <img src={} alt="" /> */}
+                        Logout
                     </Link>
                 </div>
-                <div className="admin-nav-blocker"></div>
+                {/* <div className="admin-nav-blocker"></div> */}
             </div>
         )
     }

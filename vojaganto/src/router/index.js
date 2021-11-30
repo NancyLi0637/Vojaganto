@@ -37,6 +37,7 @@ export default class RenderRoutes extends React.Component {
                 <Route exact path="/admin/home" render={(props) => <AdminHome currUser={currUser} {...props} />} />
                 <Route exact path="/admin/users" render={(props) => <AdminUserDash currUser={currUser} {...props} />} />
                 <Route exact path="/admin/postings" render={(props) => <AdminPostDash currUser={currUser} {...props} />} />
+                <Route exact path="/admin" render={(props) => <AdminHome currUser={currUser} {...props} />} />
 
                 {/* NOT FOUND */}
                 <Route component={() => <h1>Not Found!</h1>} />

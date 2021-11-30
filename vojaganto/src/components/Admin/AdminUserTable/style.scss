@@ -2,56 +2,39 @@
 
 $row_radius: .5rem;
 
-.AdminUserTable{
-    margin: auto;
-    margin-top: 5vh;
-    border-collapse: separate;
-    border-spacing: 0 .2rem;
-    width: 80vw;
-    font-size: large;
+// .admin-user-table{
+//     margin: auto;
+//     margin-top: 5%;
+//     border-collapse: separate;
+//     border-spacing: 0 .2rem;
+//     width: 90%;
 
-    th{
-        text-align: left;
-        padding: .5rem;
-    }
+//     th{
+//         text-align: left;
+//         padding: .5rem;
+//     }
 
-    .AdminUserHeaderRow{
-        background-color: $dark;
-        color: $light;
-
-        .LeftCol{
-            border-bottom-left-radius: $row_radius;
-            border-top-left-radius: $row_radius;
-        }
-
-        .RightCol{
-            border-bottom-right-radius: $row_radius;
-            border-top-right-radius: $row_radius;
-        }
-    }
+//     .admin-table-headerRow{
+//         background-color: $dark;
+//         color: $light;
+//         border-radius: $row_radius;
+//     }
     
 
-    .AdminUserRow{
-        color: $dark;
-        border-radius: $row_radius;
+//     .AdminUserRow{
+//         color: $dark;
+//         border-radius: $row_radius;
         
 
-        .AdminUserData{
-            padding: .5rem;
-        }
+//         .AdminUserData{
+//             padding: .5rem;
+//             overflow: hidden;
+//             text-overflow: ellipsis;
+//             white-space: nowrap;
+//         }
+//     }
 
-        .LeftCol{
-            border-bottom-left-radius: $row_radius;
-            border-top-left-radius: $row_radius;
-        }
-
-        .RightCol{
-            border-bottom-right-radius: $row_radius;
-            border-top-right-radius: $row_radius;
-        }
-    }
-
-    .AdminUserRow:hover{
-        box-shadow: rgba(0,0,0,0.8) 0 0 10px;
-    }
-}
+//     .AdminUserRow:hover{
+//         box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+//     }
+// }

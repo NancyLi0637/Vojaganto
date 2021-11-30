@@ -1,16 +1,18 @@
 @import "../../../styles/global_vars";
 
 .admin-nav {
-    position: fixed;
+    // position: fixed;
     display: flex;
     flex-direction: column;
-    left: 0;
-    top: 0;
+    // left: 0;
+    // top: 0;
+    box-sizing: border-box;
     height: 100vh;
     padding: .5rem;
     padding-top: 3rem;
     background-color: $dark;
     width: 12vw;
+    min-width: 200px;
 
     .admin-nav-item {
         @include px($padding: 1.5rem);
@@ -18,8 +20,10 @@
         @include round-border($radius: 3px);
         display: flex;
         align-items: center;
-        color: $light;
+        margin-bottom: 10px;
+        
         text-decoration: none;
+        color: $light;
 
         img{
             margin-right: .5rem;
@@ -29,24 +33,19 @@
     .admin-nav-item:hover {
         background-color: $dark-gray;
     }
-
-    img{
-        margin-right: .5rem;
-        width: 1.5rem;
-    }
 }
 
-.admin-nav-blocker{
-    position: sticky;
-    float: left;
-    display: flex;
-    flex-direction: column;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    padding: .5rem;
-    padding-top: 3rem;
-    width: 12vw;
-    z-index: -1;
-}
+// .admin-nav-blocker{
+//     position: sticky;
+//     float: left;
+//     display: flex;
+//     flex-direction: column;
+//     left: 0;
+//     top: 0;
+//     height: 100vh;
+//     padding: .5rem;
+//     padding-top: 3rem;
+//     width: 12vw;
+//     z-index: -1;
+// }
 

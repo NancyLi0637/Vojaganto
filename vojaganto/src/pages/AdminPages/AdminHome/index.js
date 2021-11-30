@@ -14,8 +14,9 @@ class AdminHome extends React.Component {
 
         return (
             <div className="page admin-home-page">
+                <AdminNav />
+                
                 <div className="admin-home-main">
-                    <AdminNav />
                     <h1>Welcome, {`${currUser.username}`}</h1>
                 </div>
             </div>

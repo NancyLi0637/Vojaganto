@@ -19,23 +19,25 @@
     .journey-posting-date {
       @include my();
       // font-weight: bold;
+      font-weight: normal;
     }
 
     .journey-posting-title {
-      @include my($margin: .5rem);
+      @include my($margin: 0.5rem);
       @include py();
       text-decoration: none;
-      font-weight: 500;
       font-size: large;
+      font-family: $serif;
     }
 
     .journey-posting-body {
       @include my();
-      font-weight: normal;
+      // font-weight: lighter;
       display: -webkit-box;
       -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      color: $light-gray;
       // Refence: This feature of limiting the word to 3 lines is inspired by this post: https://stackoverflow.com/questions/20792639/how-to-display-only-the-first-few-lines-of-a-div-clamping
     }
   }
@@ -50,11 +52,10 @@
       width: 100%;
       // max-width: 400px;
       @include mx();
-      
+
       // float: left;
-      
+
       @include round-border();
     }
   }
-  
 }
