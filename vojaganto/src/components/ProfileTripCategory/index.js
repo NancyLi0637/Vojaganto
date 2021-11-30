@@ -7,19 +7,19 @@ import { Link } from "react-router-dom";
 
 class ProfileTripCategory extends React.Component {
   render() {
-    const tripType = this.props.tripType;
-    const postingList = this.props.postingList;
+    const { journey } = this.props
+
     return (
       <div className="trip-type-component">
         <h3 className="trip-type">
           <Link
             className="trip-journey-link"
-            to={"/journey/" + postingList._id.toString()}
+            to={"/journey/" + journey._id.toString()}
           >
-            {tripType}
+            {journey.title}
           </Link>
         </h3>
-        <JourneyList postingList={postingList.journeyPosting} />
+        <JourneyList postingList={journey.journeyPostings || []} />
       </div>
     );
   }

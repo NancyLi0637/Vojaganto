@@ -4,7 +4,7 @@ import ProfileTripCategory from "components/ProfileTripCategory";
 import ProfileEditorPrompt from "components/ProfileEditorModal";
 import "./profile.scss";
 
-import { setProfileInfo } from "actions/Profile"
+import { setProfileInfo, setProfileJourneys } from "actions/Profile"
 
 class Profile extends React.Component {
   constructor(props) {
@@ -12,11 +12,13 @@ class Profile extends React.Component {
     this.state = {
       editProfile: false,
       profileInfo: {},
+      journeys: {}
     };
   }
 
   componentDidMount() {
     setProfileInfo(this, this.props.profileId)
+    setProfileJourneys(this, this.props.profileId)
   }
 
   toggleEditProfile = () => {
@@ -26,10 +28,6 @@ class Profile extends React.Component {
   };
 
   render() {
-    const tripType = this.props.tripType;
-    const postingList = this.props.postingList;
-    // const setCurrUser = this.props.setCurrUser;
-
     const { currUser } = this.props;
 
     return (
@@ -56,13 +54,13 @@ class Profile extends React.Component {
           className="profile-information"
           profileInfo={this.state.profileInfo}
         />
+
         {
-          tripType.map((tripType) => {
+          Object.keys(this.state.journeys).map((journey) => {
             return (
               <ProfileTripCategory
-                key={tripType}
-                tripType={tripType}
-                postingList={postingList[tripType]}
+                key={journey}
+                journey={this.state.journeys[journey]}
               />
             );
           })

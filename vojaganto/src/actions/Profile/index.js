@@ -1,6 +1,11 @@
 import * as api from "api/profile"
-import { getUserJourneys } from "api/posting"
+import { getUserPostings } from "api/posting"
 
+/**
+ * Set component state.profileInfo to profile owner's info.
+ * @param {*} component 
+ * @param {*} uid 
+ */
 export async function setProfileInfo(component, uid) {
     try {
         console.log(`Getting Profile for user ${uid}`)
@@ -13,6 +18,12 @@ export async function setProfileInfo(component, uid) {
     }
 }
 
+/**
+ * Submit profile edit.
+ * @param {*} component 
+ * @param {*} uid 
+ * @param {*} body 
+ */
 export async function updateProfileInfo(component, uid, body) {
     if (!("_id" in body)) {
         body._id = uid
@@ -24,7 +35,23 @@ export async function updateProfileInfo(component, uid, body) {
         console.log("Updated profile", newProfile)
         alert("Updated profile!")
         window.location.reload(false);
-    } catch(err) {
+    } catch (err) {
+        console.error(err)
+        alert(String(err))
+    }
+}
+
+/**
+ * Set component state.journey to profile owner's journeys.
+ * @param {*} component 
+ * @param {*} uid 
+ */
+export async function setProfileJourneys(component, uid) {
+    try {
+        const journeys = await getUserPostings(uid)
+        console.log("Getting user's journeys", journeys)
+        component.setState({ journeys })
+    } catch (err) {
         console.error(err)
         alert(String(err))
     }

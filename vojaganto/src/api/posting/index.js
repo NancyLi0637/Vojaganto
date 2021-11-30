@@ -29,6 +29,62 @@ const mockPosting = {
     images: [img1, img2]
 }
 
+const postingList = {
+    "Travel to Canada": {
+        _id: 0,
+        title: "Travel to Canada",
+        journeyPostings: [
+            {
+                _id: 100,
+                date: (new Date()).toLocaleDateString("en-CA"),
+                title: "Title",
+                body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
+                image: [pic1]
+            },
+            {
+                _id: 101,
+                date: (new Date()).toLocaleDateString("en-CA"),
+                title: "Hello",
+                body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
+                image: [pic2],
+            },
+            {
+                _id: 102,
+                date: (new Date()).toLocaleDateString("en-CA"),
+                title: "Demo",
+                body: "Travelling and happy",
+                image: [pic3],
+            },
+        ],
+    },
+    "Travel to North": {
+        _id: 1,
+        title: "Travel to North",
+        journeyPostings: [
+            {
+                _id: 103,
+                date: (new Date()).toLocaleDateString("en-CA"),
+                title: "Title",
+                body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
+                image: [pic5],
+            },
+        ],
+    },
+    Traveling: {
+        _id: 2,
+        title: "Traveling",
+        journeyPostings: [
+            {
+                _id: 105,
+                date: (new Date()).toLocaleDateString("en-CA"),
+                title: "Title",
+                body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
+                image: [pic6],
+            },
+        ],
+    },
+};
+
 
 const postingCardColumns = [
     {
@@ -36,13 +92,13 @@ const postingCardColumns = [
             {
                 _id: 1,
                 title: "Lorem ipsum",
-                date: new Date().toUTCString().substring(0, 17),
+                date: (new Date()).toLocaleDateString("en-CA"),
                 images: [pic1],
             },
             {
                 _id: 2,
                 title: "Lorem ipsum",
-                date: new Date().toUTCString().substring(0, 17),
+                date: (new Date()).toLocaleDateString("en-CA"),
                 images: [pic4],
             },
         ],
@@ -52,19 +108,19 @@ const postingCardColumns = [
             {
                 _id: 3,
                 title: "Lorem ipsum",
-                date: new Date().toUTCString().substring(0, 17),
+                date: (new Date()).toLocaleDateString("en-CA"),
                 images: [pic3],
             },
             {
                 _id: 4,
                 title: "Lorem ipsum",
-                date: new Date().toUTCString().substring(0, 17),
+                date: (new Date()).toLocaleDateString("en-CA"),
                 images: [pic6],
             },
             {
                 _id: 5,
                 title: "Lorem ipsum",
-                date: new Date().toUTCString().substring(0, 17),
+                date: (new Date()).toLocaleDateString("en-CA"),
                 images: [pic8],
             }
         ],
@@ -74,19 +130,23 @@ const postingCardColumns = [
             {
                 _id: 6,
                 title: "Lorem ipsum",
-                date: new Date().toUTCString().substring(0, 17),
+                date: (new Date()).toLocaleDateString("en-CA"),
                 images: [pic5],
             },
             {
                 _id: 7,
                 title: "Lorem ipsum",
-                date: new Date().toUTCString().substring(0, 17),
+                date: (new Date()).toLocaleDateString("en-CA"),
                 images: [pic2],
             },
         ],
     },
 ];
 
+
+/**
+ * Get postings for the home page
+ */
 async function getHomePostings(params) {
     try {
         // const response = await http.get(`/api/posting`, params)
@@ -97,6 +157,12 @@ async function getHomePostings(params) {
     }
 }
 
+
+/**
+ * Get the data of a posting, including author and journey.
+ * @param {*} pid 
+ * @returns 
+ */
 async function getPosting(pid) {
     try {
         // const response = await http.get(`/api/posting/${pid}`)
@@ -107,16 +173,28 @@ async function getPosting(pid) {
     }
 }
 
+
+/**
+ * Create a posting.
+ * @param {*} data 
+ * @returns 
+ */
 async function createPosting(data) {
     try {
         // const response = await http.post('/api/posting', data)
-        const response = {...data, _id: 66}
+        const response = { ...data, _id: 66 }
         return response
     } catch (err) {
         throw err
     }
 }
 
+/**
+ * Edit a posting.
+ * @param {*} pid 
+ * @param {*} data 
+ * @returns 
+ */
 async function updatePosting(pid, data) {
     try {
         // const response = await http.put(`/api/posting/${pid}`, data)
@@ -128,6 +206,11 @@ async function updatePosting(pid, data) {
     }
 }
 
+/**
+ * Delete a posting. If the journey is empty, delete the journey.
+ * @param {*} pid 
+ * @returns 
+ */
 async function deletePosting(pid) {
     try {
         // const response = await http.del(`/api/posting/${pid}`)
@@ -138,6 +221,12 @@ async function deletePosting(pid) {
     }
 }
 
+/**
+ * Get a list of journeys of the user, with meta-information 
+ * about the trips of each journey, for posting-edit.
+ * @param {*} uid 
+ * @returns 
+ */
 async function getUserJourneys(uid) {
     try {
         // const response = await http.get(`/api/user/${uid}/journey`)
@@ -159,18 +248,31 @@ async function getUserJourneys(uid) {
     }
 }
 
+
+/**
+ * Get a journey and its postings
+ * @param {*} jid 
+ * @returns 
+ */
 async function getJourney(jid) {
     try {
-        const response = await http.get(`/api/journey/${jid}`)
+        // const response = await http.get(`/api/journey/${jid}`)
+        const response = postingList["Travel to Canada"]
         return response
     } catch (err) {
         throw err
     }
 }
 
+/**
+ * Return user’s trips and journeys, for the profile page
+ * @param {*} uid 
+ * @returns 
+ */
 async function getUserPostings(uid) {
     try {
-        const response = await http.get(`/api/user/${uid}/posting`)
+        // const response = await http.get(`/api/user/${uid}/posting`)
+        const response = postingList
         return response
     } catch (err) {
         throw err

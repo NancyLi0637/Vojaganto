@@ -3,15 +3,25 @@ import React from "react";
 import JourneyList from "components/JourneyList";
 import "./journey.scss";
 
+import { setJourney } from "actions/Journey"
+
 class Journey extends React.Component {
+  state = {
+    _id: this.props.journeyId,
+    journeyPostings: [],
+    title: "",
+  }
+
+  componentDidMount(){
+    setJourney(this, this.state._id)
+  }
+
   render() {
-    const tripType = this.props.tripType;
-    const postingList = this.props.postingList;
     return (
       <div className="journey-page">
-        <h1 className="trip-type">{tripType}</h1>
+        <h1 className="trip-type">{this.state.title}</h1>
         <div className="journey-list">
-          <JourneyList postingList={postingList} />
+          <JourneyList postingList={this.state.journeyPostings} />
         </div>
       </div>
     );
