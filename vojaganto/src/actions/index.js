@@ -20,7 +20,7 @@ export function reloadPage() {
     window.location.reload(false);
 }
 
-export function redirectToPage(route = "/") {
+export function redirectToPage(route = "/", newTab) {
     // document.location.href = route
-    window.open(route, '_blank')
+    window.open(route, newTab ? '_blank': undefined)
 }

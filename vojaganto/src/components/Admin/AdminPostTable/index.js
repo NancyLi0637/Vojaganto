@@ -6,7 +6,7 @@ import { redirectToPage } from 'actions';
 class AdminPostTable extends React.Component {
     checkDetailContent(posting) {
         // TODO: Implement
-        redirectToPage(`/trip/${String(posting._id)}`)
+        redirectToPage(`/trip/${String(posting._id)}`, true)
     }
 
     render() {

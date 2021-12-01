@@ -54,9 +54,6 @@ class ProfileEditorPrompt extends React.Component {
     } else {
       return (
         <div className="edit-profile-modal">
-          <div className="edit-profile-close-container">
-            <div className="edit-profile-close-shape" />
-          </div>
           <h2 className="edit-profile-instruction">Edit Profile</h2>
 
           <div className="edit-profile-content">
@@ -86,7 +83,7 @@ class ProfileEditorPrompt extends React.Component {
                 <input
                   type="text"
                   name="name"
-                  className="edit-nick-name edit-input"
+                  className="edit-nickname edit-input"
                   placeholder="nick-name-form"
                   onChange={e => handleInputChange(this, e)}
                   value={this.state.name}

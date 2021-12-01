@@ -1,6 +1,6 @@
 @import "../../../styles/global_vars";
 
-.edit-profile-modal {
+.create-journey-modal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -21,65 +21,35 @@
   background-color: $dark;
   color: $light;
 
-  .edit-profile-item {
+  .create-journey-item {
     margin-bottom: 1rem;
-    display: flex;
-    justify-content: space-between;
   }
 
-  .edit-profile-title {
+  .create-journey-title {
+    margin-bottom: 2rem;
     margin-top: 0;
-    margin-right: 1rem;
+    margin-right: 2rem;
   }
 
-  .edit-profile-input {
-    width: 25rem;
+  .create-journey-form {
+    width: 20rem;
+    @include flex-display($dir: column);
 
     align-items: center;
     margin-bottom: 1rem;
 
     input {
-      
       margin-left: auto;
       border: 0;
       padding: 0.5rem;
       @include round-border($radius: 5px);
-    }
-    
-    .edit-nickname{
-      width: 15rem;
-    }
-    .edit-user-description {
-      width: 15rem;
-      height: 3rem;
-      padding: 0.5rem;
-      @include round-border($radius: 5px);
-    }
-  }
-
-  #edit-avatar-container {
-    @include flex-display;
-    .edit-avatar-presentation {
-      height: 160px;
-      width: 160px;
-      min-height: 160px;
-      min-width: 160px;
-      @include my($margin: 1rem);
-      
-
-      .profile-avatar {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        @include round-border($radius: 50%);
-      }
     }
   }
 
   @include round-border($radius: 5px);
   @include box-shadow;
 
-  .edit-profile-btn {
+  button {
     @include button($color: $light, $bg: $dark-gray);
     @include mx($margin: 0.5rem);
     margin-top: 1rem;

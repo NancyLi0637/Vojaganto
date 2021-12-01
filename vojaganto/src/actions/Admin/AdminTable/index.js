@@ -3,13 +3,6 @@ import * as api from "api/admin"
 
 export async function deletePosting(component, posting) {
   try {
-    // const filteredPosts = component.state.posts.filter(p => {
-    //   return p.id !== post.id;
-    // });
-
-    // component.setState({
-    //   posts: filteredPosts
-    // });
     const res = await api.deletePosting(posting._id)
     if (res) {
       alert(`Deleted posting ${posting._id}`)

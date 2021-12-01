@@ -2,7 +2,7 @@ import * as http from "utils/http"
 
 import avatar from "assets/images/66385278_p8.jpg";
 const profileInfo = {
-    _id: 0,
+    _id: "userid",
     avatar: avatar,
     username: "user",
     name: "User Doe",

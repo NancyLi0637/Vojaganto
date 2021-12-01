@@ -2,6 +2,8 @@ import React from "react";
 import ProfileInfo from "components/Profile/ProfileInfo";
 import ProfileJourneys from "components/Profile/ProfileJourneys";
 import ProfileEditorModal from "components/Profile/ProfileEditorModal";
+import CreateJourneyModal from "components/Journey/CreateJourneyModal";
+
 import "./profile.scss";
 
 import { setProfileInfo, setProfileJourneys } from "actions/Profile"
@@ -11,6 +13,7 @@ class Profile extends React.Component {
     super(props);
     this.state = {
       editProfile: false,
+      createJourney: false,
       profileInfo: {},
       journeys: {}
     };
@@ -24,6 +27,12 @@ class Profile extends React.Component {
   toggleEditProfile = () => {
     this.setState({
       editProfile: !this.state.editProfile,
+    });
+  };
+
+  toggleCreateJourney = () => {
+    this.setState({
+      createJourney: !this.state.createJourney,
     });
   };
 
@@ -55,6 +64,23 @@ class Profile extends React.Component {
           profileInfo={this.state.profileInfo}
         />
 
+        {
+          currUser && String(currUser._id) === String(this.props.profileId) ?
+            <div className="new-journey-container">
+              <button className="new-journey-btn" onClick={this.toggleCreateJourney}>
+                New Journey
+              </button>
+
+              <CreateJourneyModal
+                className="new-journey-prompt"
+                display={this.state.createJourney}
+                toggleModal={this.toggleCreateJourney}
+                currUser={currUser}
+              />
+            </div>
+            : <></>
+        }
+        
         {
           Object.keys(this.state.journeys).map((journey) => {
             return (

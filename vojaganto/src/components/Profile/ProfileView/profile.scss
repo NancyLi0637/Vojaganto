@@ -6,10 +6,18 @@
   position: relative;
 
   .edit-profile-container {
-    position: absolute;
-    right: 0px;
+    // position: absolute;
+    // right: 0px;
+    float: right;
 
     .edit-profile {
+      @include button($shadow: 0);
+    }
+  }
+
+  .new-journey-container {
+    float: right;
+    .new-journey-btn {
       @include button($shadow: 0);
     }
   }

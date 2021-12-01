@@ -10,15 +10,18 @@ import pic5 from "assets/images/home/pic5.jpg";
 import pic6 from "assets/images/home/pic6.jpg";
 import pic8 from "assets/images/home/pic8.jpg";
 
+const author = {
+    _id: "userid",
+    username: "user",
+    name: "User Doe",
+    description: "Lorem ipsum dtque quo itaque? qsum sit.",
+    avatar: avatar
+}
+
 const mockPosting = {
     _id: 5,
     title: "Trip to Toronto",
-    author: {
-        _id: 0,
-        username: "user",
-        name: "User Doe",
-        avatar: avatar
-    },
+    author,
     journey: {
         _id: 1,
         title: "Journey to Canada"
@@ -31,10 +34,12 @@ const mockPosting = {
 
 const postingList = {
     "Travel to Canada": {
-        _id: 0,
+        _id: "2d12d12das",
         title: "Travel to Canada",
+        author,
         journeyPostings: [
             {
+                author,
                 _id: 100,
                 date: (new Date()).toLocaleDateString("en-CA"),
                 title: "Title",
@@ -42,6 +47,7 @@ const postingList = {
                 image: [pic1]
             },
             {
+                author,
                 _id: 101,
                 date: (new Date()).toLocaleDateString("en-CA"),
                 title: "Hello",
@@ -49,6 +55,7 @@ const postingList = {
                 image: [pic2],
             },
             {
+                author,
                 _id: 102,
                 date: (new Date()).toLocaleDateString("en-CA"),
                 title: "Demo",
@@ -60,8 +67,10 @@ const postingList = {
     "Travel to North": {
         _id: 1,
         title: "Travel to North",
+        author,
         journeyPostings: [
             {
+                author,
                 _id: 103,
                 date: (new Date()).toLocaleDateString("en-CA"),
                 title: "Title",
@@ -73,8 +82,10 @@ const postingList = {
     Traveling: {
         _id: 2,
         title: "Traveling",
+        author,
         journeyPostings: [
             {
+                author,
                 _id: 105,
                 date: (new Date()).toLocaleDateString("en-CA"),
                 title: "Title",
@@ -258,6 +269,52 @@ async function getJourney(jid) {
     try {
         // const response = await http.get(`/api/journey/${jid}`)
         const response = postingList["Travel to Canada"]
+        return response
+    } catch (err) {
+        throw err
+    }
+}
+
+
+/**
+ * Create a journey
+ * @param {*} body 
+ * @returns 
+ */
+export async function postJourney(body) {
+    try {
+        // const response = await http.post(`/api/user/${String(body.author._id)}/journey`)
+        const response = { ...postingList["Travel to Canada"], title: body.title, author: body.author }
+        return response
+    } catch (err) {
+        throw err
+    }
+}
+
+/**
+ * Update a journey
+ * @param {*} body 
+ * @returns 
+ */
+ export async function updateJourney(jid, body) {
+    try {
+        // const response = await http.put(`/api/journey/${String(jid)}`, body)
+        const response = { ...postingList["Travel to Canada"], title: body.title, author: body.author }
+        return response
+    } catch (err) {
+        throw err
+    }
+}
+
+/**
+ * Delete a journey
+ * @param {*} body 
+ * @returns 
+ */
+ export async function deleteJourney(jid) {
+    try {
+        // const response = await http.del(`/api/journey/${String(jid)}`)
+        const response = { ...postingList["Travel to Canada"]}
         return response
     } catch (err) {
         throw err

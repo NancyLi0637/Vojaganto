@@ -3,7 +3,7 @@ import * as http from "utils/http"
 const user = {
     username: "rainyuxuan",
     name: "Rain-Yuxuan",
-    _id: "soudh9wqhd12hd12-0e1",
+    _id: "userid",
     role: "client",
     status: "active"
 }
@@ -11,7 +11,7 @@ const user = {
 const admin = {
     username: "admin",
     name: "Admin-Yuxuan",
-    _id: "so213123d12hd12-0e1",
+    _id: "userid",
     role: "admin",
     status: "active"
 }

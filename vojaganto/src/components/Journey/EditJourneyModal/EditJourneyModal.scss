@@ -1,0 +1,61 @@
+@import "../../../styles/global_vars";
+
+.update-journey-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  // width: 30%;
+  // height: 30%;
+  @include px($padding: 1rem);
+  @include py($padding: 2rem);
+
+  @include flex-display;
+
+  z-index: 1000;
+
+  background-color: $dark;
+  color: $light;
+
+  .update-journey-item {
+    margin-bottom: 1rem;
+  }
+
+  .update-journey-title {
+    margin-bottom: 2rem;
+    margin-top: 0;
+    margin-right: 2rem;
+  }
+
+  .update-journey-form {
+    width: 35rem;
+    @include flex-display($dir: column);
+
+    align-items: center;
+    margin-bottom: 1rem;
+
+    input {
+      margin-left: auto;
+      border: 0;
+      padding: 0.5rem;
+      @include round-border($radius: 5px);
+    }
+  }
+
+  @include round-border($radius: 5px);
+  @include box-shadow;
+
+  button {
+    @include button($color: $light, $bg: $dark-gray);
+    @include mx($margin: 0.5rem);
+    margin-top: 1rem;
+    font-size: 110%;
+
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .modal-buttons {
+    @include flex-display($dir: row);
+  }
+}

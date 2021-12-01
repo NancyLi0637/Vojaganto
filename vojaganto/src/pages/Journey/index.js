@@ -14,6 +14,7 @@ class JourneyPage extends React.Component {
         <div className="main-view journey-main-view">
           <JourneyView
             journeyId={this.props.match.params.jid}
+            currUser={currUser}
           />
           <Navbar currUser={currUser} />
         </div>

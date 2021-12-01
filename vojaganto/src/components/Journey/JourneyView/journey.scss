@@ -1,8 +1,14 @@
 @import "../../../styles/global_vars";
 
 .journey-page {
+  .journey-meta {
+    margin: 0;
+    @include flex-display($dir: row, $jc: "space-between");
+  }
+
   .trip-type {
-    @include mx;
+    // @include mx;
+    margin-right: auto;
     @include my($margin: 3rem);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -13,5 +19,10 @@
 
   .journey-list {
     overflow-y: auto;
+  }
+
+
+  .edit-journey-btn {
+    @include button($shadow: 0);
   }
 }
