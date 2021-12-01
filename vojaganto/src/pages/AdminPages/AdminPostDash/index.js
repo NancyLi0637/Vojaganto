@@ -6,7 +6,7 @@ import AdminPostTable from 'components/Admin/AdminPostTable'
 import './style.scss'
 
 import { handleInputChange } from "actions"
-import { deletePost, getPostings } from 'actions/Admin/AdminTable/index';
+import { deletePosting, getPostings } from 'actions/Admin/AdminTable/index';
 
 class AdminPostDash extends React.Component {
     state = {
@@ -32,7 +32,7 @@ class AdminPostDash extends React.Component {
                         <input type="text" className="table-search-input" name="search" placeholder="Search by ID, Title, Content, Author" onChange={(e) => handleInputChange(this, e)} />
                         <button className="table-search-btn" onClick={() => getPostings(this, { search: this.state.search })}>Search</button>
                     </div>
-                    <AdminPostTable postings={this.state.postings} deletePost={(post) => deletePost(this, post)} />
+                    <AdminPostTable postings={this.state.postings} deletePosting={(post) => deletePosting(this, post)} />
                 </div>
             </div>
         )

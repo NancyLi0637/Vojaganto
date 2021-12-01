@@ -1,5 +1,5 @@
 import React from 'react';
-import PostingCard from 'components/PostingCard';
+import PostingCard from 'components/Home/PostingCard';
 
 class PostingCardColumn extends React.Component{
     constructor(props){

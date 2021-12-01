@@ -1,5 +1,5 @@
 import React from 'react';
-import HomeView from "components/HomeView";
+import HomeView from "components/Home/HomeView";
 import Navbar from "components/Navbar";
 import Map from "components/MapPlugin/Map";
 

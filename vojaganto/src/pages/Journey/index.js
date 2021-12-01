@@ -3,7 +3,7 @@ import React from "react";
 import Navbar from "components/Navbar";
 import Map from "components/MapPlugin/Map";
 
-import Journey from "components/Journey";
+import JourneyView from "components/Journey/JourneyView";
 import "./index.scss";
 
 class JourneyPage extends React.Component {
@@ -12,7 +12,7 @@ class JourneyPage extends React.Component {
     return (
       <div className="page journey">
         <div className="main-view journey-main-view">
-          <Journey
+          <JourneyView
             journeyId={this.props.match.params.jid}
           />
           <Navbar currUser={currUser} />

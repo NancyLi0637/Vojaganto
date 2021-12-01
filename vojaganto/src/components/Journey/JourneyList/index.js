@@ -1,6 +1,6 @@
 import React from "react";
 
-import JourneyListPosting from "components/JourneyListPosting";
+import JourneyListPosting from "components/Journey/JourneyListPosting";
 import { Link } from "react-router-dom";
 import "./JourneyList.scss";
 

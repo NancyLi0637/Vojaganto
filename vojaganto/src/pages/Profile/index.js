@@ -3,7 +3,7 @@ import React from "react";
 import Navbar from "components/Navbar";
 import Map from "components/MapPlugin/Map";
 
-import Profile from "components/Profile";
+import ProfileView from "components/Profile/ProfileView";
 
 import "./index.scss";
 
@@ -21,7 +21,7 @@ class ProfilePage extends React.Component {
     return (
       <div className="page profile-page">
         <div className="main-view profile-page-main">
-          <Profile
+          <ProfileView
             currUser={currUser}
             setCurrUser={setCurrUser}
             profileId={this.props.match.params.uid}

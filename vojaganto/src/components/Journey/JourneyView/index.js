@@ -1,6 +1,6 @@
 import React from "react";
 
-import JourneyList from "components/JourneyList";
+import JourneyList from "components/Journey/JourneyList";
 import "./journey.scss";
 
 import { setJourney } from "actions/Journey"

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PostingCardColumn from "components/PostingCardColumn";
+import PostingCardColumn from "components/Home/PostingCardColumn";
 
 import UserLoginWindow from 'components/LoginRegister/UserLoginWindow';
 

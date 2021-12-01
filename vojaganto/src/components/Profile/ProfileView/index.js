@@ -1,7 +1,7 @@
 import React from "react";
-import ProfileInfo from "components/ProfileInfo";
-import ProfileTripCategory from "components/ProfileTripCategory";
-import ProfileEditorPrompt from "components/ProfileEditorModal";
+import ProfileInfo from "components/Profile/ProfileInfo";
+import ProfileJourneys from "components/Profile/ProfileJourneys";
+import ProfileEditorModal from "components/Profile/ProfileEditorModal";
 import "./profile.scss";
 
 import { setProfileInfo, setProfileJourneys } from "actions/Profile"
@@ -40,7 +40,7 @@ class Profile extends React.Component {
                 Edit Profile
               </button>
 
-              <ProfileEditorPrompt
+              <ProfileEditorModal
                 className="edit-profile-prompt"
                 display={this.state.editProfile}
                 toggleEditProfile={this.toggleEditProfile}
@@ -58,7 +58,7 @@ class Profile extends React.Component {
         {
           Object.keys(this.state.journeys).map((journey) => {
             return (
-              <ProfileTripCategory
+              <ProfileJourneys
                 key={journey}
                 journey={this.state.journeys[journey]}
               />

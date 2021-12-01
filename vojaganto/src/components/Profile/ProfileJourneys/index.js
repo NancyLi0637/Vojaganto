@@ -2,7 +2,7 @@ import React from "react";
 
 import "./profiletripcategory.scss";
 
-import JourneyList from "components/JourneyList";
+import JourneyList from "components/Journey/JourneyList";
 import { Link } from "react-router-dom";
 
 class ProfileTripCategory extends React.Component {

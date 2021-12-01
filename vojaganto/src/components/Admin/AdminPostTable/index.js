@@ -55,7 +55,7 @@ class AdminPostTable extends React.Component {
                                     {posting.publishTime}
                                 </td>
                                 <td className="actions">
-                                    <button onClick={() => this.props.deletePost(posting)}>
+                                    <button onClick={() => this.props.deletePosting(posting)}>
                                         Delete
                                     </button>
                                     <button onClick={() => this.checkDetailContent(posting)}>
