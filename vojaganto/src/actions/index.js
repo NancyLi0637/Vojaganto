@@ -14,3 +14,13 @@ export function handleInputChange(component, event) {
 
     // console.log("handleInputChange", {[name]: value})
 }
+
+
+export function reloadPage() {
+    window.location.reload(false);
+}
+
+export function redirectToPage(route = "/") {
+    // document.location.href = route
+    window.open(route, '_blank')
+}

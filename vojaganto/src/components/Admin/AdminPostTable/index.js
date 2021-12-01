@@ -1,10 +1,12 @@
 import React from 'react';
 import "./style.scss";
 
+import { redirectToPage } from 'actions';
+
 class AdminPostTable extends React.Component {
     checkDetailContent(posting) {
         // TODO: Implement
-        console.log(posting)
+        redirectToPage(`/trip/${String(posting._id)}`)
     }
 
     render() {

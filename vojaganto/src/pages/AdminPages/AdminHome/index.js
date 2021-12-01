@@ -8,7 +8,7 @@ class AdminHome extends React.Component {
     render() {
         const { currUser } = this.props
 
-        if (!currUser || currUser.role !== 1) {
+        if (!currUser || currUser.role !== "admin") {
             return <Redirect to="/admin/login" />
         }
 

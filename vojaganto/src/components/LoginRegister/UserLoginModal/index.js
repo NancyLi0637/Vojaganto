@@ -1,16 +1,7 @@
 import React from 'react';
 import UserRegisterModal from '../UserRegisterModal';
-import { verifyLogin } from 'actions/UserAuthen';
+import { loginUser } from 'actions/Auth';
 import "./style.scss";
-
-const mockUser = {
-    _id: 0,
-    username: 'user',
-    password: 'user',
-    name: 'User Doe',
-    role: 0
-}
-
 
 class UserLogin extends React.Component {
     constructor(props) {
@@ -37,18 +28,19 @@ class UserLogin extends React.Component {
         this.setState({ warningMessage })
     }
 
-    submitLogin = () => {
+    submitLogin = async () => {
         const { setCurrUser, handleCloseModal } = this.props
 
         const username = this.state.usernameInput
         const password = this.state.passwordInput
-
-        if (verifyLogin(username, password)) {
+        
+        const user = await loginUser(username, password)
+        if (user) {
             // Correct credential, login user
-            setCurrUser(mockUser)
+            setCurrUser(user)
             handleCloseModal()
         } else {
-            this.setWarningMessage("Invalid credential!")
+            this.setWarningMessage("Login Failed")
         }
     }
 

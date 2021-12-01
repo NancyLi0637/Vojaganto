@@ -1,5 +1,6 @@
 import * as api from "api/profile"
 import { getUserPostings } from "api/posting"
+import { reloadPage } from "actions"
 
 /**
  * Set component state.profileInfo to profile owner's info.
@@ -34,7 +35,7 @@ export async function updateProfileInfo(component, uid, body) {
         const newProfile = await api.updateProfile(uid, body)
         console.log("Updated profile", newProfile)
         alert("Updated profile!")
-        window.location.reload(false);
+        reloadPage()
     } catch (err) {
         console.error(err)
         alert(String(err))

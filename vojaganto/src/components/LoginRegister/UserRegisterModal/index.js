@@ -1,8 +1,8 @@
 import React from 'react';
-import { verifyRegister } from "actions/UserAuthen";
 import "./style.scss";
 
 import { handleInputChange } from "actions"
+import { registerUser } from 'actions/Auth';
 
 class UserRegisterModal extends React.Component {
     constructor(props) {
@@ -19,7 +19,7 @@ class UserRegisterModal extends React.Component {
         this.setState({ warningMessage })
     }
 
-    submitRegister = () => {
+    submitRegister = async () => {
         const { handleCloseModal, handleCloseRegisterModal } = this.props
 
         const username = this.state.usernameInput
@@ -31,17 +31,20 @@ class UserRegisterModal extends React.Component {
             return
         }
 
-        if (!verifyRegister(username)) {
-            this.setWarningMessage("User already exists!")
-        }
-        else if (username && password) {
-            // Correct credential, register user
-            console.log("Registered!")
-            handleCloseModal()
-            handleCloseRegisterModal()
-        }
-        else {
+        if (username.length < 1 || password.length < 1) {
             this.setWarningMessage("Fields cannot be empty!")
+            return
+        }
+
+        const newUser = await registerUser(username, password)
+
+        if (!newUser) {
+            this.setWarningMessage("User already exists!")
+        } else {
+            // Correct credential, register user
+            // handleCloseModal()
+            alert(`Successfully registered ${newUser.username}! You can login now.`)
+            handleCloseRegisterModal()
         }
     }
 

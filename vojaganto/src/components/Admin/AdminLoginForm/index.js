@@ -3,14 +3,8 @@ import { Redirect } from "react-router-dom";
 import "./style.scss";
 
 import { handleInputChange } from 'actions';
+import { loginAdmin } from 'actions/Auth';
 
-const mockAdmin = {
-    _id: 1,
-    username: 'admin',
-    password: "admin",
-    name: 'Admin doe',
-    role: 1
-}
 
 class AdminLoginForm extends React.Component {
 
@@ -25,15 +19,24 @@ class AdminLoginForm extends React.Component {
         }
     }
 
-    login = () => {
-        const { setCurrUser, history } = this.props
+    login = async () => {
+        const { setCurrUser } = this.props
         console.log("logging in...")
 
-        if (this.state.username_input === mockAdmin.username && this.state.password_input === mockAdmin.password) {
+        const username = this.state.username_input
+        const password = this.state.password_input
+
+        if (username.length < 1 || password.length < 1) {
+            alert("Please enter username and password")
+            return
+        }
+
+        const admin = await loginAdmin(username, password)
+        if (admin) {
             console.log("Login successfully")
-            setCurrUser(mockAdmin)
+            setCurrUser(admin)
             // Navigate to Admin home
-            this.setState({redirect: "/admin/home"})
+            this.setState({ redirect: "/admin/home" })
         } else {
             this.setState({
                 warning: "Invalid credential!"

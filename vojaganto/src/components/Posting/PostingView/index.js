@@ -15,7 +15,7 @@ class PostingView extends React.Component {
 
                     {
                         // Display Edit Button when the logged-in user is the author of the article.
-                        (currUser && currUser._id == posting.author._id) ?
+                        (currUser && String(currUser._id) == String(posting.author._id)) ?
                             <div className="edit-container">
                                 <Link to={`/edit/${posting._id}`}>
                                     <button className="edit-btn">Edit</button>

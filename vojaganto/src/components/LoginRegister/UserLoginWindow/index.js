@@ -22,7 +22,8 @@ class UserLoginWindow extends React.Component {
 
     render() {
         const { currUser, setCurrUser } = this.props
-        if (currUser !== undefined) {
+        if (currUser) {
+            // If already login as a user
             return (
                 <div className="login">
                     <button type="button" className="login-button" onClick={() => setCurrUser(undefined)}>LOGOUT</button>
@@ -30,6 +31,7 @@ class UserLoginWindow extends React.Component {
             )
         }
         
+        // if not logged in
         return (
             <div className="login">
                 <button className='login-button' onClick={this.handleOpenModal}>
