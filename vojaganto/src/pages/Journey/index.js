@@ -1,7 +1,7 @@
 import React from "react";
 
 import Navbar from "components/Navbar";
-import Map from "components/MapPlugin/Map";
+import Map from "components/MapPlugin/Mapp";
 
 import JourneyView from "components/Journey/JourneyView";
 import "./index.scss";

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from "react-router-dom";
 import Navbar from 'components/Navbar';
-import Map from 'components/MapPlugin/Map';
+import Map from 'components/MapPlugin/Mapp';
 import EditPostingView from 'components/Posting/EditPostingView';
 
 import * as action from 'actions/EditPosting';

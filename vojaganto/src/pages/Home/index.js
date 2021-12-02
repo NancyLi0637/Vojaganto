@@ -1,7 +1,9 @@
 import React from 'react';
 import HomeView from "components/Home/HomeView";
 import Navbar from "components/Navbar";
-import Map from "components/MapPlugin/Map";
+import Map from "components/MapPlugin/Mapp";
+import * as action from "actions/Posting"
+//import { setHomePostingColumns } from 'actions/Posting'
 
 import "./style.scss";
 
@@ -10,7 +12,13 @@ class HomePage extends React.Component {
         super(props);
         this.state = {
             postingCardColumns: [],
+            search: ""
         };
+    }
+
+    componentDidMount() {
+        // TODO: UpdatePostingCardColumns
+        action.setHomePostingColumns(this, this.state.search)
     }
 
     render() {
@@ -18,17 +26,31 @@ class HomePage extends React.Component {
         return (
             <div className="page home-page">
                 <div className="main-view home-main">
-                    <HomeView
-                        // postingCardColumns={this.state.postingCardColumns}
+                    {this.state.postingCardColumns ?
+                        <HomeView 
+                        postingCardColumns={this.state.postingCardColumns} 
+                        currUser={currUser} 
+                        setCurrUser={setCurrUser}/>
+                        : <div className="posting-placeholder">Loading Posting</div>
+                    }
+
+                    {/* <HomeView
                         currUser={currUser}
                         setCurrUser={setCurrUser}
-                    />
+                        //postingCardColumns={this.state.postingCardColumns}
+                        setPostingCardColumns={this.setPostingCardColumns}
+
+                    /> */}
 
                     <Navbar currUser={currUser} />
                 </div>
 
                 <div className="map-view home-map">
-                    <Map />
+                    {this.state.postingCardColumns ?
+                        <Map parent="Home" allPostings={this.state.postingCardColumns} 
+                        />
+                        : <div className="posting-placeholder">Loading Map</div>
+                    }
                 </div>
             </div>
         )

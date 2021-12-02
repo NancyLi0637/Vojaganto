@@ -6,7 +6,7 @@ import CreateJourneyModal from "components/Journey/CreateJourneyModal";
 
 import "./profile.scss";
 
-import { setProfileInfo, setProfileJourneys } from "actions/Profile"
+// import { setProfileInfo, setProfileJourneys } from "actions/Profile"
 
 class Profile extends React.Component {
   constructor(props) {
@@ -14,15 +14,15 @@ class Profile extends React.Component {
     this.state = {
       editProfile: false,
       createJourney: false,
-      profileInfo: {},
-      journeys: {}
+      // profileInfo: {},
+      // journeys: {}
     };
   }
 
-  componentDidMount() {
-    setProfileInfo(this, this.props.profileId)
-    setProfileJourneys(this, this.props.profileId)
-  }
+  // componentDidMount() {
+  //   setProfileInfo(this, this.props.profileId)
+  //   setProfileJourneys(this, this.props.profileId)
+  // }
 
   toggleEditProfile = () => {
     this.setState({
@@ -37,7 +37,7 @@ class Profile extends React.Component {
   };
 
   render() {
-    const { currUser } = this.props;
+    const { currUser, profileInfo, journeys } = this.props;
 
     return (
 
@@ -53,7 +53,7 @@ class Profile extends React.Component {
                 className="edit-profile-prompt"
                 display={this.state.editProfile}
                 toggleEditProfile={this.toggleEditProfile}
-                profileInfo={this.state.profileInfo}
+                profileInfo={profileInfo}
               />
             </div>
             : <></>
@@ -61,7 +61,7 @@ class Profile extends React.Component {
 
         <ProfileInfo
           className="profile-information"
-          profileInfo={this.state.profileInfo}
+          profileInfo={profileInfo}
         />
 
         {
@@ -82,11 +82,11 @@ class Profile extends React.Component {
         }
         
         {
-          Object.keys(this.state.journeys).map((journey) => {
+          Object.keys(journeys).map((journey) => {
             return (
               <ProfileJourneys
                 key={journey}
-                journey={this.state.journeys[journey]}
+                journey={journeys[journey]}
               />
             );
           })

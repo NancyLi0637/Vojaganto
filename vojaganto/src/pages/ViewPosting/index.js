@@ -2,7 +2,7 @@ import React from 'react';
 
 import Navbar from 'components/Navbar';
 import PostingView from 'components/Posting/PostingView';
-import Map from 'components/MapPlugin/Map';
+import Map from 'components/MapPlugin/Mapp';
 
 import * as action from "actions/EditPosting"
 
@@ -36,7 +36,10 @@ class ViewPostingPage extends React.Component {
                     <Navbar currUser={currUser} />
                 </div>
                 <div className="map-view view-posting-map">
-                    <Map />
+                    {this.state.posting ?
+                        <Map parent="ViewPosting" allPostings={this.state.posting} />
+                        : <div className="posting-placeholder">Loading Map</div>
+                    }
                 </div>
             </div>
         )
