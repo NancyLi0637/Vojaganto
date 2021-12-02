@@ -30,7 +30,7 @@ router.get("/:_id", authenticate, async (req, res) => {
     }
 })
 
-router.put("/", authenticate, async (req, res) => {
+router.put("/:_id", authenticate, async (req, res) => {
     try {
         let user = await userController.updateUser(req)
         res.status(200).send(user)
@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
     }
 })
 
-router.get("/session", authenticate, async (req, res) => {
+router.get("/session/resume", authenticate, async (req, res) => {
     let user = {}
     user.role = req.user.role
     user.username = req.user.username

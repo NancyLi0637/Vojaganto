@@ -21,11 +21,12 @@ class UserController {
             let filter = {}
             filter[key] = new RegExp(".*" + search + ".*", "i")
             let addOnUsers = await this.userService.getUsers(filter, {})
+            console.log(addOnUsers)
 
             for(let user of addOnUsers){
                 let isIn = false
                 for(let inUser of users){
-                    if (inUser.convertedId == user.convertedId){
+                    if (inUser.username === user.username){
                         isIn = true
                     }
                 }
