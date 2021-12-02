@@ -15,7 +15,12 @@ router.post("/login", async (req, res) => {
     }
 })
 
-router.get("/", authenticate, async (req, res) => {
+router.put("/logout", authenticate, async (req, res) => {
+    req.session.user = undefined
+    res.status(200).send()
+})
+
+router.get("/:_id", authenticate, async (req, res) => {
     try {
         let user = await userController.getUser(req)
         res.status(200).send(user)
@@ -43,6 +48,14 @@ router.post("/", async (req, res) => {
         logger.log(error)
         res.status(400).send(error)
     }
+})
+
+router.get("/session", authenticate, async (req, res) => {
+    let user = {}
+    user.role = req.user.role
+    user.username = req.user.username
+    user._id = req.user.convertedId
+    res.status(200).send(user)
 })
 
 module.exports = router

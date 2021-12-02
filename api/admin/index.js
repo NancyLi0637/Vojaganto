@@ -20,7 +20,7 @@ router.get("/user", authenticate, async (req, res) => {
     }
 })
 
-router.put("/user", authenticate, async (req, res) => {
+router.put("/user/:_id", authenticate, async (req, res) => {
     if (req.user.role !== "admin"){
         logger.log("Unauthorized")
         res.status(400).send("Unauthorized")

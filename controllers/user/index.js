@@ -7,39 +7,42 @@ class UserController {
     }
 
     async getUsers(req) {
-        const query = req.query
-        const filter = {}
-        const sort = {}
-        const availiableField = ["username", "name", "_id", "role", "sortField", "sortDirection"]
+        const search = req.query.search
 
-        for (let key of Object.keys(query)) {
-            if (availiableField.indexOf(key) < 0) {
-                throw `Forbidden: Unavailiable parameter [${key}]`
-            }
-
-            if (key === "sortField") {
-                sort[query.sortField] = query.sortDirection || 1
-            }
-
-            if (key === "sortDirection") {
-                continue
-            }
-
-            if (key === "_id"){
-                filter.convertedId = new RegExp(".*" + query[key] + ".*", "i")
-                continue
-            }
-
-            filter[key] = new RegExp(".*" + query[key] + ".*", "i")
+        if(!search){
+            throw "Unsatisfied: Missing field in request query"
         }
+        
+        const availiableField = ["username", "name", "convertedId"]
 
-        let users = await this.userService.getUsers(filter, sort)
+        let users = []
+
+        for (let key of availiableField) {
+            let filter = {}
+            filter[key] = new RegExp(".*" + search + ".*", "i")
+            let addOnUsers = await this.userService.getUsers(filter, {})
+
+            for(let user of addOnUsers){
+                let isIn = false
+                for(let inUser of users){
+                    if (inUser.convertedId == user.convertedId){
+                        isIn = true
+                    }
+                }
+
+                if(isIn){
+                    continue
+                }
+
+                users.push(user)
+            }
+        }
 
         return users
     }
 
     async getUser(req) {
-        const uid = req.body._id
+        const uid = req.params._id
 
         if(!uid){
             throw "Unsatisfied: Missing field in request body"
@@ -74,8 +77,8 @@ class UserController {
     async updateUserAdmin(req){
         const body = req.body
         const operateUser = req.user
-        const availiableField = ["_id", "password", "name", "description", "active", "avatar", "role"]
-        let uid = null
+        const availiableField = ["password", "name", "description", "active", "avatar", "role"]
+        let uid = req.params._id
         let data  = {}
 
         if (operateUser.role !== "admin"){
@@ -85,11 +88,6 @@ class UserController {
         for (let key of Object.keys(body)) {
             if (availiableField.indexOf(key) < 0) {
                 throw `Forbidden: [${key}] doesn't exist or can not be modified`
-            }
-
-            if (key === "_id"){
-                uid = body[key]
-                continue
             }
 
             data[key] = body[key]
