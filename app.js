@@ -11,7 +11,7 @@ app.use(express.json());
 
 
 const { mongoose } = require('./db')
-mongoose.set('bufferCommands', false);  // don't buffer db requests if the db server isn't connected - minimizes http requests hanging if this is the case.
+// mongoose.set('bufferCommands', false);  // don't buffer db requests if the db server isn't connected - minimizes http requests hanging if this is the case.
 
 
 // Serve the build
