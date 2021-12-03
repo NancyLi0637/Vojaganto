@@ -9,7 +9,8 @@
     "dev": "nodemon app.js",
     "setup": "npm install && cd vojaganto && npm install && cd ..",
     "build-run": "cd vojaganto && npm run build && cd .. && node app.js",
-    "client": "cd vojaganto && npm start && cd .."
+    "client": "cd vojaganto && npm start && cd ..",
+    "build-client": "cd vojaganto && npm run build && cd .."
   },
   "author": "team28",
   "license": "ISC",

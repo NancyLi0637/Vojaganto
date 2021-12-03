@@ -1,7 +1,7 @@
-
+const origin = process.env.REACT_APP_ORIGIN
 
 async function get(route, params = {}) {
-    const url = new URL(route)
+    const url = new URL(origin + route)
   
     // Append query params to url
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
@@ -15,11 +15,11 @@ async function get(route, params = {}) {
       },
     })
   
-    return await response.json()
+    return response
   }
   
   async function post(route, data = {}) {
-    const url = new URL(route)
+    const url = new URL(origin + route)
   
     try {
       const response = await fetch(url, {
@@ -31,14 +31,14 @@ async function get(route, params = {}) {
         body: JSON.stringify(data)
       })
   
-      return await response.json()
+      return response
     } catch (error) {
       throw error
     }
   }
   
   async function put(route, data = {}) {
-    const url = new URL(route)
+    const url = new URL(origin + route)
   
     const response = await fetch(url, {
       method: 'PUT',
@@ -49,11 +49,11 @@ async function get(route, params = {}) {
       body: JSON.stringify(data)
     })
   
-    return await response.json()
+    return response
   }
   
   async function del(route, data = {}) {
-    const url = new URL(route)
+    const url = new URL(origin + route)
   
     const response = await fetch(url, {
       method: 'DELETE',
@@ -64,7 +64,7 @@ async function get(route, params = {}) {
       body: JSON.stringify(data)
     })
   
-    return await response.json()
+    return response
   }
   
   export { get, post, put, del };
