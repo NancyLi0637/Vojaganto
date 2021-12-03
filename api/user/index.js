@@ -15,8 +15,14 @@ router.post("/login", async (req, res) => {
 })
 
 router.put("/logout", authenticate, async (req, res) => {
-    req.session.user = undefined
-    res.status(200).send()
+    req.session.user = null
+    req.session.destroy(err => {
+        if (err) {
+            res.status(500).send({msg: "Internal Server Error"})
+        } else {
+            res.status(200).send({ msg: "OK" })
+        }
+    })
 })
 
 router.get("/:_id", async (req, res) => {

@@ -16,7 +16,7 @@ const { mongoose } = require('./db')
 
 // Serve the build
 const path = require('path')
-app.use(express.static(path.join(__dirname, "/vojaganto/build")));
+app.use(express.static(path.join(__dirname, "vojaganto/build")));
 
 // session
 const session = require("express-session")
