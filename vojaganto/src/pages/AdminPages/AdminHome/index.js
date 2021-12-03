@@ -17,7 +17,7 @@ class AdminHome extends React.Component {
                 <AdminNav />
                 
                 <div className="admin-home-main">
-                    <h1>Welcome, {`${currUser.username}`}</h1>
+                    <h1>Welcome, {`${currUser.name}`}</h1>
                 </div>
             </div>
         )

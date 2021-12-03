@@ -11,8 +11,11 @@ export async function setProfileInfo(component, uid) {
     try {
         console.log(`Getting Profile for user ${uid}`)
         const profileInfo = await api.fetchProfile(uid)
-        component.setState({ profileInfo })
-
+        if (profileInfo) {
+            component.setState({ profileInfo })
+        } else {
+            alert("Cannot find user")
+        }
     } catch (err) {
         console.error(err)
         alert(String(err))

@@ -1,58 +1,41 @@
 const logger = { log: console.log }
-const createUserService = require("../../services/user")
+const userService = require("../../services/user")
 
 class UserController {
-    constructor() {
-        this.userService = createUserService()
-    }
 
     async getUsers(req) {
-        const search = req.query.search
+        const search = req.query.search || ""
 
-        if(!search){
-            throw "Unsatisfied: Missing field in request query"
-        }
-        
-        const availiableField = ["username", "name", "convertedId"]
-
-        let users = []
-
-        for (let key of availiableField) {
+        const resultUsers = []
+        // Build query for users
+        for (let key of ["username", "name", "convertedId"]) {
             let filter = {}
             filter[key] = new RegExp(".*" + search + ".*", "i")
-            let addOnUsers = await this.userService.getUsers(filter, {})
-            console.log(addOnUsers)
+            let queriedUsers = await userService.getUsers(filter, {})
+            console.log(queriedUsers)
 
-            for(let user of addOnUsers){
-                let isIn = false
-                for(let inUser of users){
-                    if (inUser.username === user.username){
-                        isIn = true
-                    }
+            queriedUsers.forEach(user => {
+                // If user already in the result, then not adding it again
+                if (!resultUsers.some(e => e.username === user.username)) {
+                    resultUsers.push(user)
                 }
-
-                if(isIn){
-                    continue
-                }
-
-                users.push(user)
-            }
+            })
         }
 
-        return users
+        return resultUsers
     }
 
     async getUser(req) {
         const uid = req.params._id
 
-        if(!uid){
-            throw "Unsatisfied: Missing field in request body"
+        if (!uid) {
+            throw { msg: "Unsatisfied: Missing field in request body" }
         }
 
-        let user = await this.userService.getUser(uid)
+        const user = await userService.getUser(uid)
 
-        if (!user){
-            throw "Not Found: User doesn't exist"
+        if (!user) {
+            throw { msg: "Not Found: User doesn't exist" }
         }
 
         return user
@@ -60,84 +43,80 @@ class UserController {
 
     async updateUser(req) {
         const body = req.body
-        const availiableField = ["password", "name", "description", "avatar"]
+        const availableField = ["password", "name", "description", "avatar"]
         const data = {}
-        
+
         for (let key of Object.keys(body)) {
-            if (availiableField.indexOf(key) < 0) {
-                throw `Forbidden: [${key}] doesn't exist or can not be modified`
+            if (availableField.indexOf(key) < 0) {
+                throw { msg: `Forbidden: [${key}] doesn't exist or can not be modified` }
             }
             data[key] = body[key]
         }
 
-        let modifiedUser = await this.userService.updateUser(req.session.user, data)
+        const modifiedUser = await userService.updateUser(req.session.user, data)
 
         return modifiedUser
     }
 
-    async updateUserAdmin(req){
+    async updateUserAdmin(req) {
         const body = req.body
         const operateUser = req.user
-        const availiableField = ["password", "name", "description", "active", "avatar", "role"]
+        const availableField = ["password", "name", "description", "active", "avatar", "role"]
         let uid = req.params._id
-        let data  = {}
-
-        if (operateUser.role !== "admin"){
-            throw "Unauthorized"
-        }
+        let data = {}
 
         for (let key of Object.keys(body)) {
-            if (availiableField.indexOf(key) < 0) {
-                throw `Forbidden: [${key}] doesn't exist or can not be modified`
+            if (availableField.indexOf(key) < 0) {
+                throw { msg: `Forbidden: [${key}] doesn't exist or can not be modified` }
             }
 
             data[key] = body[key]
         }
 
-        if(uid === null){
-            throw `Unsatisfied: Missing field in request body`
+        if (uid === null) {
+            throw { msg: `Unsatisfied: Missing field in request body` }
         }
 
-        let modifiedUser = await this.userService.updateUser(uid, data)
+        let modifiedUser = await userService.updateUser(uid, data)
 
         return modifiedUser
     }
 
-    async creatUser(req) {
+    async createUser(req) {
         const body = req.body
         const requiredField = ["username", "password", "name"]
         const optionalField = ["description", "avatar"]
         const data = {}
 
-        for(let field of requiredField){
+        for (let field of requiredField) {
             let value = body[field]
-            if(!value){
-                throw `Unsatisfied: Missing field in request body`
+            if (!value) {
+                throw { msg: `Unsatisfied: Missing field in request body` }
             }
             data[field] = value
         }
 
-        for(let field of optionalField){
+        for (let field of optionalField) {
             let value = body[field]
-            if(!value){
+            if (!value) {
                 continue
             }
             data[field] = value
         }
 
-        data.role = ""
+        data.role = "client"
         data.active = true
-        if(!data.description){
+        if (!data.description) {
             data.description = "This user doesn't have any description..."
         }
 
-        let checkUsers = await this.userService.getUsers({"username": data.username}, {})
+        let checkUsers = await userService.getUsers({ "username": data.username }, {})
 
-        if(checkUsers.length !== 0){
-            throw "Forbidden: Username already taken!"
+        if (checkUsers.length !== 0) {
+            throw { msg: "Forbidden: Username already taken!" }
         }
 
-        let newUser = await this.userService.createUser(data)
+        let newUser = await userService.createUser(data)
 
         return newUser
     }
@@ -146,17 +125,16 @@ class UserController {
         let username = req.body.username
         let password = req.body.password
 
-        if(!username || !password){
-            throw `Unsatisfied: Missing field in request body`
+        if (!username || !password) {
+            throw { msg: `Unsatisfied: Missing field in request body` }
         }
 
-        let loginInfo = await this.userService.login(username, password)
+        let loginInfo = await userService.login(username, password)
 
         return loginInfo
     }
 }
 
-module.exports = () => {
-    const userController = new UserController()
-    return userController
-}
+const controller = new UserController
+
+module.exports = controller

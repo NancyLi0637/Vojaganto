@@ -60,8 +60,6 @@ export async function registerUser(username, password, name) {
         if (username.length < 1 || password.length < 1){
             alert("Please enter username and password")
             return null
-        } else if(username === "admin" || username === "user") {
-            return null
         }
         
         const user = await api.clientRegister(username, password, name)

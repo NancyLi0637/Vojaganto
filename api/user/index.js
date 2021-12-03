@@ -1,7 +1,6 @@
 const router = require('express').Router()
-const authenticate = require("../../util/authentication")
-const createUserController = require('../../controllers/user')
-const userController = createUserController()
+const { authenticate, checkAdmin } = require("../../util/authentication")
+const userController = require('../../controllers/user')
 const logger = { log: console.log }
 
 router.post("/login", async (req, res) => {
@@ -20,7 +19,7 @@ router.put("/logout", authenticate, async (req, res) => {
     res.status(200).send()
 })
 
-router.get("/:_id", authenticate, async (req, res) => {
+router.get("/:_id", async (req, res) => {
     try {
         let user = await userController.getUser(req)
         res.status(200).send(user)
@@ -42,7 +41,7 @@ router.put("/:_id", authenticate, async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        let user = await userController.creatUser(req)
+        let user = await userController.createUser(req)
         res.status(200).send(user)
     } catch (error) {
         logger.log(error)

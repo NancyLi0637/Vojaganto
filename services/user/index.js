@@ -1,14 +1,14 @@
 const logger = { log: console.log }
 const bcrypt = require("bcrypt");
 const { User } = require("../../models/User")
-const returnedField = ["username", "name", "description", "active", "avatar", "role", "lastLogin"]
+const returnedField = ["username", "name", "description", "active", "avatar", "role", "lastLogin", "_id"]
 
 class UserService {
 
     async getUsers(filter, sort) {
         let users = await User.find(filter).sort(sort).exec()
         let results = []
-        for(let user of users){
+        for (let user of users) {
             let result = {}
             for (let key of returnedField) {
                 result[key] = user[key]
@@ -38,7 +38,7 @@ class UserService {
     }
 
     async updateUser(uid, data) {
-        if(data.password){
+        if (data.password) {
             data.password = await this._encrypt(data.password)
         }
         let user = await User.findByIdAndUpdate(uid, data, { new: true }).exec()
@@ -68,13 +68,13 @@ class UserService {
     async login(username, password) {
         let user = await User.findOne({ username: username }).exec()
         if (!user) {
-            throw "Login Failed! Username not found!"
+            throw { msg: "Login Failed! Username not found!" }
         }
         if (!bcrypt.compareSync(password, user.password)) {
-            throw "Login Failed! Please check your username and password!"
+            throw { msg: "Login Failed! Please check your username and password!" }
         }
         if (!user.active) {
-            throw "Login Failed! This account is currently banned"
+            throw { msg: "Login Failed! This account is currently banned" }
         }
         user = await User.findByIdAndUpdate(user._id, { lastLogin: Date.now() }, { new: true }).exec()
         logger.log(`Login User [${user.username}]`)
@@ -86,7 +86,7 @@ class UserService {
     }
 }
 
-module.exports = () => {
-    const userService = new UserService()
-    return userService
-}
+
+const userService = new UserService()
+
+module.exports = userService

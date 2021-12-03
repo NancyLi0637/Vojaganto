@@ -1,6 +1,13 @@
 const { User } = require('../models/User')
-// From lecture code
 
+/**
+ * Check the request sender is logged in.
+ * 
+ * Reference: From lecture code
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 const authenticate = (req, res, next) => {
     if (req.session.user) {
         User.findById(req.session.user).then((user) => {
@@ -11,11 +18,30 @@ const authenticate = (req, res, next) => {
                 next()
             }
         }).catch((error) => {
-            res.status(401).send("Unauthorized")
+            res.status(401).send({ msg: "Unauthorized" })
         })
     } else {
-        res.status(401).send("Unauthorized")
+        res.status(401).send({ msg: "Unauthorized" })
     }
 }
 
-module.exports = authenticate
+
+/**
+ * Check the request sender has a role of admin.
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+const checkAdmin = (req, res, next) => {
+    if (req.user.role === "admin") {
+        next()
+    } else {
+        res.status(403).send({ msg: "Forbidden" })
+    }
+}
+
+
+module.exports = {
+    authenticate,
+    checkAdmin
+}
