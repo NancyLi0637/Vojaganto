@@ -74,7 +74,7 @@ class PostingController {
         const requiredField = ["title", "destination", "author"]
         const optionalField = ["journey", "date", "body", "public", "images"]
         let data = await this._getPostingData(postingBody, requiredField, optionalField)
-        let posting = await postingService.createOnePosting(data)
+        let posting = await postingService.createOnePosting(req.session.user, data)
         if (!posting){
             throw { msg: `Failed: Posting can not be created due to internal server error`}
         } else if (posting === "unauthorized"){
