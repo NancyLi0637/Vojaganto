@@ -1,9 +1,26 @@
 import React from 'react';
 import {Map, TileLayer, Marker, Popup} from 'react-leaflet';
+import { Icon } from "leaflet";
 //import map from "./map.png";
 //import LocationMarker from "components/MapPlugin/LocationMarker";
 
 import "./style.scss";
+
+export const icons = [
+    new Icon({
+    iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Map_pin_icon_green.svg/800px-Map_pin_icon_green.svg.png",
+    iconSize: [25, 25]
+  }),
+    new Icon({
+    iconUrl: "https://www.clipartmax.com/png/full/86-869339_yellow-map-marker-png.png",
+    iconSize: [25, 25]
+  }),
+    new Icon({
+    iconUrl: "http://www.clker.com/cliparts/1/K/0/V/P/H/map-pin-pink.svg.hi.png",
+    iconSize: [25, 25]
+  }),
+];
+
 
 class Mapp extends React.Component {
     state = {
@@ -39,6 +56,10 @@ class Mapp extends React.Component {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
+
+                {/* <div classname='location'>
+                    <button classname='location-button'>Toronto, ON,</button>
+                </div> */}
 
                 {/* Marker for Home page */}
                 {parent === "Home" && allPostings.map(allPosting => (
@@ -76,6 +97,8 @@ class Mapp extends React.Component {
                         onClick={() => {
                             this.setCurrLoc(posting)
                         }}
+                        // don't know how to loop index
+                        icon={icons[0]}
                     />
                     ))
                 ))}
