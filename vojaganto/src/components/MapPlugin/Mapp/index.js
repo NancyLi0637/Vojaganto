@@ -89,28 +89,17 @@ class Mapp extends React.Component {
                 )}
 
                 {/* Marker for Profile page */}
-                {parent === "Profile" && Object.keys(allPostings).map((journey) => (
+                {parent === "Profile" && Object.keys(allPostings).map((journey, i) => (
                     allPostings[journey].journeyPostings.map(posting => (
                         <Marker
-<<<<<<< HEAD
                         key={posting._id}
                         position={[posting.latitude, posting.longitude]}
                         onClick={() => {
                             this.setCurrLoc(posting)
                         }}
                         // don't know how to loop index
-                        // icon={icons[0]}
+                        icon={icons[i]}
                     />
-=======
-                            key={posting._id}
-                            position={[posting.latitude, posting.longitude]}
-                            onClick={() => {
-                                this.setCurrLoc(posting)
-                            }}
-                            // don't know how to loop index
-                            icon={icons[0]}
-                        />
->>>>>>> a9c1c9f093d914bd3267dc2b7f4bd970bebfe452
                     ))
                 ))}
 
