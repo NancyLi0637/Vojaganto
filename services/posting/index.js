@@ -1,30 +1,59 @@
 const logger = { log: console.log }
 //const bcrypt = require("bcrypt");
 const { Posting } = require("../../models/Posting")
-const { mongoose } = require('./db/mongoose')
-const returnedField = ["title", "destination", "coordinates", "author", "journey","date", "body", "images", "public", "createdTime"]
+const { Journey } = require("../../models/Journey")
+const returnedField = ["_id", "title", "destination", "coordinates", "author", "journey","date", "body", "images", "public", "createdTime"]
+
+
 
 class PostingService {
 
     async _getReturnedPostingField(posting){
+        const returnedField = ["_id", "title", "destination", "coordinates", "author", "journey","date", "body", "images", "public", "createdTime"]
         let res = {}
         for (let key of returnedField) {
-            res[key] = posting[key]
+            if (key === "coordinates"){
+                if (posting[key].length === 2 && typeof(posting[key][0]) === "number" && typeof(posting[key][1]) === "number"){
+                    res["latitude"] = posting[key][0]        
+                    res["longitude"] = posting[key][1]            
+                } else {
+                    res["latitude"] = null
+                    res["longitude"] = null           
+                }
+            } else if (key === "journey"){
+                if (!posting[key]){
+                    res[key] = null
+                } else {
+                    let journey = await Journey.findById(posting[key]).exec()
+                    if (!journey){
+                        res[key] = null
+                    } else {
+                        let resJourneyObject = {}
+                        resJourneyObject["_id"] = journey._id
+                        resJourneyObject["title"] = journey.title
+                        res[key] = resJourneyObject
+                    }
+                }
+            } else {
+                res[key] = posting[key]
+            }
         }
         return res
     }
 
-    async getAllPosting(page=null, search=null, sort={}){
+    async getAllPosting(paging=null, search=null, sort={}){
 
         const pagingItemNum = 10
-        const availiableField = ["title", "destination", "coordinates", "author", "journey", "body"]
+        const availiableField = ["title", "destination", "coordinates", "journey", "body"]
+        /*
         if (mongoose.connection.readyState != 1) {
             logger.log('Issue with mongoose connection')
             return null;
-        }  
-
+        } 
+        */ 
+        let postings = null
         if (!search){
-            let postings = await Posting.find()
+            postings = await Posting.find()
         } else {
             let filter = []
             for (let key of availiableField) {
@@ -33,7 +62,7 @@ class PostingService {
                 filter.push(currFilter)
             }
 
-            let postings = await Posting.find({ $or: filter }).sort(sort).exec()
+            postings = await Posting.find({ $or: filter }).sort(sort).exec()
         }
         
         if (!postings){
@@ -49,9 +78,12 @@ class PostingService {
             }
         }
         let res = []
-        for (posting of resPosting){
-            res.append(await this._getReturnedPostingField(posting))
+        let currPosting = {}
+        currPosting["postings"] = []
+        for (let posting of resPosting){
+            currPosting["postings"].push(await this._getReturnedPostingField(posting))
         }
+        res.push(currPosting)
         logger.log("Get all postings")
         return res
 
@@ -63,11 +95,11 @@ class PostingService {
     async getOnePosting(user, postingId){
 
         let posting  = await Posting.findById(postingId).exec()
-        if (posting.public === false && posting.author !== user._id){
-            throw "unauthorized"
+        if (posting.public === false && posting.author !== user){
+            return "unauthorized"
         }
         if (!posting){
-            throw "not found"
+            return "not found"
         }
         let res = this._getReturnedPostingField(posting)
         logger.log(`Get Posting [${posting.title}]`)
@@ -75,6 +107,13 @@ class PostingService {
     }
 
     async createOnePosting(data){
+        if (data.journey !== null){
+            let journey = await Journey.findById(data.journey).exec()
+            if (!journey){
+                return "journey not found"
+            }
+        }
+
         let newPosting = new Posting(data)
         let createdPosting = await newPosting.save()
         // QUESTION: What is convertedID doing here?
@@ -88,43 +127,44 @@ class PostingService {
     async changeOnePosting(user, postingId, data){
         let posting = await Posting.findById(postingId).exec()
         if (!posting){
-            throw "not found"
+            return "not found"
         }
 
-        if (posting.author !== user._id){
-            throw "unauthorized"
+        if (posting.author !== user){
+            return "unauthorized"
         }
 
-        let posting = await Posting.findByIdAndUpdate(postingId, data, {new: true}).exec()
-        let res = await this._getReturnedPostingField(posting)
-        logger.log(`Modify Posting [${posting.title}]`)
+        let updatedPosting = await Posting.findByIdAndUpdate(postingId, data, {new: true}).exec()
+        let res = await this._getReturnedPostingField(updatedPosting)
+        logger.log(`Modify Posting [${updatedPosting.title}]`)
         return res
     }
 
     async deleteOnePosting(user, postingId){
         let posting = await Posting.findById(postingId).exec()
         if (!posting){
-            throw "not found"
+            return "not found"
         }
-        if (posting.author !== user._id){
-            throw "unauthorized"
+        if (posting.author !== user){
+            return "unauthorized"
         }
-        let posting = await Posting.findByIdAndRemove(postingId).exec()
+        let deletedPosting = await Posting.findByIdAndRemove(postingId).exec()
 
-        let res =await this._getReturnedPostingField(posting)
-        logger.log(`Delete Posting [${posting.title}]`)
-        
+        let res =await this._getReturnedPostingField(deletedPosting)
+        logger.log(`Delete Posting [${deletedPosting.title}]`)
+        if (deletedPosting.journey !== null){
         let allPosting = await Posting.find().exec()
         let removeJourney = true
-        for (eachPosting of allPosting){
-            if (eachPosting.journey === posting.journey){
+        for (let eachPosting of allPosting){
+            if (eachPosting.journey === deletedPosting.journey){
                 removeJourney = false
                 break
             }
         }
         if (removeJourney){
-            await Journey.findByIdAndRemove(posting.journey).exec()
-            logger.log(`Delete Journey [${posting.journey.title}]`)
+            let journey = await Journey.findByIdAndRemove(deletedPosting.journey).exec()
+            logger.log(`Delete Journey [${journey.title}]`)
+        }
         }
 
         //let postingAndJourney = await Posting.aggregate({from: ""})
@@ -137,7 +177,6 @@ class PostingService {
 
 }
 
-module.exports = () => {
-    const postingService = new PostingService()
-    return postingService
-}
+const service = new PostingService()
+
+module.exports = service

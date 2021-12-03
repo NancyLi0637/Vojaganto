@@ -43,7 +43,7 @@ const Posting = mongoose.model('Posting', {
     // If the posting is public
     public: {
         type: Boolean
-    }
+    },
     // Fixed, unchanged
     createdTime: {
         type: Date,

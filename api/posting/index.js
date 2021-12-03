@@ -1,7 +1,6 @@
 const router = require('express').Router()
-const authenticate = require("../../util/authentication")
-const createPostingController = require('../../controllers/posting')
-const postingController = createPostingController()
+const {authenticate, checkAdmin} = require("../../util/authentication")
+const postingController = require('../../controllers/posting')
 const logger = { log: console.log }
 
 router.get("/", authenticate, async (req, res) => {
@@ -15,7 +14,7 @@ router.get("/", authenticate, async (req, res) => {
 })
 
 
-router.get("/:id", authenticate, async (req, res) => {
+router.get("/:_id", authenticate, async (req, res) => {
     try{
         let posting = await postingController.getOnePosting(req)
         res.status(200).send(posting)
@@ -27,7 +26,7 @@ router.get("/:id", authenticate, async (req, res) => {
 
 router.post("/", authenticate, async (req, res) => {
     try{
-        let posting = await postingContoller.createOnePosting(req)
+        let posting = await postingController.createOnePosting(req)
         res.status(200).send(posting)
     }catch(error){
         logger.log(error)
@@ -35,9 +34,9 @@ router.post("/", authenticate, async (req, res) => {
     }
 })
 
-router.put("/:id", authenticate, async (req, res) => {
+router.put("/:_id", authenticate, async (req, res) => {
     try{
-        let posting = await postingContoller.changeOnePosting(req)
+        let posting = await postingController.changeOnePosting(req)
         res.status(200).send(posting)
     }catch(error){
         logger.log(error)
@@ -46,9 +45,9 @@ router.put("/:id", authenticate, async (req, res) => {
 })
 
 
-router.delete("/:id", authenticate, async(req, res) => {
+router.delete("/:_id", authenticate, async(req, res) => {
     try{
-        let posting = await postingContoller.deleteOnePosting(req)
+        let posting = await postingController.deleteOnePosting(req)
         res.status(200).send(posting)
     }catch(error){
         logger.log(error)
