@@ -1,19 +1,16 @@
-import { Popup } from 'leaflet';
 import React from 'react';
-import {Map, TileLayer, Marker} from 'react-leaflet';
+import {Map, TileLayer, Marker, Popup} from 'react-leaflet';
 //import map from "./map.png";
 //import LocationMarker from "components/MapPlugin/LocationMarker";
 
 import "./style.scss";
 
 class Mapp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            currLoc: null,
-            enableAddLocation: this.props.enableAddLocation,
-            allPostings: this.props.allPostings
-        }
+    state = {
+        currLoc: null,
+        enableAddLocation: false,
+        newPosting: null,
+        editing: false
     }
 
     setCurrLoc = (location) => {
@@ -22,49 +19,50 @@ class Mapp extends React.Component {
         // console.log("after")
     }
 
-    addMarker = (e) => {
-        if(this.state.enableAddLocation){
-            const latlong = e.latlng
-
+    addMarker = (event, enableAddLocation, allPostings) => {
+        if(enableAddLocation){
+            console.log("enabled")
+            allPostings.latitude = event.latlng.lat
+            allPostings.longitude = event.latlng.lng
+            this.setState({newPosting: allPostings, editing: true})
         }
-        
     }
 
     render() {
-        const { parent, allPostings } = this.props
+        const { parent, allPostings, enableAddLocation } = this.props
+        const { newPosting } = this.state
         
         return (
-            <Map center={[43.662891, -79.395653]} zoom={12} onClick={this.addMarker}>
+            <Map center={[43.662891, -79.395653]} zoom={12} 
+            onClick={(e) => {this.addMarker(e, enableAddLocation, allPostings);}}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
 
                 {/* Marker for Home page */}
-                {/* {parent === "Home" && this.state.allPostings.map(allPosting => (
-                    console.log(this.state.allPostings)
-                    // allPosting.postings.map(posting => (
-                    //     <Marker
-                    //     key={posting._id}
-                    //     position={[posting.latitude, posting.longitude]}
-                    //     // onClick={() => {
-                    //     //     this.setCurrLoc(posting)
-                    //     // }}
-                    // />
-                    // ))
-                ))} */}
-                {parent === "ViewPosting" && console.log(this.state.allPostings)}
+                {parent === "Home" && allPostings.map(allPosting => (
+                    allPosting.postings.map(posting => (
+                        <Marker
+                        key={posting._id}
+                        position={[posting.latitude, posting.longitude]}
+                        onClick={() => {
+                            this.setCurrLoc(posting)
+                        }}
+                    />
+                    ))
+                ))}
 
                 {/* Marker for ViewPosting page or EditingPosting if posting exists*/}
-                {(parent === "ViewPosting" || (parent === "EditPosting" && !this.state.enableAddLocation)) && (
+                {(parent === "ViewPosting" || (parent === "EditPosting" && !this.state.editing)) && (
                     <Marker
-                    key={this.state.allPostings._id}
+                    key={allPostings._id}
                     position={[
-                        this.state.allPostings.latitude,
-                        this.state.allPostings.longitude
+                        allPostings.latitude,
+                        allPostings.longitude
                     ]}
                     onClick={() => {
-                        this.setCurrLoc(allPostings)
+                        this.setCurrLoc(allPostings);
                     }}
                     />
                 )}
@@ -75,14 +73,28 @@ class Mapp extends React.Component {
                         <Marker
                         key={posting._id}
                         position={[posting.latitude, posting.longitude]}
-                        // onClick={() => {
-                        //     this.setCurrLoc(posting)
-                        // }}
+                        onClick={() => {
+                            this.setCurrLoc(posting)
+                        }}
                     />
                     ))
                 ))}
 
-                {/* {this.state.currLoc && (
+                {/* Add Markfer for new location during editing */}
+                {this.state.newPosting && (
+                    <Marker
+                    key={newPosting._id}
+                    position={[
+                        newPosting.latitude,
+                        newPosting.longitude
+                    ]}
+                    onClick={() => {
+                        this.setCurrLoc(newPosting)
+                    }}
+                    />
+                )}
+
+                {this.state.currLoc && (
                     <Popup
                         position={[
                             this.state.currLoc.latitude,
@@ -98,7 +110,7 @@ class Mapp extends React.Component {
                         </div>
 
                     </Popup>
-                )} */}
+                )}
 
             </Map>
         )
