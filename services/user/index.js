@@ -3,18 +3,19 @@ const bcrypt = require("bcrypt");
 const { User } = require("../../models/User")
 const { Journey } = require("../../models/Journey")
 const { Posting } = require("../../models/Posting")
-const returnedField = ["username", "name", "description", "active", "avatar", "role", "lastLogin"]
+const returnedField = ["username", "name", "description", "active", "avatar", "role", "lastLogin", "_id"]
 const returnedJourneyField = ["_id", "title", "color", "author"]
 class UserService {
 
     async getUsers(filter, sort) {
         let users = await User.find(filter).sort(sort).exec()
         let results = []
-        for(let user of users){
+        for (let user of users) {
             let result = {}
             for (let key of returnedField) {
                 result[key] = user[key]
             }
+            result._id = user.convertedId
             results.push(result)
         }
         logger.log("Get All Users")
@@ -27,6 +28,7 @@ class UserService {
         for (let key of returnedField) {
             result[key] = user[key]
         }
+        result._id = user.convertedId
         logger.log(`Get User [${user.username}]`)
         return result
     }
@@ -38,7 +40,7 @@ class UserService {
     }
 
     async updateUser(uid, data) {
-        if(data.password){
+        if (data.password) {
             data.password = await this._encrypt(data.password)
         }
         let user = await User.findByIdAndUpdate(uid, data, { new: true }).exec()
@@ -46,6 +48,7 @@ class UserService {
         for (let key of returnedField) {
             result[key] = user[key]
         }
+        result._id = user.convertedId
         logger.log(`Modify User [${user.username}]`)
         return result
     }
@@ -60,19 +63,20 @@ class UserService {
         for (let key of returnedField) {
             result[key] = createdUser[key]
         }
+        result._id = createdUser._id.toString()
         return result
     }
 
     async login(username, password) {
         let user = await User.findOne({ username: username }).exec()
         if (!user) {
-            throw "Login Failed! Username not found!"
+            throw { msg: "Login Failed! Username not found!" }
         }
         if (!bcrypt.compareSync(password, user.password)) {
-            throw "Login Failed! Please check your username and password!"
+            throw { msg: "Login Failed! Please check your username and password!" }
         }
         if (!user.active) {
-            throw "Login Failed! This account is currently banned"
+            throw { msg: "Login Failed! This account is currently banned" }
         }
         user = await User.findByIdAndUpdate(user._id, { lastLogin: Date.now() }, { new: true }).exec()
         logger.log(`Login User [${user.username}]`)
@@ -148,7 +152,7 @@ class UserService {
     }
 }
 
-module.exports = () => {
-    const userService = new UserService()
-    return userService
-}
+
+const userService = new UserService()
+
+module.exports = userService

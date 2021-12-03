@@ -28,6 +28,8 @@ const mockPosting = {
     },
     date: (new Date()).toLocaleDateString("en-CA"),
     destination: "Toronto, ON, Canada",
+    latitude: 43.662891,
+    longitude: -79.395653,
     body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. \n Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
     images: [img1, img2]
 }
@@ -43,6 +45,8 @@ const postingList = {
                 _id: 100,
                 date: (new Date()).toLocaleDateString("en-CA"),
                 title: "Title",
+                latitude: 43.662891,
+                longitude: -79.395653,
                 body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
                 image: [pic1]
             },
@@ -51,6 +55,8 @@ const postingList = {
                 _id: 101,
                 date: (new Date()).toLocaleDateString("en-CA"),
                 title: "Hello",
+                latitude: 43.6577,
+                longitude: -79.3788,
                 body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
                 image: [pic2],
             },
@@ -59,6 +65,8 @@ const postingList = {
                 _id: 102,
                 date: (new Date()).toLocaleDateString("en-CA"),
                 title: "Demo",
+                latitude: 43.643567,
+                longitude: -79.387054,
                 body: "Travelling and happy",
                 image: [pic3],
             },
@@ -74,6 +82,8 @@ const postingList = {
                 _id: 103,
                 date: (new Date()).toLocaleDateString("en-CA"),
                 title: "Title",
+                latitude: 43.6901,
+                longitude: -79.42,
                 body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
                 image: [pic5],
             },
@@ -89,6 +99,8 @@ const postingList = {
                 _id: 105,
                 date: (new Date()).toLocaleDateString("en-CA"),
                 title: "Title",
+                latitude: 43.683392,
+                longitude: -79.3812,
                 body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
                 image: [pic6],
             },
@@ -105,12 +117,16 @@ const postingCardColumns = [
                 title: "Lorem ipsum",
                 date: (new Date()).toLocaleDateString("en-CA"),
                 images: [pic1],
+                latitude: 43.662891,
+                longitude: -79.395653
             },
             {
                 _id: 2,
                 title: "Lorem ipsum",
                 date: (new Date()).toLocaleDateString("en-CA"),
                 images: [pic4],
+                latitude: 43.6577,
+                longitude: -79.3788
             },
         ],
     },
@@ -121,18 +137,24 @@ const postingCardColumns = [
                 title: "Lorem ipsum",
                 date: (new Date()).toLocaleDateString("en-CA"),
                 images: [pic3],
+                latitude: 43.643567,
+                longitude: -79.387054
             },
             {
                 _id: 4,
                 title: "Lorem ipsum",
                 date: (new Date()).toLocaleDateString("en-CA"),
                 images: [pic6],
+                latitude: 43.632889,
+                longitude: -79.352927
             },
             {
                 _id: 5,
                 title: "Lorem ipsum",
                 date: (new Date()).toLocaleDateString("en-CA"),
                 images: [pic8],
+                latitude: 43.6901,
+                longitude: -79.42
             }
         ],
     },
@@ -143,12 +165,16 @@ const postingCardColumns = [
                 title: "Lorem ipsum",
                 date: (new Date()).toLocaleDateString("en-CA"),
                 images: [pic5],
+                latitude: 43.683392,
+                longitude: -79.3812
             },
             {
                 _id: 7,
                 title: "Lorem ipsum",
                 date: (new Date()).toLocaleDateString("en-CA"),
                 images: [pic2],
+                latitude: 42.9345,
+                longitude: -78.2566
             },
         ],
     },

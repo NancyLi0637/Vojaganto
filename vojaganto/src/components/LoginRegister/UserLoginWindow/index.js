@@ -1,6 +1,7 @@
 import React from 'react';
 
 import UserLoginModal from 'components/LoginRegister/UserLoginModal';
+import * as action from "actions/Auth"
 
 import './style.scss';
 
@@ -20,13 +21,18 @@ class UserLoginWindow extends React.Component {
         this.setState({ loginModalDisplay: false });
     }
 
+    logoutUser = () => {
+        this.props.setCurrUser(null)
+        action.logoutUser()
+    }
+
     render() {
         const { currUser, setCurrUser } = this.props
         if (currUser) {
             // If already login as a user
             return (
                 <div className="login">
-                    <button type="button" className="login-button" onClick={() => setCurrUser(undefined)}>LOGOUT</button>
+                    <button type="button" className="login-button" onClick={this.logoutUser}>LOGOUT</button>
                 </div>
             )
         }

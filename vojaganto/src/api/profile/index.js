@@ -11,11 +11,16 @@ const profileInfo = {
 
 export async function fetchProfile(uid) {
     try {
-        // const response = await http.get(`/api/profile/${uid}`)
+        const { response, body } = await http.get(`/api/user/${uid}`)
 
-        const response = profileInfo
+        console.log(body)
+        // const response = profileInfo
 
-        return response
+        if (response.status === 200) {
+            return body
+        } else {
+            return null
+        }
     } catch (err) {
         throw err
     }
@@ -27,7 +32,7 @@ export async function updateProfile(uid, body) {
         // const response = await http.put(`/api/profile/${String(uid)}`, body)
         const response = body
         return response
-    } catch(err){
+    } catch (err) {
         throw err
     }
 }

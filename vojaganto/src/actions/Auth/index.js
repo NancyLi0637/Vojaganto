@@ -1,6 +1,6 @@
 import * as api from "api/auth"
 
-function setCurrUser(app, newUser) {
+export function setCurrUser(app, newUser) {
     console.log("Set Curr User", newUser)
     app.setState({ currUser: newUser })
 }
@@ -24,6 +24,7 @@ export async function loginUser(username, password) {
     } catch (err) {
         console.error(err)
         alert(String(err))
+        return null
     }
 }
 
@@ -49,20 +50,19 @@ export async function loginAdmin(username, password) {
     } catch (err) {
         console.error(err)
         alert(String(err))
+        return null
     }
 }
 
 
-export async function registerUser(username, password) {
+export async function registerUser(username, password, name) {
     try {
         if (username.length < 1 || password.length < 1){
             alert("Please enter username and password")
             return null
-        } else if(username === "admin" || username === "user") {
-            return null
         }
         
-        const user = await api.clientRegister(username, password)
+        const user = await api.clientRegister(username, password, name)
 
         if (!user) {
             alert("Username already exists")
@@ -74,7 +74,34 @@ export async function registerUser(username, password) {
     } catch (err) {
         console.error(err)
         alert(String(err))
+        return null
     }
 }
 
-export { setCurrUser }
+
+export async function resumeSession() {
+    try {       
+        const user = await api.resumeSession()
+
+        if (!user) {
+            return null
+        } else {
+            return user
+        }
+    } catch (err) {
+        console.error(err)
+        alert(String(err))
+        return null
+    }
+}
+
+export async function logoutUser() {
+    try {       
+        await api.logoutUser()
+        return null
+    } catch (err) {
+        console.error(err)
+        alert(String(err))
+        return null
+    }
+}

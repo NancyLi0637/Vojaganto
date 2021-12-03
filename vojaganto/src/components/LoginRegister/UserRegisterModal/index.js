@@ -11,6 +11,7 @@ class UserRegisterModal extends React.Component {
             usernameInput: "",
             passwordInput: "",
             confirmInput: "",
+            nameInput: "",
             warningMessage: undefined,
         }
     }
@@ -25,18 +26,19 @@ class UserRegisterModal extends React.Component {
         const username = this.state.usernameInput
         const password = this.state.passwordInput
         const confirm = this.state.confirmInput
+        const name = this.state.nameInput
 
         if (confirm !== password) {
             this.setWarningMessage("Password does not match!")
             return
         }
 
-        if (username.length < 1 || password.length < 1) {
+        if (username.length < 1 || password.length < 1 || name.length < 1) {
             this.setWarningMessage("Fields cannot be empty!")
             return
         }
 
-        const newUser = await registerUser(username, password)
+        const newUser = await registerUser(username, password, name)
 
         if (!newUser) {
             this.setWarningMessage("User already exists!")
@@ -87,6 +89,18 @@ class UserRegisterModal extends React.Component {
                             placeholder="Confirm Password"
                         />
                     </div>
+
+                    <div className="user-register-input">
+                        <span>Nickname</span>
+                        <input
+                            value={this.state.nameInput}
+                            onChange={(e) => handleInputChange(this, e)}
+                            type="text"
+                            name="nameInput"
+                            placeholder="Name"
+                        />
+                    </div>
+
 
                     {
                         this.state.warningMessage ?

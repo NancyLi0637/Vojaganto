@@ -11,17 +11,17 @@ import { setHomePostingColumns } from 'actions/Posting'
 
 class HomeView extends React.Component {
     state = {
-        postingCardColumns: [],
+        // postingCardColumns: this.props.postingCardColumns,
         search: ""
     }
 
-    componentDidMount() {
-        // TODO: UpdatePostingCardColumns
-        setHomePostingColumns(this, this.state.search)
-    }
+    // componentDidMount() {
+    //     // TODO: UpdatePostingCardColumns
+    //     setHomePostingColumns(this, this.state.search)
+    // }
 
     render() {
-        const { currUser, setCurrUser } = this.props
+        const { currUser, setCurrUser, postingCardColumns, setSearch } = this.props
         return (
             <div className="home-view">
                 <div className="web-header">
@@ -31,7 +31,8 @@ class HomeView extends React.Component {
 
                     <div className="home-search">
                         <input type="text" className="home-search-input" name="search" placeholder="Search for trips!" onChange={(e) => handleInputChange(this, e)} />
-                        <button className="home-search-btn" onClick={() => setHomePostingColumns(this, this.state.search)}>Search</button>
+                        <button className="home-search-btn" onClick={() => setSearch(this.state.search)}>Search</button>
+
                     </div>
 
                     <UserLoginWindow
@@ -41,7 +42,7 @@ class HomeView extends React.Component {
                 </div>
 
                 <div className="posting-card-columns">
-                    {this.state.postingCardColumns.map((postingCardColumn, idx) => (
+                    {postingCardColumns.map((postingCardColumn, idx) => (
                         <PostingCardColumn key={idx} postingCardColumn={postingCardColumn} />
                     ))}
                 </div>

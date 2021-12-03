@@ -21,6 +21,9 @@ export function reloadPage() {
 }
 
 export function redirectToPage(route = "/", newTab) {
-    // document.location.href = route
-    window.open(route, newTab ? '_blank': undefined)
+    if (newTab){
+        window.open(route, '_blank')
+    } else {
+        document.location.href = route
+    }
 }

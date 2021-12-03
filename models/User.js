@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
 
 const UserSchema = mongoose.Schema({
     username: {
@@ -27,49 +26,26 @@ const UserSchema = mongoose.Schema({
         trim: true
     },
 
+    active: {
+        type: Boolean,
+        required: true,
+        default: true,
+    },
+
     avatar: {
         type: String,
     },
 
-    active: {
-        type: Boolean,
-        default: true,
-    },
-
     role: {
         type: String,
-    }
-})
+    },
 
+    lastLogin: {
+        type: Date
+    },
 
-/**
- * Middleware: Encrypt password.
- * Reference: Lecture code
- */
-UserSchema.pre('save', (next) => {
-    const user = this; // binds this to User document instance
-
-    // checks to ensure we don't hash password more than once
-    if (user.isModified('password')) {
-        // generate salt and hash the password
-        bcrypt.genSalt(10, (err, salt) => {
-            if (err) {
-                console.log(err)
-                next()
-            } else {
-                bcrypt.hash(user.password, salt, (err, hash) => {
-                    if (err) {
-                        console.log(err)
-                        next()
-                    } else {
-                        user.password = hash
-                        next()
-                    }
-                })
-            }
-        })
-    } else {
-        next()
+    convertedId: {
+        type: String
     }
 })
 

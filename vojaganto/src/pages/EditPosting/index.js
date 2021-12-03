@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from "react-router-dom";
 import Navbar from 'components/Navbar';
-import Map from 'components/MapPlugin/Map';
+import Map from 'components/MapPlugin/Mapp';
 import EditPostingView from 'components/Posting/EditPostingView';
 
 import * as action from 'actions/EditPosting';
@@ -21,6 +21,8 @@ class EditPostingPage extends React.Component {
                 journey: "",
                 date: "",
                 destination: "",
+                latitude: -1,
+                longitude: -1,
                 body: "",
                 public: false,
                 images: [],
@@ -55,7 +57,7 @@ class EditPostingPage extends React.Component {
                         <Navbar currUser={currUser} />
                     </div>
                     <div className="map-view edit-posting-map">
-                        <Map />
+                        <Map parent="EditPosting" allPostings={this.state.posting}/>
                     </div>
                 </div>
             )
@@ -77,7 +79,7 @@ class EditPostingPage extends React.Component {
                     <Navbar currUser={currUser} />
                 </div>
                 <div className="map-view edit-posting-map">
-                    <Map enableAddLocation={true} />
+                    <Map parent="EditPosting" allPostings={this.state.posting} enableAddLocation={true} />
                 </div>
             </div>
         )
