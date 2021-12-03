@@ -98,9 +98,23 @@ class Mapp extends React.Component {
                             this.setCurrLoc(posting)
                         }}
                         // don't know how to loop index
-                        icon={icons[0]}
+                        // icon={icons[0]}
                     />
                     ))
+                ))}
+
+                {/* Marker for Journey Page */}
+                {parent === "JourneyPosting" && allPostings.map(allPosting => (
+                    <Marker
+                    key={allPosting._id}
+                    position={[
+                        allPosting.latitude,
+                        allPosting.longitude
+                    ]}
+                    onClick={() => {
+                        this.setCurrLoc(allPosting);
+                    }}
+                    />
                 ))}
 
                 {/* Add Markfer for new location during editing */}
