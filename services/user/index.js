@@ -13,6 +13,7 @@ class UserService {
             for (let key of returnedField) {
                 result[key] = user[key]
             }
+            result._id = user.convertedId
             results.push(result)
         }
         logger.log("Get All Users")
@@ -25,6 +26,7 @@ class UserService {
         for (let key of returnedField) {
             result[key] = user[key]
         }
+        result._id = user.convertedId
         logger.log(`Get User [${user.username}]`)
         return result
     }
@@ -44,6 +46,7 @@ class UserService {
         for (let key of returnedField) {
             result[key] = user[key]
         }
+        result._id = user.convertedId
         logger.log(`Modify User [${user.username}]`)
         return result
     }
@@ -58,6 +61,7 @@ class UserService {
         for (let key of returnedField) {
             result[key] = createdUser[key]
         }
+        result._id = createdUser._id.toString()
         return result
     }
 
