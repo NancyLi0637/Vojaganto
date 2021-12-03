@@ -1,42 +1,42 @@
 const logger = { log: console.log }
-const createPostingService = require("../../services/posting")
+const postingService = require("../../services/posting")
 
 class PostingController {
-    constructor() {
-        this.postingService = createPostingService()
-    }
 
     async getAllPosting(req){
 
-        const page = req.query.page
-        const search = req.query.search
+        let page = req.query.page
+        let search = req.query.search
         if (!page){
             page = null
         } else if (!parseInt(page)){
-            throw "Unsatisfied: Invalid page type"
+            throw { msg: `Unsatisfied: Invalid page type`}
         } else if (parseInt(page) <= 0){
-            throw "Unsatisfied: Invalid page type"
+            throw { msg: `Unsatisfied: Invalid page type`}
         } else {
             page = parseInt(page)
         }
         if (!search){
             search = null
         }
-        let postings = await this.postingService.getAllPosting(page, search)
-        return posting
+        let postings = await postingService.getAllPosting(page, search)
+        if (postings === "not found"){
+            throw { msg: `Not Found: Posting doesn't exist`}
+        }
+        return postings
     }
 
 
     async getOnePosting(req){
-        const postingId = req.parmas._id
+        const postingId = req.params._id
         if (!postingId){
-            throw "Unsatisfied: Missing field in request query"
+            throw { msg: `Unsatisfied: Missing field in request query`}
         }
-        let posting = await this.postingService.getOnePosting(req.session.user, postingId)
+        let posting = await postingService.getOnePosting(req.session.user, postingId)
         if (!posting){
-            throw "Not Found: Posting doesn't exist"
+            throw { msg: `Not Found: Posting doesn't exist`}
         } else if (posting === "unauthorized"){
-            throw "Unauthorized: User does not have access to the required posting"
+            throw { msg: `Unauthorized: User does not have access to the required posting`}
         }
         return posting
     }
@@ -46,7 +46,7 @@ class PostingController {
         for(let eachRequiredField of requiredField){
             if (!(Object.keys(postingBody).includes(eachRequiredField))){
                 
-                throw `Unsatisfied: Missing field [${eachRequiredField}]in request body`
+                throw { msg: `Unsatisfied: Missing field [${eachRequiredField}]in request body`}
             
             } else {
                 data[eachRequiredField] = postingBody[eachRequiredField]
@@ -57,7 +57,7 @@ class PostingController {
                 if (eachOptionalField === "body"){
                     data["body"] = ""
                 } else if (eachOptionalField === "public"){
-                    date["public"] = true
+                    data["public"] = false
                 } else {
                     data[eachOptionalField] = null
                 }
@@ -73,12 +73,14 @@ class PostingController {
         const postingBody = req.body
         const requiredField = ["title", "destination", "author"]
         const optionalField = ["journey", "date", "body", "public", "images"]
-        let data = await _getPostingData(postingBody, requiredField, optionalField)
-        let posting = await this.postingService.createOnePosting(data)
+        let data = await this._getPostingData(postingBody, requiredField, optionalField)
+        let posting = await postingService.createOnePosting(data)
         if (!posting){
-            throw "Failed: Posting can not be created due to internal server error"
+            throw { msg: `Failed: Posting can not be created due to internal server error`}
         } else if (posting === "unauthorized"){
-            throw "Unauthorized: User does not have access to the required posting"
+            throw { msg: `Unauthorized: User does not have access to the required posting`}
+        } else if (posting === "journey not found"){
+            throw { msg: `Not Found: Journey not found`}
         }
         return posting
 
@@ -88,21 +90,21 @@ class PostingController {
 
     async changeOnePosting(req){
         const postingBody = req.body
-        const postingId = req.parmas._id
+        const postingId = req.params._id
         if (!postingId){
-            throw "Unsatisfied: Missing posting id"
+            throw { msg: `Unsatisfied: Missing posting id`}
         }
         const requiredField = ["title", "destination", "author"]
         const optionalField = ["journey", "date", "body", "public", "images"]
-        let data = await _getPostingData(postingBody, requiredField, optionalField)
+        let data = await this._getPostingData(postingBody, requiredField, optionalField)
 
-        let posting = await this.postingService.changeOnePosting(req.session.user, postingId, data)
+        let posting = await postingService.changeOnePosting(req.session.user, postingId, data)
         if (!posting){
-            throw "Failed: Posting can not be updated due to internal server error"
+            throw { msg: `Failed: Posting can not be updated due to internal server error`}
         } else if (posting === "unauthorized"){
-            throw "Unauthorized: User does not have access to the required posting"
+            throw { msg: `Unauthorized: User does not have access to the required posting`}
         } else if (posting === "not found"){
-            throw "Not Found: Posting can not be found"
+            throw { msg: `Not Found: Posting can not be found`}
         }
 
         return posting
@@ -111,15 +113,15 @@ class PostingController {
     async deleteOnePosting(req){
         const postingId = req.params._id
         if (!postingId){
-            throw "Unsatisfied: Missing posting id"
+            throw { msg: `Unsatisfied: Missing posting id`}
         }
-        let posting = await this.postingService.deletedOnePosting(req.session.user, postingId)
+        let posting = await postingService.deleteOnePosting(req.session.user, postingId)
         if (!posting){
-            throw "Failed: Posting can not be delted due to internal server error"
+            throw { msg: `Failed: Posting can not be delted due to internal server error`}
         } else if (posting === "unauthorized"){
-            throw "Unauthorized: User does not have access to the required posting"
+            throw { msg: `Unauthorized: User does not have access to the required posting`}
         } else if (posting === "not found"){
-            throw "Not Found: Posting can not be found"
+            throw { msg: `Not Found: Posting can not be found`}
         }
         return posting
     }
@@ -128,7 +130,5 @@ class PostingController {
 
 }
 
-module.exports = () => {
-    const postingController = new PostingController()
-    return postingController
-}
+const controller = new PostingController
+module.exports = controller

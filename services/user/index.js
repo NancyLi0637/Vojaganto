@@ -4,7 +4,7 @@ const { User } = require("../../models/User")
 const { Journey } = require("../../models/Journey")
 const { Posting } = require("../../models/Posting")
 const returnedField = ["username", "name", "description", "active", "avatar", "role", "lastLogin", "_id"]
-const returnedJourneyField = ["_id", "title", "color", "author"]
+const returnedJourneyField = ["_id", "title", "color", "author", "journeyPostings"]
 class UserService {
 
     async getUsers(filter, sort) {
@@ -88,10 +88,54 @@ class UserService {
     }
     // =========================================================New Journey Feature======================================
 
+
+    async _getReturnedPostingField(posting){
+        const returnedField = ["_id", "title", "destination", "coordinates", "author", "journey","date", "body", "images", "public", "createdTime"]
+        let res = {}
+        for (let key of returnedField) {
+            if (key === "coordinates"){
+                if (posting[key].length === 2 && typeof(posting[key][0]) === "number" && typeof(posting[key][1]) === "number"){
+                    res["latitude"] = posting[key][0]        
+                    res["longitude"] = posting[key][1]            
+                } else {
+                    res["latitude"] = null
+                    res["longitude"] = null           
+                }
+            } else if (key === "journey"){
+                if (!posting[key]){
+                    res[key] = null
+                } else {
+                    let journey = await Journey.findById(posting[key]).exec()
+                    if (!journey){
+                        res[key] = null
+                    } else {
+                        let resJourneyObject = {}
+                        resJourneyObject["_id"] = journey._id
+                        resJourneyObject["title"] = journey.title
+                        res[key] = resJourneyObject
+                    }
+                }
+            } else {
+                res[key] = posting[key]
+            }
+        }
+        return res
+    }
+
     async _getReturnedJourneyField(journey){
         let res = {}
         for (let key of returnedJourneyField) {
-            res[key] = journey[key]
+            if (key === "journeyPostings"){
+                let posting = await Posting.find({"journey": journey["_id"]}).exec()
+                res["journeyPostings"] = []
+                for (let eachPosting of posting){
+                    let currPosting = await this._getReturnedPostingField(eachPosting)                        
+                    res["journeyPostings"].push(currPosting)
+                }
+        
+            } else {
+                res[key] = journey[key]
+            }
         }
         return res
     }
@@ -106,6 +150,7 @@ class UserService {
         for (let eachJourney of allJourney){
             userJourney.push(await this._getReturnedJourneyField(eachJourney))
         }
+        logger.log(`Get user journey`)
         return userJourney
 
     }
@@ -128,25 +173,10 @@ class UserService {
         let allJourney = await Journey.find({"author": uid}).exec()
         let res = {}
         for (let eachJourney of allJourney){
-            let posting = await Posting.find({"journey": eachJourney["_id"]}).exec()
-            let currJourney = {}
-            currJourney["_id"] = eachJourney["_id"]
-            currJourney["title"] = eachJourney["title"]
-            currJourney["author"] = eachJourney["author"]
-            currJourney["journeyPostings"] = []
-            for (let eachPosting of posting){
-                let currPosting = {}
-                currPosting["author"]
-                currPosting["_id"]
-                currPosting["date"]
-                currPosting["title"]
-                currPosting["body"]
-                currPosting["image"]
-                
-                currJourney["journeyPostings"].push(currPosting)
-            }
+            let currJourney = await this._getReturnedJourneyField(eachJourney)
             res[eachJourney.title] = currJourney
         }
+        logger.log(`Get user posting`)
         return res
 
     }

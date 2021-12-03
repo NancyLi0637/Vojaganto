@@ -86,9 +86,9 @@ router.post("/:_id/journey", authenticate, async(req, res) => {
 router.get("/:_id/posting", authenticate, async(req, res) => {
     try{
         let posting = await userController.getUserPosting(req)
-        res.status(200).send(journey)
+        res.status(200).send(posting)
     } catch (error){
-        logger.log(errpr)
+        logger.log(error)
         res.status(400).send(error)
     }
 })

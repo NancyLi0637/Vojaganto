@@ -91,6 +91,7 @@ class UserController {
         for (let field of requiredField) {
             let value = body[field]
             if (!value) {
+                console.log(field)
                 throw { msg: `Unsatisfied: Missing field in request body` }
             }
             data[field] = value
@@ -138,13 +139,13 @@ class UserController {
     async getUserJourney(req){
         let uid = req.params._id
         if(!uid){
-            throw "Unsatisfied: Missing field in request body"
+            throw { msg: `Unsatisfied: Missing field in request body`}
         }
 
-        let user = await this.userService.getUserJourney(uid)
+        let user = await userService.getUserJourney(uid)
 
         if (!user){
-            throw "Failed: Internal Server Error"
+            throw { msg: `Failed: Internal Server Error`}
         }
 
         return user
@@ -155,7 +156,7 @@ class UserController {
         for(let eachRequiredField of requiredField){
             if (!(Object.keys(journeyBody).includes(eachRequiredField))){
                 
-                throw `Unsatisfied: Missing field [${eachRequiredField}]in request body`
+                throw { msg:`Unsatisfied: Missing field [${eachRequiredField}]in request body`}
             
             } else {
                 data[eachRequiredField] = journeyBody[eachRequiredField]
@@ -176,15 +177,15 @@ class UserController {
         const journeyBody = req.body
         const requiredField = ["title", "author"]
         const optionalField = ["color"]
-        let data = await _getJourneyData(journeyBody, requiredField, optionalField)
-        if (req.session.user._id !== data["author"]){
-            throw "Unauthorized: User can not create the journey"
+        let data = await this._getJourneyData(journeyBody, requiredField, optionalField)
+        if (req.session.user !== data["author"]){
+            throw { msg: `Unauthorized: User can not create the journey`}
         }
-        let journey = await this.userService.createUserJourney(data)
+        let journey = await userService.createUserJourney(data)
         if (!journey){
-            throw "Failed: Journey can not be created due to internal server error"
+            throw { msg: `Failed: Journey can not be created due to internal server error`}
         } else if (journey === "repeat"){
-            throw "Repeat: The title has been used for a journey title"
+            throw { msg: `Repeat: The title has been used for a journey title`}
         }
         return journey
 
@@ -194,13 +195,13 @@ class UserController {
     async getUserPosting(req){
         let uid = req.params._id
         if(!uid){
-            throw "Unsatisfied: Missing field in request body"
+            throw { msg: `Unsatisfied: Missing field in request body`}
         }
 
-        let user = await this.userService.getUserPosting(uid)
+        let user = await userService.getUserPosting(uid)
 
         if (!user){
-            throw "Failed: Internal Server Error"
+            throw { msg: `Failed: Internal Server Error`}
         }
 
         return user
