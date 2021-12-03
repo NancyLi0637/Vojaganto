@@ -11,6 +11,8 @@ class Mapp extends React.Component {
         super(props);
         this.state = {
             currLoc: null,
+            enableAddLocation: this.props.enableAddLocation,
+            allPostings: this.props.allPostings
         }
     }
 
@@ -20,22 +22,46 @@ class Mapp extends React.Component {
         // console.log("after")
     }
 
+    addMarker = (e) => {
+        if(this.state.enableAddLocation){
+            const latlong = e.latlng
+
+        }
+        
+    }
+
     render() {
         const { parent, allPostings } = this.props
         
         return (
-            <Map center={[43.662891, -79.395653]} zoom={12}>
+            <Map center={[43.662891, -79.395653]} zoom={12} onClick={this.addMarker}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
 
-                {parent === "ViewPosting" && (
+                {/* Marker for Home page */}
+                {/* {parent === "Home" && this.state.allPostings.map(allPosting => (
+                    console.log(this.state.allPostings)
+                    // allPosting.postings.map(posting => (
+                    //     <Marker
+                    //     key={posting._id}
+                    //     position={[posting.latitude, posting.longitude]}
+                    //     // onClick={() => {
+                    //     //     this.setCurrLoc(posting)
+                    //     // }}
+                    // />
+                    // ))
+                ))} */}
+                {parent === "ViewPosting" && console.log(this.state.allPostings)}
+
+                {/* Marker for ViewPosting page or EditingPosting if posting exists*/}
+                {(parent === "ViewPosting" || (parent === "EditPosting" && !this.state.enableAddLocation)) && (
                     <Marker
-                    key={allPostings._id}
+                    key={this.state.allPostings._id}
                     position={[
-                        allPostings.latitude,
-                        allPostings.longitude
+                        this.state.allPostings.latitude,
+                        this.state.allPostings.longitude
                     ]}
                     onClick={() => {
                         this.setCurrLoc(allPostings)
@@ -43,18 +69,7 @@ class Mapp extends React.Component {
                     />
                 )}
 
-                {parent === "Home" && allPostings.map(allPosting => (
-                    allPosting.postings.map(posting => (
-                        <Marker
-                        key={posting._id}
-                        position={[posting.latitude, posting.longitude]}
-                        // onClick={() => {
-                        //     this.setCurrLoc(posting)
-                        // }}
-                    />
-                    ))
-                ))}
-
+                {/* Marker for Profile page */}
                 {parent === "Profile" && Object.keys(allPostings).map((journey) => (
                     allPostings[journey].journeyPostings.map(posting => (
                         <Marker
@@ -67,7 +82,7 @@ class Mapp extends React.Component {
                     ))
                 ))}
 
-                {this.state.currLoc && (
+                {/* {this.state.currLoc && (
                     <Popup
                         position={[
                             this.state.currLoc.latitude,
@@ -83,7 +98,7 @@ class Mapp extends React.Component {
                         </div>
 
                     </Popup>
-                )}
+                )} */}
 
             </Map>
         )

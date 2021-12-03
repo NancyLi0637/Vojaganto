@@ -21,6 +21,8 @@ class EditPostingPage extends React.Component {
                 journey: "",
                 date: "",
                 destination: "",
+                latitude: -1,
+                longitude: -1,
                 body: "",
                 public: false,
                 images: [],
@@ -55,7 +57,7 @@ class EditPostingPage extends React.Component {
                         <Navbar currUser={currUser} />
                     </div>
                     <div className="map-view edit-posting-map">
-                        <Map />
+                        <Map parent="EditPosting" allPostings={this.state.posting}/>
                     </div>
                 </div>
             )
@@ -77,7 +79,7 @@ class EditPostingPage extends React.Component {
                     <Navbar currUser={currUser} />
                 </div>
                 <div className="map-view edit-posting-map">
-                    <Map enableAddLocation={true} />
+                    <Map parent="EditPosting" allPostings={this.state.posting} enableAddLocation={true} />
                 </div>
             </div>
         )
