@@ -1,4 +1,4 @@
-const origin = process.env.REACT_APP_ORIGIN
+const origin = process.env.REACT_APP_ORIGIN || window.location.protocol + "//" + window.location.host
 
 async function get(route, params = {}) {
   const url = new URL(origin + route)
