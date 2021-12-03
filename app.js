@@ -16,7 +16,7 @@ mongoose.set('bufferCommands', false);  // don't buffer db requests if the db se
 
 // Serve the build
 const path = require('path')
-app.use(express.static(path.join(__dirname, "/vojaganto/build")));
+app.use(express.static(path.join(__dirname, "vojaganto/build")));
 
 // session
 const session = require("express-session")

@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 /* Connect to database */
 // Get the URI of the local database, or the one specified on deployment.
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/csc309-project'
+console.log("Connect to MONGODB URI: ", mongoURI)
 
 mongoose.connect(mongoURI,
     { useNewUrlParser: true, useUnifiedTopology: true })

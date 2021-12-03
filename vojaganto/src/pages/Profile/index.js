@@ -20,8 +20,8 @@ class ProfilePage extends React.Component {
   }
 
   componentDidMount() {
-    actions.setProfileInfo(this, this.props.profileId)
-    actions.setProfileJourneys(this, this.props.profileId)
+    actions.setProfileInfo(this, this.state.profileId)
+    actions.setProfileJourneys(this, this.state.profileId)
   }
 
   render() {

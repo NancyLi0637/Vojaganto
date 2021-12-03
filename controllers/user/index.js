@@ -31,7 +31,7 @@ class UserController {
         if (!uid) {
             throw { msg: "Unsatisfied: Missing field in request body" }
         }
-
+        console.log(uid)
         const user = await userService.getUser(uid)
 
         if (!user) {
