@@ -40,6 +40,10 @@ const Posting = mongoose.model('Posting', {
     images: {
         type: Array
     },
+    // If the posting is public
+    public: {
+        type: Boolean
+    }
     // Fixed, unchanged
     createdTime: {
         type: Date,
