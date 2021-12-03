@@ -12,13 +12,17 @@ class HomePage extends React.Component {
         super(props);
         this.state = {
             postingCardColumns: [],
-            search: ""
         };
     }
 
     componentDidMount() {
         // TODO: UpdatePostingCardColumns
-        action.setHomePostingColumns(this, this.state.search)
+        action.setHomePostingColumns(this, "")
+    }
+
+    searchPosting(search) {
+        console.log("page receive search", search)
+        action.setHomePostingColumns(this, search)
     }
 
     render() {
@@ -27,10 +31,13 @@ class HomePage extends React.Component {
             <div className="page home-page">
                 <div className="main-view home-main">
                     {this.state.postingCardColumns ?
-                        <HomeView 
-                        postingCardColumns={this.state.postingCardColumns} 
-                        currUser={currUser} 
-                        setCurrUser={setCurrUser}/>
+                        <HomeView
+                            postingCardColumns={this.state.postingCardColumns}
+                            currUser={currUser}
+                            setCurrUser={setCurrUser}
+                            setSearch={(search) => { this.searchPosting(search) }}
+                        />
+
                         : <div className="posting-placeholder">Loading Posting</div>
                     }
 
@@ -47,7 +54,7 @@ class HomePage extends React.Component {
 
                 <div className="map-view home-map">
                     {this.state.postingCardColumns ?
-                        <Map parent="Home" allPostings={this.state.postingCardColumns} 
+                        <Map parent="Home" allPostings={this.state.postingCardColumns}
                         />
                         : <div className="posting-placeholder">Loading Map</div>
                     }
