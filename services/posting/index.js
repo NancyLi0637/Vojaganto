@@ -95,18 +95,21 @@ class PostingService {
     async getOnePosting(user, postingId){
 
         let posting  = await Posting.findById(postingId).exec()
+        if (!posting){
+            return null
+        }
         if (posting.public === false && posting.author !== user){
             return "unauthorized"
-        }
-        if (!posting){
-            return "not found"
         }
         let res = this._getReturnedPostingField(posting)
         logger.log(`Get Posting [${posting.title}]`)
         return res
     }
 
-    async createOnePosting(data){
+    async createOnePosting(user, data){
+        if (user !== data.author){
+            return "unauthorized"
+        }
         if (data.journey !== null){
             let journey = await Journey.findById(data.journey).exec()
             if (!journey){
