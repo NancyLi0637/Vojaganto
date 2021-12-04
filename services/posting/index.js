@@ -44,7 +44,7 @@ class PostingService {
     async getAllPosting(paging=null, search=null, sort={}){
 
         const pagingItemNum = 10
-        const availiableField = ["title", "destination", "coordinates", "journey", "body"]
+        const availableFields = ["title", "destination", "coordinates", "journey", "body"]
         /*
         if (mongoose.connection.readyState != 1) {
             logger.log('Issue with mongoose connection')
@@ -56,7 +56,7 @@ class PostingService {
             postings = await Posting.find()
         } else {
             let filter = []
-            for (let key of availiableField) {
+            for (let key of availableFields) {
                 let currFilter = {}
                 currFilter[key] = new RegExp(".*" + search + ".*", "i")
                 filter.push(currFilter)

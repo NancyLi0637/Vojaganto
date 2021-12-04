@@ -3,7 +3,7 @@ const {authenticate, checkAdmin} = require("../../util/authentication")
 const journeyController = require('../../controllers/journey')
 const logger = { log: console.log }
 
-router.get("/:_id", authenticate, async (req, res) => {
+router.get("/:_id", async (req, res) => {
     try{
         let journey = await journeyController.getJourney(req)
         res.status(200).send(journey)

@@ -3,7 +3,7 @@ const {authenticate, checkAdmin} = require("../../util/authentication")
 const postingController = require('../../controllers/posting')
 const logger = { log: console.log }
 
-router.get("/", authenticate, async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         let posting = await postingController.getAllPosting(req)
         res.status(200).send(posting)
@@ -14,7 +14,7 @@ router.get("/", authenticate, async (req, res) => {
 })
 
 
-router.get("/:_id", authenticate, async (req, res) => {
+router.get("/:_id", async (req, res) => {
     try{
         let posting = await postingController.getOnePosting(req)
         res.status(200).send(posting)

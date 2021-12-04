@@ -27,7 +27,7 @@ class EditPostingView extends React.Component {
                         {
                             this.state.userJourneys.map((journey, i) => {
                                 return (
-                                    <option key={i} value={journey.title} />
+                                    <option key={i} value={journey._id}>{journey.title}</option>
                                 )
                             })
                         }
