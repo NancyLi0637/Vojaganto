@@ -90,7 +90,7 @@ export async function resumeSession() {
         }
     } catch (err) {
         console.error(err)
-        alert(String(err))
+        // alert(String(err))
         return null
     }
 }

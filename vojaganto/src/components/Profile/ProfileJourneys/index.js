@@ -5,7 +5,7 @@ import "./profiletripcategory.scss";
 import JourneyList from "components/Journey/JourneyList";
 import { Link } from "react-router-dom";
 
-class ProfileTripCategory extends React.Component {
+class ProfileJourneys extends React.Component {
   render() {
     const { journey } = this.props
 
@@ -14,7 +14,8 @@ class ProfileTripCategory extends React.Component {
         <h3 className="trip-type">
           <Link
             className="trip-journey-link"
-            to={"/journey/" + journey._id.toString()}
+            // FIXME: should not take empty
+            to={"/journey/" + (journey._id ? journey._id.toString() : "")}
           >
             {journey.title}
           </Link>
@@ -25,4 +26,4 @@ class ProfileTripCategory extends React.Component {
   }
 }
 
-export default ProfileTripCategory;
+export default ProfileJourneys;

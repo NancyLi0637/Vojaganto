@@ -1,6 +1,8 @@
 const logger = { log: console.log }
-const bcrypt = require("bcrypt");
-const { User } = require("../../models/User")
+const bcrypt = require("bcrypt")
+const { User, Journey, Posting } = require("../../models")
+const journeyService = require("../journey")
+const postingService = require("../posting")
 
 class UserService {
 
@@ -111,6 +113,57 @@ class UserService {
         logger.log(`Login User [${user.username}]`)
         let result = this._removePassword(user._doc)
         return result
+    }
+    // =========================================================New Journey Feature======================================
+
+
+
+
+
+    async getUserJourney(uid){
+        let allJourney = await Journey.find({"author": uid}).exec()
+        if (allJourney.length === 0){
+            return "journey not found"
+        }
+        let userJourney = []
+        for (let eachJourney of allJourney){
+            userJourney.push(await journeyService.getReturnedJourneyField(eachJourney))
+        }
+        logger.log(`Get user journey`)
+        return userJourney
+
+    }
+
+    async createUserJourney(data){
+        let currJourney = await Journey.find({"title": data["title"], "author": data["author"]}).exec()
+        if (currJourney.length > 0){
+            return "repeat"
+        }
+        let newJourney = new Journey(data)
+        let createdJourney = await newJourney.save()
+        // QUESTION: What is convertedID doing here?
+        let res = await journeyService.getReturnedJourneyField(createdJourney)
+        logger.log(`Create Journey [${createdJourney.title}]`)
+        return res
+ 
+    }
+
+    async getUserPosting(uid){
+
+        let allJourney = await Journey.find({"author": uid}).exec()
+        if (allJourney.length === 0){
+            return "journey not found"
+        }
+        let res = []
+        for (let eachJourney of allJourney){
+            let currJourney = await journeyService.getReturnedJourneyField(eachJourney)
+            res.push(currJourney)
+        }
+        // Give input for unnamed journey posting
+        res.push(await journeyService.getReturnedJourneyField(null, false, uid))
+        logger.log(`Get user posting`)
+        return res
+
     }
 }
 

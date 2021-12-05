@@ -1,5 +1,7 @@
 const logger = { log: console.log }
 const userService = require("../../services/user")
+const { ObjectId } = require('mongodb')
+const {getAndValidateObjectId, getAndValidateDataBody} = require("../../util/helper")
 
 class UserController {
 
@@ -37,13 +39,17 @@ class UserController {
     async getUser(req) {
         const uid = req.params._id
 
+        // Validation
         if (!uid) {
-            throw { msg: "Unsatisfied: Missing field in request body", status: 406}
+            throw { msg: "Unsatisfied: Missing field in request body" }
+        } else if (!ObjectId.isValid(uid)) {
+            throw { status: 400, msg: "Bad id" }
         }
+
         const user = await userService.getUser(uid)
 
         if (!user) {
-            throw { msg: "Not Found: User doesn't exist", status: 404 }
+            throw { status: 404, msg: "Not Found: User doesn't exist" }
         }
 
         return user
@@ -59,15 +65,16 @@ class UserController {
         const availableField = ["password", "name", "description", "avatar"]
         const data = {}
 
-        for (let key of Object.keys(body)) {
-            if (availableField.indexOf(key) < 0) {
-                throw { msg: `Forbidden: [${key}] doesn't exist or can not be modified`, status: 403 }
+        // Only take the available keys
+        for (let key of availableField) {
+            if (body[key] !== undefined) {
+                data[key] = body[key]
             }
-            data[key] = body[key]
         }
 
-        const modifiedUser = await userService.updateUser(req.session.user, data)
-
+        // Since we can only update the current user
+        const uid = req.session.user
+        const modifiedUser = await userService.updateUser(uid, data)
         return modifiedUser
     }
 
@@ -83,12 +90,11 @@ class UserController {
         let uid = req.params._id
         let data = {}
 
-        for (let key of Object.keys(body)) {
-            if (availableField.indexOf(key) < 0) {
-                throw { msg: `Forbidden: [${key}] doesn't exist or can not be modified`, status: 403 }
+        // Only take the available keys
+        for (let key of availableField) {
+            if (body[key] !== undefined) {
+                data[key] = body[key]
             }
-
-            data[key] = body[key]
         }
 
         if (uid === null) {
@@ -117,10 +123,11 @@ class UserController {
         const optionalField = ["description", "avatar"]
         const data = {}
 
+        // Create required fields
         for (let field of requiredField) {
             let value = body[field]
-            if (!value) {
-                throw { msg: `Unsatisfied: Missing field in request body`, status: 406 }
+            if (value === undefined) {
+                throw { msg: `Unsatisfied: Missing field in request body`, status: 400 }
             }
             data[field] = value
         }
@@ -135,18 +142,16 @@ class UserController {
 
         data.role = "client"
         data.active = true
-        if (!data.description) {
-            data.description = "This user doesn't have any description..."
-        }
+        data.description = data.description || "This user doesn't have any description..."
 
-        let checkUsers = await userService.getUsers({ "username": data.username }, {})
-
+        // Check if username is valid
+        const checkUsers = await userService.getUsers({ "username": data.username })
         if (checkUsers.length !== 0) {
-            throw { msg: "Forbidden: Username already taken!", status: 403 }
+            throw { status: 400, msg: "Bad request: Username already taken!" }
         }
 
-        let newUser = await userService.createUser(data)
-
+        // Finally, create the user
+        const newUser = await userService.createUser(data)
         return newUser
     }
 
@@ -167,8 +172,51 @@ class UserController {
 
         return user
     }
+
+    // =========================================================New Journey Feature======================================
+    async getUserJourney(req){
+        let uid = getAndValidateObjectId(req, "_id")
+        let journey = await userService.getUserJourney(uid)
+
+        if (!journey){
+            throw { status: 500, msg: `Failed: Internal Server Error`}
+        } else if (journey === "journey not found"){
+            throw {status: 404, msg: `Not Found: Journey Not Found`}
+        }
+
+        return journey
+    }
+
+
+    async createUserJourney(req){
+        const data = getAndValidateDataBody(req.body, ["title"], ["color"], req.session.user)
+        let journey = await userService.createUserJourney(data)
+        if (!journey){
+            throw { status: 500, msg: `Failed: Journey can not be created due to internal server error`}
+        } else if (journey === "repeat"){
+            throw { status: 400, msg: `Unsatisfied: The title has been used for a journey title`}
+        }
+        return journey
+
+
+    }
+
+    async getUserPosting(req){
+        let uid = getAndValidateObjectId(req, "_id")
+        // FIXME: should not require privilege, only check for private
+        // if (uid !== req.session.user){
+        //     throw { status: 403, msg: `Forbidden: The user does not have access to the posting`}
+        // }
+        let user = await userService.getUserPosting(uid)
+        if (!user){
+            throw { status: 500, msg: `Failed: Internal Server Error`}
+        }
+
+        return user
+    }
 }
 
 const controller = new UserController
 
 module.exports = controller
+

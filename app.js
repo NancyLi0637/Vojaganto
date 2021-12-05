@@ -37,9 +37,13 @@ app.use(
 
 const userRoute = require('./api/user')
 const adminRoute = require('./api/admin')
+const journeyRoute = require('./api/journey')
+const postingRoute = require('./api/posting')
 
 app.use('/api/user', userRoute)
 app.use('/api/admin', adminRoute)
+app.use('/api/journey', journeyRoute)
+app.use('/api/posting', postingRoute)
 
 
 // All routes other than above will go to index.html

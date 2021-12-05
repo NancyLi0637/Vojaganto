@@ -67,5 +67,35 @@ router.get("/session/resume", authenticate, async (req, res) => {
     user._id = req.user.convertedId
     res.status(200).send(user)
 })
+// =========================================================New Journey Feature======================================
+router.get("/:_id/journey", async(req, res) => {
+    try{
+        let journey = await userController.getUserJourney(req)
+        res.status(200).send(journey)
+    } catch (error){
+        logger.log(error)
+        res.status(400).send(error)
+    }
+})
+
+router.post("/:_id/journey", authenticate, async(req, res) => {
+    try{
+        let journey = await userController.createUserJourney(req)
+        res.status(200).send(journey)
+    } catch (error){
+        logger.log(error)
+        res.status(400).send(error)
+    }
+})
+
+router.get("/:_id/posting", async(req, res) => {
+    try{
+        let posting = await userController.getUserPosting(req)
+        res.status(200).send(posting)
+    } catch (error){
+        logger.log(error)
+        res.status(400).send(error)
+    }
+})
 
 module.exports = router
