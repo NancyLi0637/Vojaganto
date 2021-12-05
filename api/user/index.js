@@ -2,15 +2,17 @@ const router = require('express').Router()
 const { authenticate, checkAdmin } = require("../../util/authentication")
 const userController = require('../../controllers/user')
 const logger = { log: console.log }
+const errorProcess = require("../../util/errorProcess")
 
 router.post("/login", async (req, res) => {
     try {
-        let info = await userController.login(req)
-        req.session.user = info.id.toString()
-        res.status(200).send(info.user)
+        let user = await userController.login(req)
+        req.session.user = user._id.toString()
+        res.status(200).send(user)
     } catch (error) {
         logger.log(error)
-        res.status(400).send(error)
+        error = errorProcess(error)
+        res.status(error.status).send({ msg: error.msg })
     }
 })
 
@@ -31,7 +33,8 @@ router.get("/:_id", async (req, res) => {
         res.status(200).send(user)
     } catch (error) {
         logger.log(error)
-        res.status(400).send(error)
+        error = errorProcess(error)
+        res.status(error.status).send({ msg: error.msg })
     }
 })
 
@@ -41,7 +44,8 @@ router.put("/:_id", authenticate, async (req, res) => {
         res.status(200).send(user)
     } catch (error) {
         logger.log(error)
-        res.status(400).send(error)
+        error = errorProcess(error)
+        res.status(error.status).send({ msg: error.msg })
     }
 })
 
@@ -51,7 +55,8 @@ router.post("/", async (req, res) => {
         res.status(200).send(user)
     } catch (error) {
         logger.log(error)
-        res.status(400).send(error)
+        error = errorProcess(error)
+        res.status(error.status).send({ msg: error.msg })
     }
 })
 
