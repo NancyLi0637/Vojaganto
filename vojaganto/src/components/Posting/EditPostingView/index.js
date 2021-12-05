@@ -23,7 +23,7 @@ class EditPostingView extends React.Component {
         return (
             <div className="edit-posting-view">
                 <form className="posting-form" id="postingForm" >
-                    {/* <datalist id="user-journeys">
+                    <datalist id="user-journeys">
                         {
                             this.state.userJourneys.map((journey, i) => {
                                 return (
@@ -31,7 +31,7 @@ class EditPostingView extends React.Component {
                                 )
                             })
                         }
-                    </datalist> */}
+                    </datalist>
 
                     <div className="edit-metadata-container">
                         <input type="text"
@@ -44,7 +44,7 @@ class EditPostingView extends React.Component {
                         />
 
                         <div className="posting-info-container">
-                            {/* <input type="text"
+                            <input type="text"
                                 name="journey"
                                 className="edit-meta edit-input"
                                 list="user-journeys"
@@ -53,8 +53,8 @@ class EditPostingView extends React.Component {
                                 placeholder="JOURNEY"
                                 onChange={handleInputChange}
                                 value={posting.journey.title || posting.journey}
-                            /> */}
-                            <select
+                            />
+                            {/* <select
                                 name="journey"
                                 className="edit-meta edit-input"
                                 placeholder="My Journey"
@@ -67,7 +67,7 @@ class EditPostingView extends React.Component {
                                         )
                                     })
                                 }
-                            </select>
+                            </select> */}
                             <input type="date"
                                 name="date"
                                 className="edit-meta edit-input"

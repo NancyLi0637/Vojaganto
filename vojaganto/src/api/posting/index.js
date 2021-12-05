@@ -186,9 +186,9 @@ const postingCardColumns = [
  */
 async function getHomePostings(params) {
     try {
-        const {response, body} = await http.get(`/api/posting`, params)
+        const { response, body } = await http.get(`/api/posting`, params)
         // const response = postingCardColumns
-        if (response.status === 200){
+        if (response.status === 200) {
             return body
         } else {
             return null
@@ -206,9 +206,9 @@ async function getHomePostings(params) {
  */
 async function getPosting(pid) {
     try {
-        const {response, body} = await http.get(`/api/posting/${pid}`)
+        const { response, body } = await http.get(`/api/posting/${pid}`)
         // const response = mockPosting
-        if (response.status === 200){
+        if (response.status === 200) {
             return body
         } else {
             return null
@@ -226,9 +226,10 @@ async function getPosting(pid) {
  */
 async function createPosting(data) {
     try {
-        const {response, body} = await http.post('/api/posting', data)
+        console.log("Posting ", data)
+        const { response, body } = await http.post('/api/posting', data)
         // const response = { ...data, _id: 66 }
-        if (response.status === 200){
+        if (response.status === 200) {
             return body
         } else {
             return null
@@ -246,10 +247,13 @@ async function createPosting(data) {
  */
 async function updatePosting(pid, data) {
     try {
-        // const response = await http.put(`/api/posting/${pid}`, data)
+        const { response, body } = await http.put(`/api/posting/${pid}`, data)
         // console.log("Update", data)
-        const response = data
-        return response
+        if (response.status === 200) {
+            return body
+        } else {
+            return null
+        }
     } catch (err) {
         throw err
     }
@@ -262,9 +266,12 @@ async function updatePosting(pid, data) {
  */
 async function deletePosting(pid) {
     try {
-        // const response = await http.del(`/api/posting/${pid}`)
-        const response = mockPosting
-        return response
+        const { response, body } = await http.del(`/api/posting/${pid}`)
+        if (response.status === 200) {
+            return body
+        } else {
+            return null
+        }
     } catch (err) {
         throw err
     }
@@ -278,7 +285,7 @@ async function deletePosting(pid) {
  */
 async function getUserJourneys(uid) {
     try {
-        const {response, body} = await http.get(`/api/user/${uid}/journey`)
+        const { response, body } = await http.get(`/api/user/${uid}/journey`)
         // const response = [
         //     {
         //         _id: "sdhoiwd1oi2hd12dh21213",
@@ -291,7 +298,7 @@ async function getUserJourneys(uid) {
         //         title: "Journey to Montreal"
         //     }
         // ]
-        if (response.status === 200){
+        if (response.status === 200) {
             return body
         } else {
             return null
@@ -309,10 +316,10 @@ async function getUserJourneys(uid) {
  */
 async function getJourney(jid) {
     try {
-        const {response, body} = await http.get(`/api/journey/${jid}`)
+        const { response, body } = await http.get(`/api/journey/${jid}`)
         // const response = {status: 200}
         // const body = postingList["Travel to Canada"]
-        if (response.status === 200){
+        if (response.status === 200) {
             console.log("journey", body)
             return body
         } else {
@@ -331,9 +338,9 @@ async function getJourney(jid) {
  */
 export async function postJourney(body) {
     try {
-        const {response, body} = await http.post(`/api/user/${String(body.author._id)}/journey`)
+        const { response, body } = await http.post(`/api/user/${String(body.author._id)}/journey`)
         // const response = { ...postingList["Travel to Canada"], title: body.title, author: body.author }
-        if (response.status === 200){
+        if (response.status === 200) {
             return body
         } else {
             return null
@@ -348,11 +355,15 @@ export async function postJourney(body) {
  * @param {*} body 
  * @returns 
  */
- export async function updateJourney(jid, body) {
+export async function updateJourney(jid, body) {
     try {
-        // const response = await http.put(`/api/journey/${String(jid)}`, body)
-        const {response, body} = { ...postingList["Travel to Canada"], title: body.title, author: body.author }
-        return response
+        const { response, body } = await http.put(`/api/journey/${String(jid)}`, body)
+        // const {response, body} = { ...postingList["Travel to Canada"], title: body.title, author: body.author }
+        if (response.status === 200) {
+            return body
+        } else {
+            return null
+        }
     } catch (err) {
         throw err
     }
@@ -363,11 +374,15 @@ export async function postJourney(body) {
  * @param {*} body 
  * @returns 
  */
- export async function deleteJourney(jid) {
+export async function deleteJourney(jid) {
     try {
-        // const {response, body} = await http.del(`/api/journey/${String(jid)}`)
-        const response = { ...postingList["Travel to Canada"]}
-        return response
+        const { response, body } = await http.del(`/api/journey/${String(jid)}`)
+        // const response = { ...postingList["Travel to Canada"]}
+        if (response.status === 200) {
+            return body
+        } else {
+            return null
+        }
     } catch (err) {
         throw err
     }
@@ -380,9 +395,13 @@ export async function postJourney(body) {
  */
 async function getUserPostings(uid) {
     try {
-        // const {response, body} = await http.get(`/api/user/${uid}/posting`)
-        const response = postingList
-        return response
+        const { response, body } = await http.get(`/api/user/${uid}/posting`)
+        // const response = postingList
+        if (response.status === 200) {
+            return body
+        } else {
+            return null
+        }
     } catch (err) {
         throw err
     }

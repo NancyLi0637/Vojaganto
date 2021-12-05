@@ -46,7 +46,7 @@ const users = [
 
 export async function fetchPostings(params) {
     try {
-        // const response = await http.get("/api/admin/posting", params)
+        // const {response, body} = await http.get("/api/posting", params)
         let response = postings
         return response
     } catch (err) {
