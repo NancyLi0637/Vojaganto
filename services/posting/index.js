@@ -16,7 +16,7 @@ class PostingService {
      * @param {*} meta 
      * @returns 
      */
-    async getReturnedPostingField(posting, meta=false) {
+    async getReturnedPostingField(posting, meta = false) {
         const res = {
             _id: posting._id.toString(),
             title: posting.title,
@@ -31,23 +31,23 @@ class PostingService {
             journey: posting.journey,
             author: posting.author
         }
-        
+
         if (!meta) {
             if (ObjectId.isValid(posting.journey)) {
                 const journey = await Journey.findById(posting.journey).exec()
                 res.journey = journey
-                if (!res.journey){
+                if (!res.journey) {
                     res.journey = {
                         _id: null,
                         title: "Unnamed journey"
                     }
                 }
             }
-            
+
             //TODO: There is a circular dependency in the original version. Changed to this for now, look for a neat solution in the future
             //res.author = await userService.getUser(posting.author)
             let user = await User.findById(posting.author).exec()
-            user.password = null
+            user.password = undefined
             res.author = user
         }
 
@@ -55,7 +55,7 @@ class PostingService {
     }
 
 
-    
+
     async getAllPosting(paging = null, search = null, sort = {}) {
 
         const pagingItemNum = 10
@@ -64,7 +64,7 @@ class PostingService {
         // Search postings
         let postings = null
         if (!search) {
-            postings = await Posting.find()
+            postings = await Posting.find({ public: true })
         } else {
             let filter = []
             for (let key of availableFields) {
@@ -73,25 +73,22 @@ class PostingService {
                 filter.push(currFilter)
             }
 
-            postings = await Posting.find({ $or: filter }).sort(sort).exec()
+            postings = await Posting.find({ public: true, $or: filter }).sort(sort).exec()
         }
 
-        if (postings.length === 0) {
-            return "not found"
-        }
-        console.log(postings)
-        let resPosting = postings.filter((posting) => {
-            return posting.public === true
-            
-        })
-        console.log(resPosting)
+        // console.log(postings)
+        // let resPosting = postings.filter((posting) => {
+        //     return posting.public === true
+
+        // })
+        // let resPosting = postings
+        // console.log(resPosting)
         // Pagination
-
         if (paging !== null) {
             if (postings.length <= (paging - 1) * pagingItemNum) {
                 return "not found"
             } else {
-                resPosting = postings.slice((paging - 1) * pagingItemNum, paging * pagingItemNum)
+                postings = postings.slice((paging - 1) * pagingItemNum, paging * pagingItemNum)
             }
         }
 
@@ -99,8 +96,8 @@ class PostingService {
         let res = []
         // let currPosting = {}
         // currPosting["postings"] = []
-        console.log(resPosting)
-        for (let posting of resPosting) {
+        // console.log(postings)
+        for (let posting of postings) {
             res.push(await this.getReturnedPostingField(posting, true))
         }
         // res.push(currPosting)
@@ -128,7 +125,8 @@ class PostingService {
 
     async createOnePosting(user, data) {
         if (data.journey !== "") {
-            let journey = await Journey.find({"title": data["journey"], "author": user}).exec()
+            // FIXME: just take the id
+            let journey = await Journey.find({ "title": data["journey"], "author": user }).exec()
             if (!journey) {
                 return "journey not found"
             }
@@ -157,7 +155,7 @@ class PostingService {
         }
 
         if (data.journey !== "") {
-            let journey = await Journey.find({"title": data["journey"], "author": user}).exec()
+            let journey = await Journey.find({ "title": data["journey"], "author": user }).exec()
             if (!journey) {
                 return "journey not found"
             }

@@ -72,11 +72,9 @@ class UserController {
         let data = {}
 
         for (let key of Object.keys(body)) {
-            if (availableField.indexOf(key) < 0) {
-                throw { msg: `Forbidden: [${key}] doesn't exist or can not be modified` }
+            if (availableField.includes(key)) {
+                data[key] = body[key]
             }
-
-            data[key] = body[key]
         }
 
         if (uid === null) {
@@ -118,7 +116,7 @@ class UserController {
         // Check if username is valid
         const checkUsers = await userService.getUsers({ "username": data.username })
         if (checkUsers.length !== 0) {
-            throw { msg: "Forbidden: Username already taken!" }
+            throw { statusCode: 400, msg: "Bad request: Username already taken!" }
         }
 
         // Finally, create the user
@@ -142,9 +140,6 @@ class UserController {
     // =========================================================New Journey Feature======================================
     async getUserJourney(req){
         let uid = getAndValidateObjectId(req, "_id")
-        if (uid !== req.session.user){
-            throw {statusCode: 403, msg: `Forbidden: User does not have access to the required journey`}
-        }
         let journey = await userService.getUserJourney(uid)
 
         if (!journey){
@@ -172,6 +167,7 @@ class UserController {
 
     async getUserPosting(req){
         let uid = getAndValidateObjectId(req, "_id")
+        // FIXME: should not require privilege, only check for private
         if (uid !== req.session.user){
             throw { statusCode: 403, msg: `Forbidden: The user does not have access to the posting`}
         }
