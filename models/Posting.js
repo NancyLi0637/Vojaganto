@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const ImageSchema = require('./Image')
 
 const Posting = mongoose.model('Posting', {
     // Title of 
@@ -36,10 +37,9 @@ const Posting = mongoose.model('Posting', {
     body: {
         type: String,
     },
-    // Array of url
-    images: {
-        type: Array
-    },
+    // Array of images
+    images: [ImageSchema],
+
     // Fixed, unchanged
     createdTime: {
         type: Date,

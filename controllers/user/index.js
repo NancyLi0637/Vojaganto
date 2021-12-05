@@ -1,5 +1,7 @@
 const logger = { log: console.log }
 const userService = require("../../services/user")
+const imageProcess = require("../../util/imageProcess")
+const fs = require("fs")
 
 class UserController {
 
@@ -56,7 +58,7 @@ class UserController {
      */
     async updateUser(req) {
         const body = req.body
-        const availableField = ["password", "name", "description", "avatar"]
+        const availableField = ["password", "name", "description"]
         const data = {}
 
         for (let key of Object.keys(body)) {
@@ -64,6 +66,14 @@ class UserController {
                 throw { msg: `Forbidden: [${key}] doesn't exist or can not be modified`, status: 403 }
             }
             data[key] = body[key]
+        }
+
+        if(req.file){
+            let oldAvatar = (await userService.getUser(req.session.user)).avatar
+            await imageProcess.deleteImage([oldAvatar])
+            let avatar = await imageProcess.toObject([req.file.path])
+            data.avatar = avatar[0]
+            await fs.promises.rm(req.file.path)
         }
 
         const modifiedUser = await userService.updateUser(req.session.user, data)
@@ -114,8 +124,9 @@ class UserController {
     async createUser(req) {
         const body = req.body
         const requiredField = ["username", "password", "name"]
-        const optionalField = ["description", "avatar"]
+        const optionalField = ["description"]
         const data = {}
+        console.log(body)
 
         for (let field of requiredField) {
             let value = body[field]
@@ -131,6 +142,14 @@ class UserController {
                 continue
             }
             data[field] = value
+        }
+
+        if(req.file){
+            let avatar = await imageProcess.toObject([req.file.path])
+            data.avatar = avatar[0]
+            await fs.promises.rm(req.file.path)
+        }else{
+            data.avatar = undefined
         }
 
         data.role = "client"

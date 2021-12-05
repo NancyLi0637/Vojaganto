@@ -35,6 +35,14 @@ app.use(
   })
 );
 
+// set up image upload
+const cloudinary = require('cloudinary')
+cloudinary.config({
+  cloud_name: 'din5ljebq',
+  api_key: '141262229518364',
+  api_secret: 'TpQrgV4P51NM5NYt9Ayyojo4qOs'
+});
+
 const userRoute = require('./api/user')
 const adminRoute = require('./api/admin')
 

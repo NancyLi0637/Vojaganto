@@ -3,6 +3,9 @@ const { authenticate, checkAdmin } = require("../../util/authentication")
 const userController = require('../../controllers/user')
 const logger = { log: console.log }
 const errorProcess = require("../../util/errorProcess")
+const multer = require('multer')
+const upload = multer({ dest: 'files/' })
+const avatarReceiver = upload.single("avatar")
 
 router.post("/login", async (req, res) => {
     try {
@@ -38,7 +41,7 @@ router.get("/:_id", async (req, res) => {
     }
 })
 
-router.put("/:_id", authenticate, async (req, res) => {
+router.put("/:_id", authenticate, avatarReceiver , async (req, res) => {
     try {
         let user = await userController.updateUser(req)
         res.status(200).send(user)
@@ -49,7 +52,8 @@ router.put("/:_id", authenticate, async (req, res) => {
     }
 })
 
-router.post("/", async (req, res) => {
+router.post("/", avatarReceiver , async (req, res) => {
+    console.log(req)
     try {
         let user = await userController.createUser(req)
         res.status(200).send(user)

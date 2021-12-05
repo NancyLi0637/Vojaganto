@@ -1,20 +1,24 @@
 const logger = { log: console.log }
 const bcrypt = require("bcrypt");
 const { User } = require("../../models/User")
+const imageProcess = require("../../util/imageProcess")
 
 class UserService {
 
     /**
-     * privative function to remove password field from the given user object
+     * privative function to change the user into return style
      * @param {User} user 
-     * @returns same user object as input but without password field
+     * @returns same user object as input but remove password and modify avatar
      */
-    _removePassword(user){
+    _returnStryle(user){
         let updatedUser = {}
         for(let key of Object.keys(user)){
             if(key !== "password"){
                 updatedUser[key] = user[key]
             }
+        }
+        if(updatedUser.avatar){
+            updatedUser.avatar = updatedUser.avatar.url
         }
         return updatedUser
     }
@@ -29,7 +33,7 @@ class UserService {
         let users = await User.find(filter).sort(sort).exec()
         let results = []
         for (let user of users) {
-            let result = this._removePassword(user._doc)
+            let result = this._returnStryle(user._doc)
             results.push(result)
         }
         logger.log("Get All Users")
@@ -43,7 +47,8 @@ class UserService {
      */
     async getUser(uid) {
         let user = await User.findById(uid).exec()
-        let result = this._removePassword(user._doc)
+        let result = this._returnStryle(user._doc)
+        result.avatar = user.avatar
         logger.log(`Get User [${user.username}]`)
         return result
     }
@@ -70,7 +75,7 @@ class UserService {
             data.password = await this._encrypt(data.password)
         }
         let user = await User.findByIdAndUpdate(uid, data, { new: true }).exec()
-        let result = this._removePassword(user._doc)
+        let result = this._returnStryle(user._doc)
         logger.log(`Modify User [${user.username}]`)
         return result
     }
@@ -86,7 +91,7 @@ class UserService {
         let createdUser = await newUser.save()
         createdUser = await User.findByIdAndUpdate(createdUser._id, { convertedId: createdUser._id.toString() })
         logger.log(`Create User [${createdUser.username}]`)
-        let result = this._removePassword(createdUser._doc)
+        let result = this._returnStryle(createdUser._doc)
         return result
     }
 
@@ -109,7 +114,7 @@ class UserService {
         }
         user = await User.findByIdAndUpdate(user._id, { lastLogin: Date.now() }, { new: true }).exec()
         logger.log(`Login User [${user.username}]`)
-        let result = this._removePassword(user._doc)
+        let result = this._returnStryle(user._doc)
         return result
     }
 }

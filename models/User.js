@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const ImageSchema = require('./Image')
 
 const UserSchema = mongoose.Schema({
     username: {
@@ -32,9 +33,7 @@ const UserSchema = mongoose.Schema({
         default: true,
     },
 
-    avatar: {
-        type: String,
-    },
+    avatar: ImageSchema,
 
     role: {
         type: String,
