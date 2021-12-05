@@ -104,15 +104,15 @@ class Mapp extends React.Component {
                 ))}
 
                 {/* Marker for Journey Page */}
-                {parent === "JourneyPosting" && allPostings.map(allPosting => (
+                {parent === "JourneyPosting" && allPostings.map(posting => (
                     <Marker
-                    key={allPosting._id}
+                    key={posting._id}
                     position={[
-                        allPosting.latitude,
-                        allPosting.longitude
+                        posting.latitude,
+                        posting.longitude
                     ]}
                     onClick={() => {
-                        this.setCurrLoc(allPosting);
+                        this.setCurrLoc(posting);
                     }}
                     />
                 ))}

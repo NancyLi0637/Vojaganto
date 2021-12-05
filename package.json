@@ -9,6 +9,7 @@
     "dev": "nodemon app.js",
     "setup": "npm install && cd vojaganto && npm install && cd ..",
     "build-run": "cd vojaganto && npm run build && cd .. && node app.js",
+    "build-dev": "cd vojaganto && npm run build && cd .. && nodemon app.js",
     "client": "cd vojaganto && npm start && cd ..",
     "build-client": "cd vojaganto && npm run build && cd .."
   },
@@ -22,6 +23,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
+    "mongodb": "^4.2.1",
     "mongoose": "^6.0.13",
     "multer": "^1.4.3",
     "nodemon": "^2.0.15",

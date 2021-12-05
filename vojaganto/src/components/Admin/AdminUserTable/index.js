@@ -36,7 +36,7 @@ class AdminUserTable extends React.Component {
                     </thead>
                     <tbody>
                         {users.map(user => {
-                            if (user.status === "active") {
+                            if (user.active) {
                                 return (
                                     <tr key={user._id} className="admin-data-row">
                                         <td>
@@ -58,13 +58,13 @@ class AdminUserTable extends React.Component {
                                             {user.lastLogin}
                                         </td>
                                         <td className="actions">
-                                            <button onClick={() => this.props.changeUserStatus(user, "inactive")}>
+                                            <button onClick={() => this.props.changeUserActive(user)}>
                                                 Inactivate
                                             </button>
                                         </td>
                                     </tr>
                                 )
-                            } else if (user.status === "inactive") {
+                            } else if (!user.active) {
                                 return (
                                     <tr key={user._id} className="admin-data-row">
                                         <td>
@@ -86,7 +86,7 @@ class AdminUserTable extends React.Component {
                                             {user.lastLogin}
                                         </td>
                                         <td className="actions">
-                                            <button onClick={() => this.props.changeUserStatus(user, "active")}>
+                                            <button onClick={() => this.props.changeUserActive(user)}>
                                                 Activate
                                             </button>
                                         </td>

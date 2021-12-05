@@ -37,6 +37,7 @@ const UserSchema = mongoose.Schema({
 
     role: {
         type: String,
+        default: "client"
     },
 
     lastLogin: {
@@ -50,4 +51,4 @@ const UserSchema = mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema)
 
-module.exports = { User }
+module.exports = User

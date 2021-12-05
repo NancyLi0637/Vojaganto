@@ -20,7 +20,7 @@ class JourneyPage extends React.Component {
   }
 
   componentDidMount() {
-    actions.setJourney(this, this.state._id)
+    actions.setJourney(this, this.state.journeyId)
   }
 
   render() {
@@ -28,17 +28,17 @@ class JourneyPage extends React.Component {
     return (
       <div className="page journey">
         <div className="main-view journey-main-view">
-          {(this.state.journeyId && this.state.journeyPostings && this.state.author && this.state.title) ?
+          {(this.state.journeyPostings) ?
             <JourneyView
-            journeyId={this.state.journeyId}
-            journeyPostings={this.state.journeyPostings}
-            title={this.state.title}
-            author={this.state.author}
-            currUser={currUser}
+              journeyId={this.state.journeyId}
+              journeyPostings={this.state.journeyPostings}
+              title={this.state.title}
+              author={this.state.author}
+              currUser={currUser}
             />
             : <div className="posting-placeholder">Loading Journey</div>
           }
-          
+
           <Navbar currUser={currUser} />
         </div>
         <div className="map-view edit-posting-map">

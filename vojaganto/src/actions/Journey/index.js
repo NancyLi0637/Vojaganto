@@ -5,7 +5,9 @@ export async function setJourney(component, jid) {
     try {
         const journey = await api.getJourney(jid)
         console.log(`Get journey ${jid}`, journey)
-        component.setState({ ...journey })
+        if (journey) {
+            component.setState({ ...journey })
+        }
     } catch (err) {
         console.error(err)
         alert(String(err))

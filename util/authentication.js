@@ -1,4 +1,4 @@
-const { User } = require('../models/User')
+const { User } = require('../models')
 
 /**
  * Check the request sender is logged in.
@@ -18,9 +18,10 @@ const authenticate = (req, res, next) => {
                 next()
             }
         }).catch((error) => {
-            res.status(401).send({ msg: "Unauthorized" })
+            res.status(401).send({ msg: "Unauthorized, Not Found" })
         })
     } else {
+        console.log("Unauthorized request")
         res.status(401).send({ msg: "Unauthorized" })
     }
 }

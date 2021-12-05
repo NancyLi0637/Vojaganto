@@ -63,7 +63,7 @@ export async function clientRegister(username, password, name) {
 
 export async function logoutUser() {
     try {
-        const { response, body } = await http.put("/api/user/logout")
+        const { response } = await http.put("/api/user/logout")
         if (response.status === 200) {
             return true
         } else {

@@ -20,8 +20,10 @@ export async function getPostings(component, params) {
   try {
     console.log("Searching postings", params)
     const postings = await api.fetchPostings(params)
+    if (postings) {
+      component.setState({ postings })
+    }
 
-    component.setState({ postings })
   } catch (err) {
     console.error(err)
     alert(String(err))
@@ -33,8 +35,11 @@ export async function getUsers(component, params) {
   try {
     console.log("Searching users", params)
     const users = await api.fetchUsers(params)
+    if (users) {
+      console.log(users)
+      component.setState({ users })
+    }
 
-    component.setState({ users })
   } catch (err) {
     console.error(err)
     alert(String(err))
@@ -42,17 +47,18 @@ export async function getUsers(component, params) {
 }
 
 
-export async function changeUserStatus(component, user, toStatus) {
+export async function changeUserActive(component, user) {
   try {
     // console.log("Searching users", params)
-    const res = await api.changeUserStatus(user, toStatus)
+    const res = await api.changeUserStatus(user, !user.active)
 
     // component.setState({users})
     if (res) {
-      if (toStatus === "active") {
-        alert(`Activated user ${res._id}`)
-      } else {
+      if (user.active) {
         alert(`Inactivated user ${res._id}`)
+        
+      } else {
+        alert(`Activated user ${res._id}`)
       }
       reloadPage()
     }

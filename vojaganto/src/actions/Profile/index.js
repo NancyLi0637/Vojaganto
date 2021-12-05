@@ -37,8 +37,13 @@ export async function updateProfileInfo(component, uid, body) {
         // console.log("Update profile", body)
         const newProfile = await api.updateProfile(uid, body)
         console.log("Updated profile", newProfile)
-        alert("Updated profile!")
-        reloadPage()
+        if (newProfile) {
+            alert("Updated profile!")
+            reloadPage()
+        } else {
+            alert("Update failed!")
+        }
+
     } catch (err) {
         console.error(err)
         alert(String(err))

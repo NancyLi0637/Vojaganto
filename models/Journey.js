@@ -5,7 +5,7 @@ const Journey = mongoose.model('Journey', {
     title: {
         type: String,
         required: true,
-        minlegth: 1,
+        minlength: 1,
         trim: true
     },
     // Color of map pin
@@ -18,4 +18,4 @@ const Journey = mongoose.model('Journey', {
     }
 })
 
-module.exports = { Journey }
+module.exports = Journey

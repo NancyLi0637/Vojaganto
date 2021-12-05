@@ -88,6 +88,7 @@ function handleDeleteImage(component, index) {
 async function submitPosting(component) {
     // Collect inputs from state
     const data = component.state.posting
+    console.log("Submit Posting: ",data)
     // Post to server
     try {
         if (data._id !== undefined) {
@@ -151,11 +152,14 @@ async function setPostingData(component, pid) {
  * @param {React.Component} component 
  * @param {*} pid 
  */
- async function getUserJourneys(component, uid) {
+async function getUserJourneys(component, uid) {
     try {
         const userJourneys = await api.getUserJourneys(uid)
-        console.log(`Get user's journeys ${uid}`, userJourneys)
-        component.setState({ userJourneys })
+        if (userJourneys) {
+            console.log(`Get user's journeys ${uid}`, userJourneys)
+            component.setState({ userJourneys })
+        }
+
     } catch (err) {
         // throw err
         alert(String(err))
@@ -166,8 +170,8 @@ async function setPostingData(component, pid) {
 export {
     handleInputChange,
     handleImageUpload,
-    handleDeleteImage, 
-    submitPosting, 
+    handleDeleteImage,
+    submitPosting,
     deletePosting,
     setPostingData,
     getUserJourneys

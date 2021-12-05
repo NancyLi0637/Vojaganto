@@ -6,7 +6,7 @@ import AdminUserTable from 'components/Admin/AdminUserTable'
 import './style.scss'
 
 import { handleInputChange } from "actions"
-import { changeUserStatus, getUsers } from 'actions/Admin/AdminTable/index';
+import { changeUserActive, getUsers } from 'actions/Admin/AdminTable/index';
 
 class AdminUserDash extends React.Component {
     state = {
@@ -32,7 +32,7 @@ class AdminUserDash extends React.Component {
                         <input type="text" className="table-search-input" name="search" placeholder="Search by ID, Username, Name" onChange={(e) => handleInputChange(this, e)} />
                         <button className="table-search-btn" onClick={() => getUsers(this, { search: this.state.search })}>Search</button>
                     </div>
-                    <AdminUserTable users={this.state.users} changeUserStatus={(user) => changeUserStatus(this, user)} />
+                    <AdminUserTable users={this.state.users} changeUserActive={(user) => changeUserActive(this, user)} />
                 </div>
             </div>
         )

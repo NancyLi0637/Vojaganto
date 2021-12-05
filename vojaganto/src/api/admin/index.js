@@ -1,7 +1,5 @@
 import * as http from "utils/http"
 
-
-
 const postings = [
     {
         _id: 1,
@@ -46,9 +44,14 @@ const users = [
 
 export async function fetchPostings(params) {
     try {
-        // const response = await http.get("/api/admin/posting", params)
-        let response = postings
-        return response
+        const {response, body} = await http.get("/api/posting", params)
+        // let response = postings
+        // return response
+        if (response.status === 200){
+            return body
+        }else {
+            return null
+        }
     } catch (err) {
         throw err
     }
@@ -57,9 +60,12 @@ export async function fetchPostings(params) {
 
 export async function fetchUsers(params) {
     try {
-        // const response = await http.get("/api/admin/user", params)
-        let response = users
-        return response
+        const {response, body} = await http.get("/api/admin/user", params)
+        if (response.status === 200){
+            return body
+        }else {
+            return null
+        }
     } catch (err) {
         throw err
     }
@@ -67,9 +73,12 @@ export async function fetchUsers(params) {
 
 export async function changeUserStatus(user, toStatus) {
     try {
-        // const response = await http.put(`/api/admin/user/${user._id}`, { ...user, status: toStatus })
-        let response = users[0]
-        return response
+        const {response, body} = await http.put(`/api/admin/user/${user._id}`, { ...user, active: toStatus })
+        if (response.status === 200){
+            return body
+        }else {
+            return null
+        }
     } catch (err) {
         throw err
     }
@@ -77,9 +86,12 @@ export async function changeUserStatus(user, toStatus) {
 
 export async function deletePosting(pid) {
     try {
-        // const response = await http.del(`/api/admin/posting/${pid}`)
-        let response = postings[0]
-        return response
+        const {response, body} = await http.del(`/api/admin/posting/${pid}`)
+        if (response.status === 200){
+            return body
+        }else {
+            return null
+        }
     } catch (err) {
         throw err
     }
