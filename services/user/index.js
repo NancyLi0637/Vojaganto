@@ -1,6 +1,7 @@
 const logger = { log: console.log }
 const bcrypt = require("bcrypt");
 const { User, Journey, Posting } = require("../../models")
+const journeyService = require('../journey')
 const returnedField = ["username", "name", "description", "active", "avatar", "role", "lastLogin", "_id"]
 const returnedJourneyField = ["_id", "title", "color", "author", "journeyPostings"]
 class UserService {
@@ -87,66 +88,17 @@ class UserService {
     // =========================================================New Journey Feature======================================
 
 
-    async _getReturnedPostingField(posting){
-        const returnedField = ["_id", "title", "destination", "coordinates", "author", "journey","date", "body", "images", "public", "createdTime"]
-        let res = {}
-        for (let key of returnedField) {
-            if (key === "coordinates"){
-                if (posting[key].length === 2 && typeof(posting[key][0]) === "number" && typeof(posting[key][1]) === "number"){
-                    res["latitude"] = posting[key][0]        
-                    res["longitude"] = posting[key][1]            
-                } else {
-                    res["latitude"] = null
-                    res["longitude"] = null           
-                }
-            } else if (key === "journey"){
-                if (!posting[key]){
-                    res[key] = null
-                } else {
-                    let journey = await Journey.findById(posting[key]).exec()
-                    if (!journey){
-                        res[key] = null
-                    } else {
-                        let resJourneyObject = {}
-                        resJourneyObject["_id"] = journey._id
-                        resJourneyObject["title"] = journey.title
-                        res[key] = resJourneyObject
-                    }
-                }
-            } else {
-                res[key] = posting[key]
-            }
-        }
-        return res
-    }
 
-    async _getReturnedJourneyField(journey){
-        let res = {}
-        for (let key of returnedJourneyField) {
-            if (key === "journeyPostings"){
-                let posting = await Posting.find({"journey": journey["_id"]}).exec()
-                res["journeyPostings"] = []
-                for (let eachPosting of posting){
-                    let currPosting = await this._getReturnedPostingField(eachPosting)                        
-                    res["journeyPostings"].push(currPosting)
-                }
-        
-            } else {
-                res[key] = journey[key]
-            }
-        }
-        return res
-    }
 
 
     async getUserJourney(uid){
         let allJourney = await Journey.find({"author": uid}).exec()
-        if (!allJourney){
-            return null
+        if (allJourney.length === 0){
+            return "journey not found"
         }
         let userJourney = []
         for (let eachJourney of allJourney){
-            userJourney.push(await this._getReturnedJourneyField(eachJourney))
+            userJourney.push(await journeyService.getReturnedJourneyField(eachJourney))
         }
         logger.log(`Get user journey`)
         return userJourney
@@ -161,19 +113,25 @@ class UserService {
         let newJourney = new Journey(data)
         let createdJourney = await newJourney.save()
         // QUESTION: What is convertedID doing here?
-        let res = await this._getReturnedJourneyField(createdJourney)
+        let res = await journeyService.getReturnedJourneyField(createdJourney)
         logger.log(`Create Journey [${createdJourney.title}]`)
         return res
  
     }
 
     async getUserPosting(uid){
+
         let allJourney = await Journey.find({"author": uid}).exec()
-        let res = {}
-        for (let eachJourney of allJourney){
-            let currJourney = await this._getReturnedJourneyField(eachJourney)
-            res[eachJourney.title] = currJourney
+        if (allJourney.length === 0){
+            return "journey not found"
         }
+        let res = []
+        for (let eachJourney of allJourney){
+            let currJourney = await journeyService.getReturnedJourneyField(eachJourney)
+            res.push(currJourney)
+        }
+        // Give input for unnamed journey posting
+        res.push(await journeyService.getReturnedJourneyField(null, false, uid))
         logger.log(`Get user posting`)
         return res
 

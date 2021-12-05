@@ -19,24 +19,29 @@ const Posting = mongoose.model('Posting', {
         type: Array
     },
     latitude: {
-        type: Number
+        type: Number,
+        default: -1
     },
     longitude: {
-        type: Number
+        type: Number,
+        default: -1
     },
     // user._id
     author: {
         type: String,
         required: true,
+        default: ""
     },
     // journey._id
     journey: {
         type: String,
-        trim: true
+        trim: true,
+        default: "-1"
     },
     // User defined date
     date: {
-        type: Date
+        type: Date,
+        //TODO: default 
     },
     // Body/content
     body: {

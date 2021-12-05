@@ -1,6 +1,7 @@
 const logger = { log: console.log }
 const userService = require("../../services/user")
 const { ObjectId } = require('mongodb')
+const {getAndValidateObjectId, getAndValidateDataBody} = require("../../util/helper")
 
 class UserController {
 
@@ -140,55 +141,29 @@ class UserController {
 
     // =========================================================New Journey Feature======================================
     async getUserJourney(req){
-        let uid = req.params._id
-        if(!uid){
-            throw { msg: `Unsatisfied: Missing field in request body`}
+        let uid = getAndValidateObjectId(req, "_id")
+        if (uid !== req.session.user){
+            throw {statusCode: 403, msg: `Forbidden: User does not have access to the required journey`}
+        }
+        let journey = await userService.getUserJourney(uid)
+
+        if (!journey){
+            throw { statusCode: 500, msg: `Failed: Internal Server Error`}
+        } else if (journey === "journey not found"){
+            throw {statusCode: 404, msg: `Not Found: Journey Not Found`}
         }
 
-        let user = await userService.getUserJourney(uid)
-
-        if (!user){
-            throw { msg: `Failed: Internal Server Error`}
-        }
-
-        return user
+        return journey
     }
 
-    async _getJourneyData(journeyBody, requiredField, optionalField){
-        let data = {}
-        for(let eachRequiredField of requiredField){
-            if (!(Object.keys(journeyBody).includes(eachRequiredField))){
-                
-                throw { msg:`Unsatisfied: Missing field [${eachRequiredField}]in request body`}
-            
-            } else {
-                data[eachRequiredField] = journeyBody[eachRequiredField]
-            }
-        }
-        for (let eachOptionalField of optionalField){
-            if (!(Object.keys(journeyBody).includes(eachOptionalField))){
-                data[eachOptionalField] = null
-            } else {
-                data[eachOptionalField] = journeyBody[eachOptionalField]
-            }
-        }
-        return data
-
-    }
 
     async createUserJourney(req){
-        const journeyBody = req.body
-        const requiredField = ["title", "author"]
-        const optionalField = ["color"]
-        let data = await this._getJourneyData(journeyBody, requiredField, optionalField)
-        if (req.session.user !== data["author"]){
-            throw { msg: `Unauthorized: User can not create the journey`}
-        }
+        const data = getAndValidateDataBody(req.body, ["title"], ["color"], req.session.user)
         let journey = await userService.createUserJourney(data)
         if (!journey){
-            throw { msg: `Failed: Journey can not be created due to internal server error`}
+            throw { statusCode: 500, msg: `Failed: Journey can not be created due to internal server error`}
         } else if (journey === "repeat"){
-            throw { msg: `Repeat: The title has been used for a journey title`}
+            throw { statusCode: 400, msg: `Unsatisfied: The title has been used for a journey title`}
         }
         return journey
 
@@ -196,15 +171,13 @@ class UserController {
     }
 
     async getUserPosting(req){
-        let uid = req.params._id
-        if(!uid){
-            throw { msg: `Unsatisfied: Missing field in request body`}
+        let uid = getAndValidateObjectId(req, "_id")
+        if (uid !== req.session.user){
+            throw { statusCode: 403, msg: `Forbidden: The user does not have access to the posting`}
         }
-
         let user = await userService.getUserPosting(uid)
-
         if (!user){
-            throw { msg: `Failed: Internal Server Error`}
+            throw { statusCode: 500, msg: `Failed: Internal Server Error`}
         }
 
         return user
