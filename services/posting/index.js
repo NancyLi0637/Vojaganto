@@ -4,11 +4,14 @@ const { User, Journey, Posting } = require("../../models")
 const { ObjectId } = require("mongodb")
 const returnedField = ["_id", "title", "destination", "coordinates", "author", "journey", "date", "body", "images", "public", "createdTime"]
 
+// const journeyService = require('../journey')
+const userService = require('../user')
+
 
 
 class PostingService {
 
-    async _getReturnedPostingField(posting) {
+    async _getReturnedPostingField(posting, meta=false) {
         const res = {
             _id: posting._id.toString(),
             title: posting.title,
@@ -20,27 +23,23 @@ class PostingService {
             latitude: posting.latitude,
             longitude: posting.longitude,
             public: posting.public,
-            journey: null,
-            author: null
+            journey: posting.journey,
+            author: posting.author
         }
-
-        if (ObjectId.isValid(posting.journey)) {
-            const journey = await Journey.findById(posting.journey).exec()
-            res.journey = journey
-            if (!res.journey){
-                res.journey = {
-                    _id: null,
-                    title: "Unnamed journey"
+        
+        if (!meta) {
+            if (ObjectId.isValid(posting.journey)) {
+                const journey = await Journey.findById(posting.journey).exec()
+                res.journey = journey
+                if (!res.journey){
+                    res.journey = {
+                        _id: null,
+                        title: "Unnamed journey"
+                    }
                 }
             }
-            
-        }
 
-        if (ObjectId.isValid(posting.author)) {
-            res.author = await User.findById(posting.author).exec()
-            if (res.author) {
-                res.author.password = undefined
-            }
+            res.author = await userService.getUser(posting.author)
         }
 
         return res
@@ -51,6 +50,7 @@ class PostingService {
         const pagingItemNum = 10
         const availableFields = ["title", "destination", "journey", "body"]
 
+        // Search postings
         let postings = null
         if (!search) {
             postings = await Posting.find()
@@ -68,7 +68,7 @@ class PostingService {
         if (!postings) {
             return "not found"
         }
-
+        // Pagination
         let resPosting = postings
         if (paging !== null) {
             if (postings.length <= (paging - 1) * pagingItemNum) {
@@ -77,13 +77,15 @@ class PostingService {
                 resPosting = postings.slice((paging - 1) * pagingItemNum, paging * pagingItemNum)
             }
         }
+
+
         let res = []
-        let currPosting = {}
-        currPosting["postings"] = []
+        // let currPosting = {}
+        // currPosting["postings"] = []
         for (let posting of resPosting) {
-            currPosting["postings"].push(await this._getReturnedPostingField(posting))
+            res.push(await this._getReturnedPostingField(posting, true))
         }
-        res.push(currPosting)
+        // res.push(currPosting)
         logger.log("Get all postings")
         return res
     }

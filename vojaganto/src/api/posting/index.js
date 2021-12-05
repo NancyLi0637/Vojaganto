@@ -48,7 +48,7 @@ const postingList = {
                 latitude: 43.662891,
                 longitude: -79.395653,
                 body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
-                image: [pic1]
+                images: [pic1]
             },
             {
                 author,
@@ -58,7 +58,7 @@ const postingList = {
                 latitude: 43.6577,
                 longitude: -79.3788,
                 body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
-                image: [pic2],
+                images: [pic2],
             },
             {
                 author,
@@ -68,7 +68,7 @@ const postingList = {
                 latitude: 43.643567,
                 longitude: -79.387054,
                 body: "Travelling and happy",
-                image: [pic3],
+                images: [pic3],
             },
         ],
     },
@@ -85,7 +85,7 @@ const postingList = {
                 latitude: 43.6901,
                 longitude: -79.42,
                 body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
-                image: [pic5],
+                images: [pic5],
             },
         ],
     },
@@ -102,7 +102,7 @@ const postingList = {
                 latitude: 43.683392,
                 longitude: -79.3812,
                 body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate exercitationem facilis molestias sunt similique, quae doloremque commodi quisquam, aperiam nisi fugit, atque quo itaque? Fugiat consequatur quia beatae ipsum sit.",
-                image: [pic6],
+                images: [pic6],
             },
         ],
     },
@@ -186,9 +186,13 @@ const postingCardColumns = [
  */
 async function getHomePostings(params) {
     try {
-        // const response = await http.get(`/api/posting`, params)
-        const response = postingCardColumns
-        return response
+        const {response, body} = await http.get(`/api/posting`, params)
+        // const response = postingCardColumns
+        if (response.status === 200){
+            return body
+        } else {
+            return null
+        }
     } catch (err) {
         throw err
     }
@@ -202,9 +206,13 @@ async function getHomePostings(params) {
  */
 async function getPosting(pid) {
     try {
-        // const response = await http.get(`/api/posting/${pid}`)
-        const response = mockPosting
-        return response
+        const {response, body} = await http.get(`/api/posting/${pid}`)
+        // const response = mockPosting
+        if (response.status === 200){
+            return body
+        } else {
+            return null
+        }
     } catch (err) {
         throw err
     }
@@ -218,9 +226,13 @@ async function getPosting(pid) {
  */
 async function createPosting(data) {
     try {
-        // const response = await http.post('/api/posting', data)
-        const response = { ...data, _id: 66 }
-        return response
+        const {response, body} = await http.post('/api/posting', data)
+        // const response = { ...data, _id: 66 }
+        if (response.status === 200){
+            return body
+        } else {
+            return null
+        }
     } catch (err) {
         throw err
     }
@@ -266,20 +278,24 @@ async function deletePosting(pid) {
  */
 async function getUserJourneys(uid) {
     try {
-        // const response = await http.get(`/api/user/${uid}/journey`)
-        const response = [
-            {
-                _id: "sdhoiwd1oi2hd12dh21213",
-                title: "Journey to Canada"
-            }, {
-                _id: "sdhsaddsai2hd12dh21213",
-                title: "Journey to Toronto"
-            }, {
-                _id: "sd123wd1oi2hd12dh21213",
-                title: "Journey to Montreal"
-            }
-        ]
-        return response
+        const {response, body} = await http.get(`/api/user/${uid}/journey`)
+        // const response = [
+        //     {
+        //         _id: "sdhoiwd1oi2hd12dh21213",
+        //         title: "Journey to Canada"
+        //     }, {
+        //         _id: "sdhsaddsai2hd12dh21213",
+        //         title: "Journey to Toronto"
+        //     }, {
+        //         _id: "sd123wd1oi2hd12dh21213",
+        //         title: "Journey to Montreal"
+        //     }
+        // ]
+        if (response.status === 200){
+            return body
+        } else {
+            return null
+        }
     } catch (err) {
         throw err
     }
@@ -293,9 +309,15 @@ async function getUserJourneys(uid) {
  */
 async function getJourney(jid) {
     try {
-        // const response = await http.get(`/api/journey/${jid}`)
-        const response = postingList["Travel to Canada"]
-        return response
+        const {response, body} = await http.get(`/api/journey/${jid}`)
+        // const response = {status: 200}
+        // const body = postingList["Travel to Canada"]
+        if (response.status === 200){
+            console.log("journey", body)
+            return body
+        } else {
+            return null
+        }
     } catch (err) {
         throw err
     }
@@ -309,9 +331,13 @@ async function getJourney(jid) {
  */
 export async function postJourney(body) {
     try {
-        // const response = await http.post(`/api/user/${String(body.author._id)}/journey`)
-        const response = { ...postingList["Travel to Canada"], title: body.title, author: body.author }
-        return response
+        const {response, body} = await http.post(`/api/user/${String(body.author._id)}/journey`)
+        // const response = { ...postingList["Travel to Canada"], title: body.title, author: body.author }
+        if (response.status === 200){
+            return body
+        } else {
+            return null
+        }
     } catch (err) {
         throw err
     }
@@ -325,7 +351,7 @@ export async function postJourney(body) {
  export async function updateJourney(jid, body) {
     try {
         // const response = await http.put(`/api/journey/${String(jid)}`, body)
-        const response = { ...postingList["Travel to Canada"], title: body.title, author: body.author }
+        const {response, body} = { ...postingList["Travel to Canada"], title: body.title, author: body.author }
         return response
     } catch (err) {
         throw err
@@ -339,7 +365,7 @@ export async function postJourney(body) {
  */
  export async function deleteJourney(jid) {
     try {
-        // const response = await http.del(`/api/journey/${String(jid)}`)
+        // const {response, body} = await http.del(`/api/journey/${String(jid)}`)
         const response = { ...postingList["Travel to Canada"]}
         return response
     } catch (err) {
@@ -354,7 +380,7 @@ export async function postJourney(body) {
  */
 async function getUserPostings(uid) {
     try {
-        // const response = await http.get(`/api/user/${uid}/posting`)
+        // const {response, body} = await http.get(`/api/user/${uid}/posting`)
         const response = postingList
         return response
     } catch (err) {

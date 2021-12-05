@@ -20,10 +20,10 @@ class JourneyListPosting extends React.Component {
         </div>
         <div className="journey-list-posting-image-container">
           {
-            posting.image.length > 0 ?
+            posting.images.length > 0 ?
               <img
                 className="journey-list-posting-image"
-                src={posting.image[0]}
+                src={posting.images[0]}
                 alt="journey"
               />
               : null

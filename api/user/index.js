@@ -64,7 +64,7 @@ router.get("/session/resume", authenticate, async (req, res) => {
     res.status(200).send(user)
 })
 // =========================================================New Journey Feature======================================
-router.get("/:_id/journey", authenticate, async(req, res) => {
+router.get("/:_id/journey", async(req, res) => {
     try{
         let journey = await userController.getUserJourney(req)
         res.status(200).send(journey)
@@ -84,7 +84,7 @@ router.post("/:_id/journey", authenticate, async(req, res) => {
     }
 })
 
-router.get("/:_id/posting", authenticate, async(req, res) => {
+router.get("/:_id/posting", async(req, res) => {
     try{
         let posting = await userController.getUserPosting(req)
         res.status(200).send(posting)
