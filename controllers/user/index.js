@@ -1,5 +1,6 @@
 const logger = { log: console.log }
 const userService = require("../../services/user")
+const { ObjectId } = require('mongodb')
 
 class UserController {
 
@@ -28,14 +29,17 @@ class UserController {
     async getUser(req) {
         const uid = req.params._id
 
+        // Validation
         if (!uid) {
             throw { msg: "Unsatisfied: Missing field in request body" }
+        } else if (!ObjectId.isValid(uid)) {
+            throw { statusCode: 400, msg: "Bad id" }
         }
-        console.log(uid)
+
         const user = await userService.getUser(uid)
 
         if (!user) {
-            throw { msg: "Not Found: User doesn't exist" }
+            throw { statusCode: 404, msg: "Not Found: User doesn't exist" }
         }
 
         return user
@@ -46,15 +50,16 @@ class UserController {
         const availableField = ["password", "name", "description", "avatar"]
         const data = {}
 
-        for (let key of Object.keys(body)) {
-            if (availableField.indexOf(key) < 0) {
-                throw { msg: `Forbidden: [${key}] doesn't exist or can not be modified` }
+        // Only take the available keys
+        for (let key of availableField) {
+            if (body[key] !== undefined) {
+                data[key] = body[key]
             }
-            data[key] = body[key]
         }
 
-        const modifiedUser = await userService.updateUser(req.session.user, data)
-
+        // Since we can only update the current user
+        const uid = req.session.user
+        const modifiedUser = await userService.updateUser(uid, data)
         return modifiedUser
     }
 
@@ -88,10 +93,10 @@ class UserController {
         const optionalField = ["description", "avatar"]
         const data = {}
 
+        // Create required fields
         for (let field of requiredField) {
             let value = body[field]
-            if (!value) {
-                console.log(field)
+            if (value === undefined) {
                 throw { msg: `Unsatisfied: Missing field in request body` }
             }
             data[field] = value
@@ -107,18 +112,16 @@ class UserController {
 
         data.role = "client"
         data.active = true
-        if (!data.description) {
-            data.description = "This user doesn't have any description..."
-        }
+        data.description = data.description || "This user doesn't have any description..."
 
-        let checkUsers = await userService.getUsers({ "username": data.username }, {})
-
+        // Check if username is valid
+        const checkUsers = await userService.getUsers({ "username": data.username })
         if (checkUsers.length !== 0) {
             throw { msg: "Forbidden: Username already taken!" }
         }
 
-        let newUser = await userService.createUser(data)
-
+        // Finally, create the user
+        const newUser = await userService.createUser(data)
         return newUser
     }
 

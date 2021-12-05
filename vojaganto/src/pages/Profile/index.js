@@ -31,21 +31,14 @@ class ProfilePage extends React.Component {
         <div className="main-view profile-page-main">
           {(this.state.profileInfo && this.state.journeys) ?
             <ProfileView
-            currUser={currUser}
-            setCurrUser={setCurrUser}
-            //profileId={this.props.match.params.uid}
-            profileInfo={this.state.profileInfo}
-            journeys={this.state.journeys}
+              currUser={currUser}
+              setCurrUser={setCurrUser}
+              profileId={this.props.match.params.uid}
+              profileInfo={this.state.profileInfo}
+              journeys={this.state.journeys}
             />
             : <div className="posting-placeholder">Loading Profile</div>
           }
-          {/* <ProfileView
-            currUser={currUser}
-            setCurrUser={setCurrUser}
-            //profileId={this.props.match.params.uid}
-            profileInfo={this.state.profileInfo}
-            journeys={this.state.journeys}
-          /> */}
         </div>
         <Navbar currUser={currUser} />
         <div className="map-view edit-posting-map">

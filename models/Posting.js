@@ -18,6 +18,12 @@ const Posting = mongoose.model('Posting', {
     coordinates: {
         type: Array
     },
+    latitude: {
+        type: Number
+    },
+    longitude: {
+        type: Number
+    },
     // user._id
     author: {
         type: String,
@@ -30,19 +36,22 @@ const Posting = mongoose.model('Posting', {
     },
     // User defined date
     date: {
-        type: Date,
+        type: Date
     },
     // Body/content
     body: {
         type: String,
+        default: "",
     },
     // Array of url
     images: {
-        type: Array
+        type: Array,
+        default: [],
     },
     // If the posting is public
     public: {
-        type: Boolean
+        type: Boolean,
+        default: false,
     },
     // Fixed, unchanged
     createdTime: {
@@ -50,4 +59,4 @@ const Posting = mongoose.model('Posting', {
     },
 })
 
-module.exports = { Posting }
+module.exports = Posting

@@ -1,13 +1,11 @@
 const logger = { log: console.log }
 const bcrypt = require("bcrypt");
-const { User } = require("../../models/User")
-const { Journey } = require("../../models/Journey")
-const { Posting } = require("../../models/Posting")
+const { User, Journey, Posting } = require("../../models")
 const returnedField = ["username", "name", "description", "active", "avatar", "role", "lastLogin", "_id"]
 const returnedJourneyField = ["_id", "title", "color", "author", "journeyPostings"]
 class UserService {
 
-    async getUsers(filter, sort) {
+    async getUsers(filter, sort={}) {
         let users = await User.find(filter).sort(sort).exec()
         let results = []
         for (let user of users) {

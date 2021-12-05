@@ -34,7 +34,7 @@ class ProfileEditorPrompt extends React.Component {
    */
    submitProfile(){
     const body = {
-      _id: this.state._id,
+      // _id: this.state._id,
       name: this.state.name,
       avatar: this.state.avatar,
       description: this.state.description

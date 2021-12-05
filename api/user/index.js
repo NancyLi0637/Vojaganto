@@ -7,6 +7,7 @@ router.post("/login", async (req, res) => {
     try {
         let info = await userController.login(req)
         req.session.user = info.id.toString()
+        console.log("Login User, set session", req.session.user)
         res.status(200).send(info.user)
     } catch (error) {
         logger.log(error)
