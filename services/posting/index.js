@@ -7,6 +7,8 @@ const returnedField = ["_id", "title", "destination", "coordinates", "author", "
 // const journeyService = require('../journey')
 const userService = require('../user')
 
+const imageProcess = require("../../util/imageProcess")
+const fs = require("fs")
 
 
 class PostingService {
@@ -179,6 +181,8 @@ class PostingService {
         }
         let deletedPosting = await Posting.findByIdAndRemove(postingId).exec()
 
+        await imageProcess.deleteImage(deletedPosting.images)
+
         let res = await this.getReturnedPostingField(deletedPosting)
         logger.log(`Delete Posting [${deletedPosting.title}]`)
         if (deletedPosting.journey !== null) {
@@ -199,7 +203,16 @@ class PostingService {
         return res
     }
 
+    async uploadImage(img){
+        const uploadedImgs = await imageProcess.toObject([img.path])
+        await fs.promises.rm(img.path)
+        return uploadedImgs[0]
+    }
 
+    async deleteImage(imgObject){
+        const deletedImgs = await imageProcess.deleteImage([imgObject])
+        return deletedImgs[0]
+    }
 
 
 }

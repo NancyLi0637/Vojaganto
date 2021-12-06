@@ -132,7 +132,6 @@ class UserController {
         const requiredField = ["username", "password", "name"]
         const optionalField = ["description"]
         const data = {}
-        console.log(body)
 
         // Create required fields
         for (let field of requiredField) {
