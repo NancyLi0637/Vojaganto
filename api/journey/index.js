@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {authenticate, checkAdmin} = require("../../util/authentication")
+const {authenticate} = require("../../util/authentication")
 const journeyController = require('../../controllers/journey')
 const logger = { log: console.log }
 
@@ -34,7 +34,3 @@ router.delete("/:_id", authenticate, async (req, res) => {
 })
 
 module.exports = router
-
-
-
-

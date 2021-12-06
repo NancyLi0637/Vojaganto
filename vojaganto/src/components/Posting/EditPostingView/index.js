@@ -5,6 +5,7 @@ import Editor from 'components/Posting/Editor';
 import "./EditPostingView.scss"
 
 import { getUserJourneys } from "actions/EditPosting"
+import { formatDate } from "actions"
 
 
 class EditPostingView extends React.Component {
@@ -65,9 +66,8 @@ class EditPostingView extends React.Component {
                             <select
                                 name="journey"
                                 className="edit-meta edit-input"
-                                placeholder="My Journey"
                                 onChange={this.handleSelect}
-                                defaultValue={this.state.userJourneys[0]}
+                                value={this.state.userJourneys[0] ? this.state.userJourneys[0]._id : ""}
                             >
                                 {
                                     this.state.userJourneys.map((journey, i) => {
@@ -87,7 +87,7 @@ class EditPostingView extends React.Component {
                                 className="edit-meta edit-input"
                                 id="postingDateInput"
                                 onChange={handleInputChange}
-                                value={posting.date}
+                                value={formatDate(posting.date)}
                             />
                             <input type="text"
                                 name="destination"

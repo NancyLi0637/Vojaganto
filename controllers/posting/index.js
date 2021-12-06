@@ -105,7 +105,22 @@ class PostingController {
         return posting
     }
 
+    async uploadImage(req){
+        if(!req.file){
+            throw { msg: `Unsatisfied: Missing field in request body`, status: 400 }
+        }
+        const uploadedImg = postingService.uploadImage(req.file)
+        return uploadedImg
+    }
 
+    async deleteImage(req){
+        let body = req.body
+        if(!body.image){
+            throw { msg: `Unsatisfied: Missing field in request body`, status: 400 }
+        }
+        const deletedImg = postingService.deleteImage(body.image)
+        return deletedImg
+    }
 
 }
 

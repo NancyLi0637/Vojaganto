@@ -336,9 +336,9 @@ async function getJourney(jid) {
  * @param {*} body 
  * @returns 
  */
-export async function postJourney(body) {
+export async function postJourney(authorId, data) {
     try {
-        const { response, body } = await http.post(`/api/user/${String(body.author._id)}/journey`)
+        const { response, body } = await http.post(`/api/user/${String(authorId)}/journey`, data)
         // const response = { ...postingList["Travel to Canada"], title: body.title, author: body.author }
         if (response.status === 200) {
             return body
@@ -355,9 +355,9 @@ export async function postJourney(body) {
  * @param {*} body 
  * @returns 
  */
-export async function updateJourney(jid, body) {
+export async function updateJourney(jid, data) {
     try {
-        const { response, body } = await http.put(`/api/journey/${String(jid)}`, body)
+        const { response, body } = await http.put(`/api/journey/${String(jid)}`, data)
         // const {response, body} = { ...postingList["Travel to Canada"], title: body.title, author: body.author }
         if (response.status === 200) {
             return body

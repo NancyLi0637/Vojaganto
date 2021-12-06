@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import "./PostingView.scss"
+import { getAvatarUrl, formatDate } from "actions"
 
 class PostingView extends React.Component {
 
@@ -33,14 +34,14 @@ class PostingView extends React.Component {
                                     {posting.journey.title}
                                 </Link>
                             </li>
-                            <li className="info-item">{posting.date}</li>
+                            <li className="info-item">{formatDate(posting.date)}</li>
                             <li className="info-item">{posting.destination}</li>
                         </ul>
                     </div>
 
                     <div className="posting-author-container">
                         <div className="posting-author-avatar">
-                            <img src={posting.author.avatar} alt={posting.author.name} />
+                            <img src={getAvatarUrl(posting.author.avatar)} alt={posting.author.name} />
                         </div>
                         <Link to={`/profile/${String(posting.author._id)}`}><div className="posting-author-name">{posting.author.name}</div></Link>
                     </div>

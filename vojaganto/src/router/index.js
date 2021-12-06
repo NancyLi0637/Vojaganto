@@ -30,7 +30,7 @@ export default class RenderRoutes extends React.Component {
                 <Route exact path="/edit/:pid" render={(props) => <EditPostingPage currUser={currUser} {...props} />} />
 
                 {/* PROFILE */}
-                <Route exact path="/profile/:uid" render={(props) => <ProfilePage currUser={currUser} setCurrUser = {setCurrUser} {...props} />} />
+                <Route exact path="/profile/:uid" render={(props) => <ProfilePage currUser={currUser} setCurrUser = {setCurrUser} key={props.match.params.uid} {...props} />} />
 
                 {/* ADMIN */}
                 <Route exact path="/admin/login" render={(props) => <AdminLogin currUser={currUser} setCurrUser={setCurrUser} {...props} />} />

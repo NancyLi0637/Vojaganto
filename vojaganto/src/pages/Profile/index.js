@@ -5,6 +5,7 @@ import Map from "components/MapPlugin/Mapp";
 
 import ProfileView from "components/Profile/ProfileView";
 import * as actions from "actions/Profile"
+import { reloadPage } from "actions";
 
 import "./index.scss";
 
@@ -20,8 +21,14 @@ class ProfilePage extends React.Component {
   }
 
   componentDidMount() {
-    actions.setProfileInfo(this, this.state.profileId)
-    actions.setProfileJourneys(this, this.state.profileId)
+    actions.setProfileInfo(this, this.props.match.params.uid)
+    actions.setProfileJourneys(this, this.props.match.params.uid)
+  }
+
+  componentWillReceiveProps(props) {
+    if (props.key !== this.props.key){
+      reloadPage()
+    }
   }
 
   render() {
@@ -33,7 +40,7 @@ class ProfilePage extends React.Component {
             <ProfileView
               currUser={currUser}
               setCurrUser={setCurrUser}
-              profileId={this.props.match.params.uid}
+              profileId={this.state.profileId}
               profileInfo={this.state.profileInfo}
               journeys={this.state.journeys}
             />

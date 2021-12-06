@@ -33,6 +33,11 @@ const toUrl = async (imageObjects) => {
     return results
 }
 
+/**
+ * Delete an array of image objects in database
+ * @param {Array} imageObjects an array of image objects stroed in database
+ * @return an array of image objects
+ */
 const deleteImage = async (imageObjects) => {
     let results = []
     for (let image of imageObjects) {

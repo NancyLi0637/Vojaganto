@@ -35,7 +35,7 @@ class Journey extends React.Component {
           <h1 className="trip-type">{this.props.title}</h1>
 
           {
-            currUser && this.props.author && String(currUser._id) === String(this.props.author._id) ?
+            currUser && this.props.author && (String(currUser._id) === String(this.props.author) || String(currUser._id) === String(this.props.author._id)) ?
               <div>
                 <button className="edit-journey-btn" onClick={() => this.toggleEditModal()}>Edit</button>
                 <EditJourneyModal
