@@ -27,7 +27,7 @@ class EditJourneyModal extends React.Component {
     }
 
     deleteJourney() {
-        if(window.confirm("Are you sure you want to delete this journey? Your trips will be moved to Unnamed journey.")){
+        if(window.confirm("Are you sure you want to delete this journey? Your trips will be moved to default journey.")){
             deleteJourney(this, this.state._id)
         }
     }
