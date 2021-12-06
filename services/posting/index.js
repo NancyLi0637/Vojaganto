@@ -36,12 +36,6 @@ class PostingService {
             if (ObjectId.isValid(posting.journey)) {
                 const journey = await Journey.findById(posting.journey).exec()
                 res.journey = journey
-                if (!res.journey) {
-                    res.journey = {
-                        _id: null,
-                        title: "Unnamed journey"
-                    }
-                }
             }
 
             //TODO: There is a circular dependency in the original version. Changed to this for now, look for a neat solution in the future
@@ -108,35 +102,37 @@ class PostingService {
 
 
 
-    async getOnePosting(user, postingId) {
+    async getOnePosting(userId, postingId) {
+        // Get the posting
         let posting = await Posting.findById(postingId).exec()
         if (!posting) {
             return "posting not found"
         }
-
-        if (posting.public === false && posting.author !== user) {
+        // Checking privielage
+        if (posting.public === false && posting.author !== userId) {
             return "unauthorized"
         }
 
+        // Returning in appropriate data structure
         let res = this.getReturnedPostingField(posting)
         logger.log(`Get Posting [${posting.title}]`)
         return res
     }
 
-    async createOnePosting(user, data) {
-        if (data.journey !== "") {
-            // FIXME: just take the id
-            let journey = await Journey.find({ "title": data["journey"], "author": user }).exec()
-            if (!journey) {
-                return "journey not found"
-            }
+    async createOnePosting(userId, data) {
+
+        // Get the journey for priviledge
+        
+        // TODO: Double check the journey input, and see if the entire thing involving journey should be changed!
+        // FIXME: just take the id
+        let journey = await Journey.find({ "title": data["journey"], "author": userId }).exec()
+        if (journey.length === 0) {
+            return "journey not found"
         }
-
-
+        
+        // Create the posting
         let newPosting = new Posting(data)
-        console.log(newPosting)
         let createdPosting = await newPosting.save()
-        // QUESTION: What is convertedID doing here?
         let res = await this.getReturnedPostingField(createdPosting)
         logger.log(`Create Posting [${createdPosting.title}]`)
         return res
@@ -144,24 +140,25 @@ class PostingService {
     }
 
 
-    async changeOnePosting(user, postingId, data) {
+    async changeOnePosting(userId, postingId, data) {
+        // Get the posting for priviledge check
         let posting = await Posting.findById(postingId).exec()
         if (!posting) {
             return "posting not found"
         }
 
-        if (posting.author !== user) {
+        if (posting.author !== userId) {
             return "unauthorized"
         }
 
-        if (data.journey !== "") {
-            let journey = await Journey.find({ "title": data["journey"], "author": user }).exec()
-            if (!journey) {
-                return "journey not found"
-            }
+        // Check if the input journey exist
+        let journey = await Journey.find({ "title": data["journey"], "author": userId }).exec()
+        if (journey.length === 0) {
+            return "journey not found"
         }
+        
 
-
+        // Update the posting
         let updatedPosting = await Posting.findByIdAndUpdate(postingId, data, { new: true }).exec()
         let res = await this.getReturnedPostingField(updatedPosting)
         logger.log(`Modify Posting [${updatedPosting.title}]`)
@@ -170,30 +167,34 @@ class PostingService {
 
 
     async deleteOnePosting(user, postingId) {
+        // Find the posting
         let posting = await Posting.findById(postingId).exec()
         if (!posting) {
-            return "not found"
+            return "posting not found"
         }
-        if (posting.author !== user) {
-            return "unauthorized"
-        }
-        let deletedPosting = await Posting.findByIdAndRemove(postingId).exec()
+        // Check for priviledge
 
+        if (posting.author !== user._id.toString()){
+            if (user.role !== "admin" || posting.public === false){
+                return "unauthorized"
+            }
+        }
+        // Delte the posting
+        let deletedPosting = await Posting.findByIdAndRemove(postingId).exec()
+        // Get the return data structure
         let res = await this.getReturnedPostingField(deletedPosting)
         logger.log(`Delete Posting [${deletedPosting.title}]`)
-        if (deletedPosting.journey !== null) {
-            let allPosting = await Posting.find().exec()
-            let removeJourney = true
-            for (let eachPosting of allPosting) {
-                if (eachPosting.journey === deletedPosting.journey) {
-                    removeJourney = false
-                    break
-                }
-            }
-            if (removeJourney) {
-                let journey = await Journey.findByIdAndRemove(deletedPosting.journey).exec()
+        // Delete its journey if that posting is the last posting in that journey (except if the journey is the default journey)
+        let author = await User.findById(deletedPosting.author).exec()
+
+        if (deletedPosting.journey !== author.defaultJourney) {
+            let allPosting = await Posting.find({"journey": deletedPosting.journey, "author": deletedPosting.author}).exec()
+            if (allPosting.length === 0){
+                let journey = await Journey.findOneAndRemove({"title": deletedPosting.journey, "author": deletedPosting.author}).exec()
                 logger.log(`Delete Journey [${journey.title}]`)
             }
+
+            
         }
 
         return res

@@ -33,11 +33,11 @@ const Posting = mongoose.model('Posting', {
         required: true,
         default: ""
     },
-    // journey._id
+    // journey.title?id?
     journey: {
         type: String,
-        trim: true,
-        default: "-1"
+        trim: true
+        //default: ""
     },
     // User defined date
     date: {
@@ -62,6 +62,7 @@ const Posting = mongoose.model('Posting', {
     // Fixed, unchanged
     createdTime: {
         type: Date,
+        //required? 
     },
 })
 

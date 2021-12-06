@@ -6,10 +6,14 @@ const {getAndValidateObjectId, getAndValidateDataBody} = require("../../util/hel
 class JourneyController {
 
 
-
+    /** Get one journey according to journey id
+     * 
+     * @param {*} req 
+     * @returns 
+     */
     async getJourney(req){
         let journeyId = getAndValidateObjectId(req, "_id")
-        let journey = await journeyService.getJourney(journeyId)
+        let journey = await journeyService.getJourney(req.session.user, journeyId)
         if (journey === "journey not found"){
             throw { status: 404, msg: `Not Found: Journey doesn't exist`}
         }
@@ -17,6 +21,13 @@ class JourneyController {
 
     }
 
+    
+   
+    /** Update one journey (Only allows when the user is the journey author) 
+    * 
+    * @param {*} req 
+    * @returns 
+    */
     async updateJourney(req){
         const data = getAndValidateDataBody(req.body, ["title"], ["color"], req.session.user)
 
@@ -24,7 +35,7 @@ class JourneyController {
         let journey = await journeyService.updateJourney(req.session.user, journeyId, data)
         if (!journey){
             throw { status: 500, msg: `Failed: Journey can not be updated due to internal server error`}
-        } else if (journey === "not found"){
+        } else if (journey === "journey not found"){
             throw { status: 404, msg: `Not Found: Journey can not be found`}
         } else if (journey === "unauthorized"){
             throw { status: 403, msg: `Forbidden: User does not have access to the required posting`}
@@ -34,6 +45,11 @@ class JourneyController {
 
     }
 
+    /** Delete a given journey according to id (Only allow when the user is the author)
+     * 
+     * @param {*} req 
+     * @returns 
+     */
     async deleteJourney(req){
         const journeyId = getAndValidateObjectId(req, "_id")
         let journey = await journeyService.deleteJourney(req.session.user, journeyId)
@@ -41,7 +57,7 @@ class JourneyController {
             throw { status: 500, msg: `Failed: Journey can not be deleted due to internal server error`}
         } else if (journey === "unauthorized"){
             throw { status: 403, msg: `Unauthorized: User does not have access to the required journey`}
-        } else if (journey === "not found"){
+        } else if (journey === "journey not found"){
             throw { status: 404, msg: `Not Found: Journey can not be found`}
         }
         return journey
