@@ -59,7 +59,9 @@ export async function setProfileJourneys(component, uid) {
     try {
         const journeys = await getUserPostings(uid)
         console.log("Getting user's journeys", journeys)
-        component.setState({ journeys })
+        if (journeys) {
+            component.setState({ journeys })
+        }
     } catch (err) {
         console.error(err)
         alert(String(err))

@@ -2,6 +2,8 @@ import React from "react";
 
 import "./profileinfo.scss";
 
+import { getAvatarUrl } from "actions"
+
 class ProfileInfo extends React.Component {
   render() {
     const { profileInfo } = this.props;
@@ -10,7 +12,7 @@ class ProfileInfo extends React.Component {
         <div className="profile-avatar-container">
           <img
             className="profile-image"
-            src={profileInfo.avatar}
+            src={getAvatarUrl(profileInfo.avatar)}
             alt="avatar"
           />
         </div>

@@ -3,21 +3,22 @@ import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from "leaflet";
 //import map from "./map.png";
 //import LocationMarker from "components/MapPlugin/LocationMarker";
+import { formatDate } from 'actions';
 
 import "./style.scss";
 
 export const icons = [
     new Icon({
         iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Map_pin_icon_green.svg/800px-Map_pin_icon_green.svg.png",
-        iconSize: [25, 25]
+        iconSize: [25, 40]
     }),
     new Icon({
         iconUrl: "https://www.clipartmax.com/png/full/86-869339_yellow-map-marker-png.png",
-        iconSize: [25, 25]
+        iconSize: [25, 40]
     }),
     new Icon({
         iconUrl: "http://www.clker.com/cliparts/1/K/0/V/P/H/map-pin-pink.svg.hi.png",
-        iconSize: [25, 25]
+        iconSize: [25, 40]
     }),
 ];
 
@@ -92,32 +93,32 @@ class Mapp extends React.Component {
                 {parent === "Profile" && Object.keys(allPostings).map((journey, i) => (
                     allPostings[journey].journeyPostings.map(posting => (
                         <Marker
-                        key={posting._id}
-                        position={[posting.latitude, posting.longitude]}
-                        onClick={() => {
-                            this.setCurrLoc(posting)
-                        }}
-                        // don't know how to loop index
-                        icon={icons[i]}
-                    />
+                            key={posting._id}
+                            position={[posting.latitude, posting.longitude]}
+                            onClick={() => {
+                                this.setCurrLoc(posting)
+                            }}
+                            // FIXME: don't know how to loop index
+                            icon={icons[i % icons.length]}
+                        />
                     ))
                 ))}
 
                 {/* Marker for Journey Page */}
                 {parent === "JourneyPosting" && allPostings.map(posting => (
                     <Marker
-                    key={posting._id}
-                    position={[
-                        posting.latitude,
-                        posting.longitude
-                    ]}
-                    onClick={() => {
-                        this.setCurrLoc(posting);
-                    }}
+                        key={posting._id}
+                        position={[
+                            posting.latitude,
+                            posting.longitude
+                        ]}
+                        onClick={() => {
+                            this.setCurrLoc(posting);
+                        }}
                     />
                 ))}
 
-                {/* Add Markfer for new location during editing */}
+                {/* Add Marker for new location during editing */}
                 {this.state.newPosting && (
                     <Marker
                         key={newPosting._id}
@@ -143,7 +144,7 @@ class Mapp extends React.Component {
                     >
                         <div>
                             <h2>{this.state.currLoc.title}</h2>
-                            <p>{this.state.currLoc.date}</p>
+                            <p>{formatDate(this.state.currLoc.date)}</p>
                         </div>
 
                     </Popup>

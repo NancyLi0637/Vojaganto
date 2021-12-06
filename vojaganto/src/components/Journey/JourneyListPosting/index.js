@@ -1,6 +1,8 @@
 import React from "react";
 
 import "./journeylistposting.scss";
+import { getAvatarUrl, formatDate } from "actions"
+
 
 class JourneyListPosting extends React.Component {
   render() {
@@ -9,7 +11,7 @@ class JourneyListPosting extends React.Component {
       <div className="journey-list-posting">
         <div className="journey-list-posting-text">
           <h3 className="journey-posting-date">
-            {posting.date.toString().substring(0, 11)}
+            {formatDate(posting.date)}
           </h3>
           <h4
             className="journey-posting-title"
@@ -20,13 +22,12 @@ class JourneyListPosting extends React.Component {
         </div>
         <div className="journey-list-posting-image-container">
           {
-            posting.images.length > 0 ?
+            posting.images.length > 0 &&
               <img
                 className="journey-list-posting-image"
                 src={posting.images[0]}
                 alt="journey"
               />
-              : null
           }
         </div>
 

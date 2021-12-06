@@ -17,7 +17,8 @@ export async function setJourney(component, jid) {
 
 export async function createJourney(component, body) {
     try {
-        const journey = await api.postJourney(body)
+        console.log("Submit journey", body)
+        const journey = await api.postJourney(body.author._id, { title: body.title })
         if (journey) {
             console.log(`Created journey ${journey._id}`, journey)
             alert(`Created journey ${journey._id}`, journey)
@@ -27,7 +28,7 @@ export async function createJourney(component, body) {
         }
     } catch (err) {
         console.error(err)
-        alert(String(err))
+        // alert(String(err))
     }
 }
 
