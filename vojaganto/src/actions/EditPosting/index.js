@@ -1,4 +1,6 @@
 import * as api from "api/posting"
+import { uploadPostingImage, deletePostingImage } from "api/image"
+
 /**
  * Handle setState when an input event occurs. 
  * @param {React.Component} component 
@@ -33,7 +35,7 @@ function handleInputChange(component, event) {
 }
 
 /**
- * Update component state to append new image url.
+ * Update component state to append new image, and upload the image to server.
  * @param {*} component 
  * @param {*} event 
  */
@@ -42,42 +44,81 @@ async function handleImageUpload(component, event) {
     const files = target.files;
 
     // Get uploaded images from input
-    const newFiles = [];
-    for (let f of files) {
-        newFiles.push(URL.createObjectURL(f))
-    }
-    // console.log(files)
+    // const newFiles = [];
+    // for (let f of files) {
+    //     newFiles.push(URL.createObjectURL(f))
+    // }
+    const imageFile = files[0]
+    console.log("Loading a image file: ", imageFile)
 
     // TODO: upload image
+    const formData = new FormData();
+    formData.append(
+        "image",
+        imageFile,
+        imageFile.name
+    );
 
-    // A copy of the new state
-    const newImages = [...component.state.posting.images, ...newFiles]
+    try {
+        const uploadedImage = await uploadPostingImage(formData)
 
-    // Set component state
-    component.setState(prevState => ({
-        ...prevState,
-        posting: {
-            ...prevState.posting,
-            images: newImages
+        if (uploadedImage) {
+            console.log("Uploaded image", uploadedImage)
+
+            // A copy of the new state
+            const newImages = [...component.state.posting.images, uploadedImage]
+
+            // Set component state
+            component.setState(prevState => ({
+                ...prevState,
+                posting: {
+                    ...prevState.posting,
+                    images: newImages
+                }
+            }))
+        } else {
+            console.error("Failed upload image", formData)
         }
-    }))
+    } catch (err) {
+        console.error(err)
+    }
 }
 
+/**
+ * Delete a image from view and server.
+ * @param {*} component 
+ * @param {*} index 
+ */
+async function handleDeleteImage(component, index) {
 
+    const delImage = component.state.posting.images[index]
 
+    // Send server request to delete image.
+    try {
+        const result = await deletePostingImage({ image: delImage })
+        if (result) {
+            console.log("Deleted image", result)
+            
+            // Update view
+            const newImages = [...component.state.posting.images];
+            newImages.splice(index, 1);
 
-function handleDeleteImage(component, index) {
-    const newImages = [...component.state.posting.images];
-    newImages.splice(index, 1);
-
-    // Set component state
-    component.setState(prevState => ({
-        ...prevState,
-        posting: {
-            ...prevState.posting,
-            images: newImages
+            // Set component state
+            component.setState(prevState => ({
+                ...prevState,
+                posting: {
+                    ...prevState.posting,
+                    images: newImages
+                }
+            }))
+        } else {
+            console.error("Failed delete image", result)
         }
-    }))
+    } catch (err) {
+        console.error(err)
+    }
+
+
 }
 
 
@@ -88,46 +129,57 @@ function handleDeleteImage(component, index) {
 async function submitPosting(component) {
     // Collect inputs from state
     const data = component.state.posting
-    console.log("Submit Posting: ",data)
     // Post to server
     try {
         if (data._id !== undefined) {
             // Update a posting
-            console.log(`Updating posting ${data._id}`, data)
+            console.log(`Submit edit posting ${data._id}`, data)
             const editedPosting = await api.updatePosting(data._id, data)
-            // console.log(editedPosting)
-            // return response
-            alert("Submitted updates!")
-            component.props.history.push(`/trip/${String(editedPosting._id)}`)
+            if (editedPosting) {
+                alert("Updated trip!")
+                component.props.history.push(`/trip/${String(editedPosting._id)}`)
+            } else {
+                console.error("Update failed", editedPosting)
+            }
+
         } else {
             // Create a new posting
-            console.log(`Creating new posting`, data)
+            console.log(`Submit new posting`, data)
             const newPosting = await api.createPosting(data)
-            alert("Created new trip!")
-            component.props.history.push(`/trip/${String(newPosting._id)}`)
+            if (newPosting) {
+                alert("Created new trip!")
+                component.props.history.push(`/trip/${String(newPosting._id)}`)
+            } else {
+                console.error("Creation failed", newPosting)
+            }
         }
     } catch (err) {
-        // throw err
-        alert(String(err))
+        console.error(err)
     }
 }
 
+
+/**
+ * Delete a posting to the server.
+ * @param {*} component 
+ */
 async function deletePosting(component, pid) {
     if (pid !== undefined) {
         try {
             const response = await api.deletePosting(pid)
-            console.log(`DELETED Posting ${pid}`, response)
-            alert("Deleted posting.")
-            component.props.history.push(`/profile/${String(component.props.currUser._id)}`)
+            if (response) {
+                console.log(`DELETED Posting ${pid}`, response)
+                alert("Deleted posting.")
+                component.props.history.push(`/profile/${String(component.props.currUser._id)}`)
+            }
         } catch (err) {
-            // throw err
             alert(String(err))
         }
     } else {
         // Empty draft
-        console.log("DELETED new posting")
-        alert("Deleted new posting draft.")
-        component.props.history.push(`/profile/${String(component.props.currUser._id)}`)
+        if (window.confirm("Are you sure you want to delete the draft?")) {
+            component.props.history.push(`/profile/${String(component.props.currUser._id)}`)
+        }
     }
 }
 

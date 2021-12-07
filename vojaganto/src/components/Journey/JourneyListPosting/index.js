@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./journeylistposting.scss";
-import { getAvatarUrl, formatDate } from "actions"
+import { getAvatarUrl, formatDate, getImageUrl } from "actions"
 
 
 class JourneyListPosting extends React.Component {
@@ -25,7 +25,7 @@ class JourneyListPosting extends React.Component {
             posting.images.length > 0 &&
               <img
                 className="journey-list-posting-image"
-                src={posting.images[0]}
+                src={posting.images[0] && posting.images[0].url}
                 alt="journey"
               />
           }

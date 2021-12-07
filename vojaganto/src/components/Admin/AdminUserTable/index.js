@@ -36,64 +36,50 @@ class AdminUserTable extends React.Component {
                     </thead>
                     <tbody>
                         {users.map(user => {
-                            if (user.active) {
-                                return (
-                                    <tr key={user._id} className="admin-data-row">
-                                        <td>
-                                            {user._id}
-                                        </td>
-                                        <td>
-                                            {user.username}
-                                        </td>
-                                        <td>
-                                            {user.nickname}
-                                        </td>
-                                        <td>
-                                            {user.role}
-                                        </td>
-                                        <td>
-                                            {user.status}
-                                        </td>
-                                        <td>
-                                            {user.lastLogin}
-                                        </td>
-                                        <td className="actions">
-                                            <button onClick={() => this.props.changeUserActive(user)}>
-                                                Inactivate
-                                            </button>
-                                        </td>
-                                    </tr>
-                                )
-                            } else if (!user.active) {
-                                return (
-                                    <tr key={user._id} className="admin-data-row">
-                                        <td>
-                                            {user._id}
-                                        </td>
-                                        <td>
-                                            {user.username}
-                                        </td>
-                                        <td>
-                                            {user.nickname}
-                                        </td>
-                                        <td>
-                                            {user.role}
-                                        </td>
-                                        <td>
-                                            {user.status}
-                                        </td>
-                                        <td>
-                                            {user.lastLogin}
-                                        </td>
-                                        <td className="actions">
-                                            <button onClick={() => this.props.changeUserActive(user)}>
-                                                Activate
-                                            </button>
-                                        </td>
-                                    </tr>
-                                )
-                            }
-
+                            return (
+                                <tr key={user._id} className="admin-data-row">
+                                    <td>
+                                        {user._id}
+                                    </td>
+                                    <td>
+                                        {user.username}
+                                    </td>
+                                    <td>
+                                        {user.name}
+                                    </td>
+                                    <td>
+                                        {user.role}
+                                    </td>
+                                    <td>
+                                        {user.active ? "Active" : "Inactive"}
+                                    </td>
+                                    <td>
+                                        {user.lastLogin}
+                                    </td>
+                                    <td className="actions">
+                                        {
+                                            user.active ?
+                                                <button onClick={() => this.props.changeUserActive(user)}>
+                                                    Inactivate
+                                                </button>
+                                                :
+                                                <button onClick={() => this.props.changeUserActive(user)}>
+                                                    Activate
+                                                </button>
+                                        }
+                                        {
+                                            user.role === "admin" ?
+                                                <button onClick={() => this.props.changeUserRole(user)}>
+                                                    Set to Client
+                                                </button>
+                                                :
+                                                <button onClick={() => this.props.changeUserRole(user)}>
+                                                    Set to Admin
+                                                </button>
+                                        }
+                                    </td>
+                                </tr>
+                            )
                         })}
                     </tbody>
                 </table>

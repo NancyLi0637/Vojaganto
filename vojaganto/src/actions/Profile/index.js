@@ -33,20 +33,33 @@ export async function updateProfileInfo(component, uid, body) {
         body._id = uid
     }
 
+    console.log("Action receive body", body)
+
+    const data = new FormData()
+    for (let key in body) {
+        data.append(
+            key,
+            body[key]
+        )
+        console.log("Form append", key, ": ", data[key])
+    }
+
+    console.log("Update file data", JSON.parse(JSON.stringify(data)))
+
     try {
         // console.log("Update profile", body)
-        const newProfile = await api.updateProfile(uid, body)
+        const newProfile = await api.updateProfile(uid, data)
         console.log("Updated profile", newProfile)
         if (newProfile) {
             alert("Updated profile!")
-            reloadPage()
+            // reloadPage()
         } else {
             alert("Update failed!")
         }
 
     } catch (err) {
         console.error(err)
-        alert(String(err))
+        // alert(String(err))
     }
 }
 

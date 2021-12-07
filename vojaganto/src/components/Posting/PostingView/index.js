@@ -53,7 +53,7 @@ class PostingView extends React.Component {
                         {posting.images.map((img, idx) => {
                             return (
                                 <div key={idx} className="posting-image">
-                                    <img src={img} alt={img} />
+                                    <img src={img.url} alt={"image"} />
                                 </div>
                             )
                         })}

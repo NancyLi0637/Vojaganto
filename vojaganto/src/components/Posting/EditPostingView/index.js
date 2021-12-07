@@ -115,7 +115,7 @@ class EditPostingView extends React.Component {
                                 return (
                                     <div key={idx} className="posting-image">
                                         <button type="button" className="img-del-btn" onClick={() => handleDeleteImage(idx)}>delete</button>
-                                        <img src={img} alt={img} />
+                                        <img src={img.url} alt={img} />
                                     </div>
                                 )
                             })}
@@ -127,7 +127,12 @@ class EditPostingView extends React.Component {
                     </div>
 
                     <div className="edit-control-container">
-                        <button type="button" className="edit-delete-btn" onClick={deletePosting}>DELETE</button>
+                        {
+                            posting._id ?
+                                <button type="button" className="edit-delete-btn" onClick={deletePosting}>DELETE</button>
+                                : <button type="button" className="edit-delete-btn" onClick={deletePosting}>CANCEL</button>
+                        }
+
 
                         <div className="edit-public-container">
                             <input type="checkbox"
