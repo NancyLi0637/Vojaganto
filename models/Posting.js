@@ -14,7 +14,7 @@ const Posting = mongoose.model('Posting', {
         type: String,
         required: true,
         trim: true,
-        default: "unknown"
+        default: "Unknown Location"
     },
     // For map
     coordinates: {

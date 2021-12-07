@@ -127,8 +127,8 @@ async function submitPosting(component) {
     // Collect inputs from state
     const data = component.state.posting
     // Input Validation
-    if (data.title.length === 0 || data.title.destination.length === 0) {
-        alert("Your trip should have a title and a destination!")
+    if (data.title.length === 0) {
+        alert("Your trip should have a title!")
         return
     }
     // Post to server
@@ -193,6 +193,7 @@ async function deletePosting(component, pid) {
 async function setPostingData(component, pid) {
     try {
         const oldPosting = await api.getPosting(pid)
+        oldPosting.journey = oldPosting.journey._id
         console.log(`Get Posting ${pid}`, oldPosting)
         component.setState({ new: false, posting: oldPosting })
     } catch (err) {

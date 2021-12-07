@@ -95,7 +95,7 @@ class UserService {
         let createdUser = await newUser.save()
         // Create the default journey for the user, and then update the user to have that default journey
         let userDefaultJourney = await this.createUserJourney(createdUser._id, {
-            "title": "unnamed journey",
+            "title": "Unnamed Journey",
             "author": createdUser._id
         })
 

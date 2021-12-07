@@ -17,7 +17,7 @@ const getAndValidateDataBody = (body, requiredField, optionalField, author=null)
     let data = {}   // The valid posting data
     // Check every required field is satisfied
     for(let field of requiredField){
-        if (!(field in body)){
+        if (!(field in body) || !body[field]){
             throw { status: 400, msg: `Unsatisfied: Missing field [${field}] in request body`}
         } else {
             data[field] = body[field]
@@ -25,7 +25,7 @@ const getAndValidateDataBody = (body, requiredField, optionalField, author=null)
     }
     // Fill every optional fields
     for (let field of optionalField){
-        if (field in body){
+        if (field in body && body[field] !== '' && body[field] !== null){
             data[field] = body[field]
         }
     }
