@@ -17,7 +17,7 @@ const getAndValidateDataBody = (body, requiredField, optionalField, author=null)
     // Check every required field is satisfied
     for(let field of requiredField){
         if (!(field in body)){
-            throw { status: 400, msg: `Unsatisfied: Missing field [${field}]in request body`}
+            throw { status: 400, msg: `Unsatisfied: Missing field [${field}] in request body`}
         } else {
             data[field] = body[field]
         }
