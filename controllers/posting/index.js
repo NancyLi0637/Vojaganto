@@ -31,7 +31,7 @@ class PostingController {
 
 
     async getOnePosting(req){
-        const postingId = getAndValidateObjectId(req, "_id")
+        const postingId = getAndValidateObjectId(req.params, "_id")
         let posting = await postingService.getOnePosting(req.session.user, postingId)
         if (!posting){
             throw { status: 500, msg: `Failed: Posting can be got due to internal server error`}
@@ -48,10 +48,12 @@ class PostingController {
     async createOnePosting(req){
         // Set the createdTime to the current time during the posting creation, and set the journey to default journey
         req.body["createdTime"] = new Date()
-        if (req.body.journey === ""){
+        if (req.body.journey === "" || !req.body.journey){
             req.body.journey = req.user.defaultJourney
+        } else {
+            getAndValidateObjectId(req.body, "journey")
         }
-        const data = getAndValidateDataBody(req.body, ["title", "destination", "createdTime"], ["journey", "date", "body", "public", "images", "longitude", "latitude"], req.session.user)
+        const data = getAndValidateDataBody(req.body, ["title", "createdTime"], ["journey", "date", "body", "public", "images", "longitude", "latitude"], req.session.user)
         let posting = await postingService.createOnePosting(req.session.user, data)
 
         if (!posting){
@@ -67,11 +69,13 @@ class PostingController {
 
     async changeOnePosting(req){
         // Turn the "" journey input into the default journey
-        if (req.body.journey === ""){
+        if (req.body.journey === "" || !req.body.journey){
             req.body.journey = req.user.defaultJourney
+        } else {
+            getAndValidateObjectId(req.body, "journey")
         }
-        const data = getAndValidateDataBody(req.body, ["title", "destination"], ["journey", "date", "body", "public", "images", "longitude", "latitude", "createdTime"], req.session.user)
-        const postingId = getAndValidateObjectId(req, "_id")
+        const data = getAndValidateDataBody(req.body, [], ["title", "journey", "date", "body", "public", "images", "longitude", "latitude", "createdTime"], req.session.user)
+        const postingId = getAndValidateObjectId(req.params, "_id")
 
         let posting = await postingService.changeOnePosting(req.session.user, postingId, data)
 
@@ -90,7 +94,7 @@ class PostingController {
     }
 
     async deleteOnePosting(req){
-        const postingId = getAndValidateObjectId(req, "_id")
+        const postingId = getAndValidateObjectId(req.params, "_id")
 
         let posting = await postingService.deleteOnePosting(req.user, postingId)
         if (!posting){

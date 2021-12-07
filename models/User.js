@@ -47,10 +47,9 @@ const UserSchema = mongoose.Schema({
     convertedId: {
         type: String
     }, 
-
+    // The default journey id of the user
     defaultJourney: {
-        type: String,
-        default: "My Journey"
+        type: String
     }
 })
 
