@@ -14,9 +14,7 @@ class PostingController {
         let search = req.query.search
         if (!page){
             page = null
-        } else if (!parseInt(page)){
-            throw { status: 400, msg: `Unsatisfied: Invalid page type`}
-        } else if (parseInt(page) <= 0){
+        } else if (!parseInt(page) || parseInt(page) <= 0){
             throw { status: 400, msg: `Unsatisfied: Invalid page type`}
         } else {
             page = parseInt(page)

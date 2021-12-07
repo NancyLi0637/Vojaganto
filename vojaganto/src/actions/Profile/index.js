@@ -52,7 +52,7 @@ export async function updateProfileInfo(component, uid, body) {
         console.log("Updated profile", newProfile)
         if (newProfile) {
             alert("Updated profile!")
-            // reloadPage()
+            reloadPage()
         } else {
             alert("Update failed!")
         }
