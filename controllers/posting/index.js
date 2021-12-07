@@ -48,7 +48,12 @@ class PostingController {
 
 
     async createOnePosting(req){
-        const data = getAndValidateDataBody(req.body, ["title", "destination"], ["journey", "date", "body", "public", "images", "longitude", "latitude"], req.session.user)
+        // Set the createdTime to the current time during the posting creation, and set the journey to default journey
+        req.body["createdTime"] = new Date()
+        if (req.body.journey === ""){
+            req.body.journey = req.user.defaultJourney
+        }
+        const data = getAndValidateDataBody(req.body, ["title", "destination", "createdTime"], ["journey", "date", "body", "public", "images", "longitude", "latitude"], req.session.user)
         let posting = await postingService.createOnePosting(req.session.user, data)
 
         if (!posting){
@@ -63,7 +68,11 @@ class PostingController {
 
 
     async changeOnePosting(req){
-        const data = getAndValidateDataBody(req.body, ["title", "destination"], ["journey", "date", "body", "public", "images", "longitude", "latitude"], req.session.user)
+        // Turn the "" journey input into the default journey
+        if (req.body.journey === ""){
+            req.body.journey = req.user.defaultJourney
+        }
+        const data = getAndValidateDataBody(req.body, ["title", "destination"], ["journey", "date", "body", "public", "images", "longitude", "latitude", "createdTime"], req.session.user)
         const postingId = getAndValidateObjectId(req, "_id")
 
         let posting = await postingService.changeOnePosting(req.session.user, postingId, data)
@@ -84,15 +93,13 @@ class PostingController {
 
     async deleteOnePosting(req){
         const postingId = getAndValidateObjectId(req, "_id")
-        if (!postingId){
-            throw { status: 400, msg: `Unsatisfied: Missing posting id`}
-        }
-        let posting = await postingService.deleteOnePosting(req.session.user, postingId)
+
+        let posting = await postingService.deleteOnePosting(req.user, postingId)
         if (!posting){
             throw { status: 500, msg: `Failed: Posting can not be delted due to internal server error`}
         } else if (posting === "unauthorized"){
             throw { status: 403, msg: `Unauthorized: User does not have access to the required posting`}
-        } else if (posting === "not found"){
+        } else if (posting === "posting not found"){
             throw { status: 404, msg: `Not Found: Posting can not be found`}
         }
         return posting

@@ -194,12 +194,12 @@ class UserController {
     // =========================================================New Journey Feature======================================
     async getUserJourney(req){
         let uid = getAndValidateObjectId(req, "_id")
-        let journey = await userService.getUserJourney(uid)
+        let journey = await userService.getUserJourney(req.session.user, uid)
 
         if (!journey){
             throw { status: 500, msg: `Failed: Internal Server Error`}
         } else if (journey === "journey not found"){
-            throw {status: 404, msg: `Not Found: Journey Not Found`}
+            throw { status: 404, msg: `Not Found: Journey Not Found`}
         }
 
         return journey
@@ -208,7 +208,7 @@ class UserController {
 
     async createUserJourney(req){
         const data = getAndValidateDataBody(req.body, ["title"], ["color"], req.session.user)
-        let journey = await userService.createUserJourney(data)
+        let journey = await userService.createUserJourney(req.session.user, data)
         if (!journey){
             throw { status: 500, msg: `Failed: Journey can not be created due to internal server error`}
         } else if (journey === "repeat"){
@@ -225,12 +225,14 @@ class UserController {
         // if (uid !== req.session.user){
         //     throw { status: 403, msg: `Forbidden: The user does not have access to the posting`}
         // }
-        let user = await userService.getUserPosting(uid)
-        if (!user){
+        let posting = await userService.getUserPosting(req.session.user, uid)
+        if (!posting){
             throw { status: 500, msg: `Failed: Internal Server Error`}
+        } else if (posting === "journey not found"){
+            throw { status: 404, msg: `Not Found: Journey Not Found`}
         }
 
-        return user
+        return posting
     }
 }
 
