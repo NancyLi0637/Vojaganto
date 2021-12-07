@@ -50,7 +50,7 @@ const UserSchema = mongoose.Schema({
 
     defaultJourney: {
         type: String,
-        default: "unnamed journey"
+        default: "My Journey"
     }
 })
 

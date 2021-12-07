@@ -5,26 +5,26 @@ import "./App.scss";
 
 import * as action from "actions/Auth";
 
-const user = {
-  username: "user1",
-  name: "user1",
-  _id: "61aa84eb00aeb98b84e2d29a",
-  role: "client",
-  status: "active"
-}
+// const user = {
+//   username: "user1",
+//   name: "user1",
+//   _id: "61aa84eb00aeb98b84e2d29a",
+//   role: "client",
+//   status: "active"
+// }
 
-const TEST = false
+const user = null
 
 class App extends React.Component {
   state = {
-    currUser: TEST ? user : null
+    currUser: process.env.REACT_APP_TEST ? user : null
   }
 
   async setResumeUser() {
     const user = await action.resumeSession()
-    if (!TEST) {
+    // if (!process.env.REACT_APP_TEST) {
       this.setState({ currUser: user })
-    }
+    // }
   }
 
   componentWillMount() {

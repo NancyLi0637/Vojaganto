@@ -17,11 +17,9 @@ export async function setJourney(component, jid) {
 
 export async function createJourney(component, body) {
     try {
-        console.log("Submit journey", body)
         const journey = await api.postJourney(body.author._id, { title: body.title })
         if (journey) {
-            console.log(`Created journey ${journey._id}`, journey)
-            alert(`Created journey ${journey._id}`, journey)
+            alert(`Created ${journey.title}`)
             reloadPage()
         } else {
             alert("Creation Failed!")
@@ -59,7 +57,7 @@ export async function deleteJourney(component, jid) {
             alert(`Deleted journey ${journey.title}`)
             redirectToPage(`/`, false)
         } else {
-            alert("Deletion Failed!")
+            alert("Deletion Failed! Notice that you cannot delete your default journey.")
         }
     } catch (err) {
         console.error(err)

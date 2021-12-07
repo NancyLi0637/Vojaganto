@@ -28,7 +28,6 @@ function handleInputChange(component, event) {
             posting: {
                 ...prevState.posting,
                 [name]: value
-
             }
         }));
     }
@@ -49,9 +48,8 @@ async function handleImageUpload(component, event) {
     //     newFiles.push(URL.createObjectURL(f))
     // }
     const imageFile = files[0]
-    console.log("Loading a image file: ", imageFile)
 
-    // TODO: upload image
+    // Create file data
     const formData = new FormData();
     formData.append(
         "image",
@@ -63,8 +61,7 @@ async function handleImageUpload(component, event) {
         const uploadedImage = await uploadPostingImage(formData)
 
         if (uploadedImage) {
-            console.log("Uploaded image", uploadedImage)
-
+            console.log("Uploaded image")
             // A copy of the new state
             const newImages = [...component.state.posting.images, uploadedImage]
 
@@ -129,6 +126,11 @@ async function handleDeleteImage(component, index) {
 async function submitPosting(component) {
     // Collect inputs from state
     const data = component.state.posting
+    // Input Validation
+    if (data.title.length === 0 || data.title.destination.length === 0) {
+        alert("Your trip should have a title and a destination!")
+        return
+    }
     // Post to server
     try {
         if (data._id !== undefined) {
