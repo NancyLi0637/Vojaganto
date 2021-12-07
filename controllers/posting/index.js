@@ -53,7 +53,7 @@ class PostingController {
         } else {
             getAndValidateObjectId(req.body, "journey")
         }
-        const data = getAndValidateDataBody(req.body, ["title", "createdTime"], ["journey", "date", "body", "public", "images", "longitude", "latitude"], req.session.user)
+        const data = getAndValidateDataBody(req.body, ["title", "createdTime"], ["journey", "date", "body", "public", "images", "longitude", "latitude", "destination"], req.session.user)
         let posting = await postingService.createOnePosting(req.session.user, data)
 
         if (!posting){
@@ -74,7 +74,7 @@ class PostingController {
         } else {
             getAndValidateObjectId(req.body, "journey")
         }
-        const data = getAndValidateDataBody(req.body, [], ["title", "journey", "date", "body", "public", "images", "longitude", "latitude", "createdTime"], req.session.user)
+        const data = getAndValidateDataBody(req.body, [], ["title", "journey", "date", "body", "public", "images", "longitude", "latitude", "createdTime", "destination"], req.session.user)
         const postingId = getAndValidateObjectId(req.params, "_id")
 
         let posting = await postingService.changeOnePosting(req.session.user, postingId, data)

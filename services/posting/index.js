@@ -143,7 +143,7 @@ class PostingService {
         
 
         //let journey = await Journey.find({ "title": data["journey"], "author": userId }).exec()
-
+        console.log("Create Posting receive: ", data)
         let journey = await Journey.findById(data["journey"]).exec()
         if (!journey) {
             return "journey not found"

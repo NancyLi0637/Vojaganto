@@ -10,7 +10,7 @@ export async function deletePosting(component, posting) {
     }
   } catch (err) {
     console.error(err)
-    alert(String(err))
+    // alert(String(err))
   }
 
 };
@@ -26,7 +26,7 @@ export async function getPostings(component, params = "") {
 
   } catch (err) {
     console.error(err)
-    alert(String(err))
+    // alert(String(err))
   }
 }
 
@@ -42,7 +42,7 @@ export async function getUsers(component, params = "") {
 
   } catch (err) {
     console.error(err)
-    alert(String(err))
+    // alert(String(err))
   }
 }
 
@@ -68,7 +68,7 @@ export async function changeUserActive(component, user) {
     }
   } catch (err) {
     console.error(err)
-    alert(String(err))
+    // alert(String(err))
   }
 }
 
@@ -92,6 +92,6 @@ export async function changeUserRole(component, user) {
     }
   } catch (err) {
     console.error(err)
-    alert(String(err))
+    // alert(String(err))
   }
 }

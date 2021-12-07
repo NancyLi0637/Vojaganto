@@ -5,22 +5,16 @@ import { Icon } from "leaflet";
 //import LocationMarker from "components/MapPlugin/LocationMarker";
 import { formatDate } from 'actions';
 
+import marker1 from "assets/MapMarkers/marker-black.png"
+import marker2 from "assets/MapMarkers/marker-blue.png"
+import marker3 from "assets/MapMarkers/marker-green.png"
+import marker4 from "assets/MapMarkers/marker-purple.png"
+import marker5 from "assets/MapMarkers/marker-red.png"
+import marker6 from "assets/MapMarkers/marker-yellow.png"
+
 import "./style.scss";
 
-export const icons = [
-    new Icon({
-        iconUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Map_pin_icon_green.svg/800px-Map_pin_icon_green.svg.png",
-        iconSize: [25, 40]
-    }),
-    new Icon({
-        iconUrl: "https://www.clipartmax.com/png/full/86-869339_yellow-map-marker-png.png",
-        iconSize: [25, 40]
-    }),
-    new Icon({
-        iconUrl: "http://www.clker.com/cliparts/1/K/0/V/P/H/map-pin-pink.svg.hi.png",
-        iconSize: [25, 40]
-    }),
-];
+export const icons = [marker1, marker2, marker3, marker4, marker5, marker6].map((marker) => new Icon({ iconUrl: marker, iconSize: [40, 40] }))
 
 
 class Mapp extends React.Component {
@@ -63,14 +57,15 @@ class Mapp extends React.Component {
                 </div> */}
 
                 {/* Marker for Home page */}
-                {parent === "Home" && allPostings.map(allPosting => (
-                    allPosting.postings.map(posting => (
+                {parent === "Home" && allPostings.map((allPosting, i) => (
+                    allPosting.postings.map((posting, j) => (
                         <Marker
                             key={posting._id}
                             position={[posting.latitude, posting.longitude]}
                             onClick={() => {
                                 this.setCurrLoc(posting)
                             }}
+                            icon={icons[(i + j) % icons.length]}
                         />
                     ))
                 ))}
@@ -86,6 +81,7 @@ class Mapp extends React.Component {
                         onClick={() => {
                             this.setCurrLoc(allPostings);
                         }}
+                        icon={icons[0]}
                     />
                 )}
 
@@ -98,14 +94,13 @@ class Mapp extends React.Component {
                             onClick={() => {
                                 this.setCurrLoc(posting)
                             }}
-                            // FIXME: don't know how to loop index
                             icon={icons[i % icons.length]}
                         />
                     ))
                 ))}
 
                 {/* Marker for Journey Page */}
-                {parent === "JourneyPosting" && allPostings.map(posting => (
+                {parent === "JourneyPosting" && allPostings.map((posting, i) => (
                     <Marker
                         key={posting._id}
                         position={[
@@ -115,6 +110,7 @@ class Mapp extends React.Component {
                         onClick={() => {
                             this.setCurrLoc(posting);
                         }}
+                        icon={icons[i % icons.length]}
                     />
                 ))}
 
@@ -129,6 +125,7 @@ class Mapp extends React.Component {
                         onClick={() => {
                             this.setCurrLoc(newPosting)
                         }}
+                        icon={icons[0]}
                     />
                 )}
 
