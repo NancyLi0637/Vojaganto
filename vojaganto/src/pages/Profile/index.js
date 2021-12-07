@@ -26,7 +26,7 @@ class ProfilePage extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    if (props.key !== this.props.key){
+    if (props.key !== this.props.key) {
       reloadPage()
     }
   }

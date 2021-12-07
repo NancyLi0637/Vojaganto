@@ -29,7 +29,7 @@ class AdminPostTable extends React.Component {
                                 Journey
                             </th>
                             <th className="admin-table-header">
-                                Publish Time
+                                Created Time
                             </th>
                             <th className="admin-table-header">
 
@@ -43,7 +43,7 @@ class AdminPostTable extends React.Component {
                                     {posting._id}
                                 </td>
                                 <td>
-                                    {posting.author}
+                                    {posting.author.username}
                                 </td>
                                 <td>
                                     {posting.title}
@@ -52,7 +52,7 @@ class AdminPostTable extends React.Component {
                                     {posting.journey.title}
                                 </td>
                                 <td>
-                                    {posting.publishTime}
+                                    {posting.createdTime}
                                 </td>
                                 <td className="actions">
                                     <button onClick={() => this.props.deletePosting(posting)}>

@@ -74,9 +74,13 @@ class UserController {
             }
         }
 
+        // console.log("AVATAR FILE", req.file)
         if(req.file){
             let oldAvatar = (await userService.getUser(req.session.user)).avatar
-            await imageProcess.deleteImage([oldAvatar])
+            if (oldAvatar) {
+                await imageProcess.deleteImage([oldAvatar])
+            }
+            
             let avatar = await imageProcess.toObject([req.file.path])
             data.avatar = avatar[0]
             await fs.promises.rm(req.file.path)

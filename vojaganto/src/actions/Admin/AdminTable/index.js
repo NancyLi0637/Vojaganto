@@ -6,7 +6,7 @@ export async function deletePosting(component, posting) {
     const res = await api.deletePosting(posting._id)
     if (res) {
       alert(`Deleted posting ${posting._id}`)
-      reloadPage()
+      getPostings(component, "")
     }
   } catch (err) {
     console.error(err)
@@ -16,7 +16,7 @@ export async function deletePosting(component, posting) {
 };
 
 
-export async function getPostings(component, params) {
+export async function getPostings(component, params = "") {
   try {
     console.log("Searching postings", params)
     const postings = await api.fetchPostings(params)
@@ -31,7 +31,7 @@ export async function getPostings(component, params) {
 }
 
 
-export async function getUsers(component, params) {
+export async function getUsers(component, params = "") {
   try {
     console.log("Searching users", params)
     const users = await api.fetchUsers(params)
@@ -50,17 +50,45 @@ export async function getUsers(component, params) {
 export async function changeUserActive(component, user) {
   try {
     // console.log("Searching users", params)
-    const res = await api.changeUserStatus(user, !user.active)
+    const data = { active: !user.active }
+    const res = await api.changeUserStatus(user, data)
 
     // component.setState({users})
     if (res) {
       if (user.active) {
         alert(`Inactivated user ${res._id}`)
-        
+
       } else {
         alert(`Activated user ${res._id}`)
       }
-      reloadPage()
+      // reloadPage()
+      getUsers(component, "")
+    } else {
+      console.error("Error when activate/inactive user")
+    }
+  } catch (err) {
+    console.error(err)
+    alert(String(err))
+  }
+}
+
+
+export async function changeUserRole(component, user) {
+  try {
+    const data = { role: user.role === "admin" ? "client" : "admin" }
+    const res = await api.changeUserStatus(user, data)
+
+    // component.setState({users})
+    if (res) {
+      if (user.role === "admin") {
+        alert(`Downgraded user ${res._id}`)
+
+      } else {
+        alert(`Upgraded user ${res._id}`)
+      }
+      getUsers(component, "")
+    } else {
+      console.error("Error when set user's role")
     }
   } catch (err) {
     console.error(err)

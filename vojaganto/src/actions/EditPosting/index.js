@@ -44,10 +44,10 @@ async function handleImageUpload(component, event) {
     const files = target.files;
 
     // Get uploaded images from input
-    const newFiles = [];
-    for (let f of files) {
-        newFiles.push(URL.createObjectURL(f))
-    }
+    // const newFiles = [];
+    // for (let f of files) {
+    //     newFiles.push(URL.createObjectURL(f))
+    // }
     const imageFile = files[0]
     console.log("Loading a image file: ", imageFile)
 

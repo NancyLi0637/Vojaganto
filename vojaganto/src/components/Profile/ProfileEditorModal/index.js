@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.scss";
 
-import { handleInputChange } from "actions";
+import { handleInputChange, getAvatarUrl } from "actions";
 import { updateProfileInfo } from "actions/Profile";
 
 class ProfileEditorPrompt extends React.Component {
@@ -12,10 +12,11 @@ class ProfileEditorPrompt extends React.Component {
       avatar: null,
       description: "",
       _id: null,
+      avatarUrl: ""
     };
   }
 
-  
+
   componentWillReceiveProps(props) {
     this.setState({
       ...props.profileInfo
@@ -24,15 +25,18 @@ class ProfileEditorPrompt extends React.Component {
 
   handleAvatarChange = (event) => {
     const newFile = event.target.files[0];
+    // const newFileURL = URL.createObjectURL(newFile)
+    // console.log("input new file", newFileURL)
     this.setState({
-      avatar: URL.createObjectURL(newFile),
+      avatar: newFile,
+      avatarUrl: URL.createObjectURL(newFile)
     });
   };
 
   /**
    * Submit profile updates to server.
    */
-   submitProfile(){
+  submitProfile() {
     const body = {
       // _id: this.state._id,
       name: this.state.name,
@@ -40,10 +44,12 @@ class ProfileEditorPrompt extends React.Component {
       description: this.state.description
     }
 
+    console.log("Almost submit profile", body)
+
     updateProfileInfo(this, this.state._id, body)
   }
 
-  
+
 
   render() {
     const { display, toggleEditProfile } = this.props
@@ -61,7 +67,7 @@ class ProfileEditorPrompt extends React.Component {
               <div className="edit-avatar-presentation">
                 <img
                   className="profile-avatar"
-                  src={this.state.avatar}
+                  src={this.state.avatarUrl.length > 0 ? this.state.avatarUrl : getAvatarUrl(this.state.avatar)}
                   alt="profile avatar"
                 />
               </div>
@@ -130,7 +136,6 @@ class ProfileEditorPrompt extends React.Component {
               </div>
 
             </form>
-
 
           </div>
         </div>
