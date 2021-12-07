@@ -44,6 +44,11 @@ This page is the entrance for an user to access an existing account. On the righ
 
 On the left side are all the public postings posted by all users. A user can click into any of the postings to view it without logging into an account.  
 
+#### Search public posts
+
+On the left side of the login button is a search bar, where a user can search related postings using this search bar. Clicking on search will return related postings
+in the same view as the pre-existing ones below.
+
 #### Login as User
 
 To login into or register an account, a user will simply click the "LOGIN | REGISTER" button on the top right of the left view. A user can click "Cancel" to exit the login window.
@@ -118,9 +123,29 @@ This page is the same as the users management page, but an admin will have the a
 
 ### Map
 
-At this phase, we are using a simple image as the map. In the next phase, we will use a third-party library to implement functions such as "locating" and "adding a new location". Accessing map requires calling map API, so is not implemented.
+On every page, a map will be shown on the right. The map can be moved around by holding and dragging the cursor. A user 
+can also zoom in or zoom out of the map by scrolling the mouse. The map contains different location markers corresponding 
+to each page. Each marker corresponds to a specific post. Clicking on any of the markers will show a popup box with the post's
+title and date. In the editing mode, a user can click on anywhere of the map to generate a new marker.
 
-At the top right is the current location. If a user is logged in and clicks on the pen button beside the nav bar, then a button for adding location will show at the bottom right of the map. It is currently not implemented because we will use a library later.
+#### Home Page 
+Contains the markers of all the public posts on the left side. Each marker corresponds to one post.
+
+#### ViewPosting Page
+Contains one marker of this specific post.
+
+#### Profile Page
+Contains the markers of all posts under all journeys of this user. Each journey has a different marker. That is, all the 
+posts of one journey have one type of marker and are different from the posts of other journeys.
+
+#### Journey Page
+Contains the markers of all posts under this journey.
+
+#### EditPosting Page
+Existing Post - Contains the marker of the current location of this post. A user can click on anywhere on the map and a new
+marker will show. This will change the current location of this post.
+
+New Post - Contains no markers. A user can click on anywhere on this map and a new marker will show.
 
 ## External Libraries
 
@@ -128,4 +153,4 @@ At the top right is the current location. If a user is logged in and clicks on t
 - react-router
 - node-sass
 - Material UI: basically for icons.
-- Leaflet: not yet used. We will add it in Phase 2 since it requires data.
+- React Leaflet: A library that supports map-related functionalities.
