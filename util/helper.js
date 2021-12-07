@@ -1,9 +1,10 @@
 const { ObjectId } = require('mongodb')
 
-const getAndValidateObjectId = (req, idName) => {
-    const id = req.params[idName]
+const getAndValidateObjectId = (body, idName) => {
+
+    const id = body[idName]
     if (!id){
-        throw { status: 400, msg: `Unsatisfied: Missing field in request query`}
+        throw { status: 400, msg: `Unsatisfied: Missing field in request`}
     } else if (!ObjectId.isValid(id)) {
         throw { status: 400, msg: "Bad id" }
     }

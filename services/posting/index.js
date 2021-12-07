@@ -55,7 +55,7 @@ class PostingService {
     async getAllPosting(paging = null, search = null, sort = {}) {
 
         const pagingItemNum = 10
-        const availableFields = ["title", "destination", "journey", "body"]
+        const availableFields = ["title", "destination", "author", "journey", "body"]
 
         // Search postings
         let postings = null
@@ -65,8 +65,24 @@ class PostingService {
             let filter = []
             for (let key of availableFields) {
                 let currFilter = {}
-                currFilter[key] = new RegExp(".*" + search + ".*", "i")
-                filter.push(currFilter)
+                if (key === "journey"){
+                // Handle the searching for journey
+                    let allFoundJourney = await Journey.find({title: new RegExp(".*" + search + ".*", "i")}).exec()
+                    for (let eachFoundJourney of allFoundJourney){
+                        filter.push({"journey": eachFoundJourney._id})
+                    }
+                } else if (key === "author"){
+                // Handle the searching for author
+                    let searching = new RegExp(".*" + search + ".*", "i")
+                    let allFoundAuthor = await User.find({$or:[{username: searching}, {name:searching}]}).exec()
+                    for (let eachFoundAuthor of allFoundAuthor){
+                        filter.push({"author": eachFoundAuthor._id})
+                    }
+                } else {
+                //Handle the searching for other fields
+                    currFilter[key] = new RegExp(".*" + search + ".*", "i")
+                    filter.push(currFilter)
+                }
             }
 
             postings = await Posting.find({ public: true, $or: filter }).sort(sort).exec()
@@ -111,7 +127,7 @@ class PostingService {
             return "posting not found"
         }
         // Checking privielage
-        if (posting.public === false && posting.author !== userId) {
+        if (posting.public === false && posting.author !== userId.toString()) {
             return "unauthorized"
         }
 
@@ -123,15 +139,15 @@ class PostingService {
 
     async createOnePosting(userId, data) {
 
-        // Get the journey for priviledge
+        // Get the journey for priviledge check
         
-        // TODO: Double check the journey input, and see if the entire thing involving journey should be changed!
-        // FIXME: just take the id
-        let journey = await Journey.find({ "title": data["journey"], "author": userId }).exec()
-        if (journey.length === 0) {
+
+        //let journey = await Journey.find({ "title": data["journey"], "author": userId }).exec()
+
+        let journey = await Journey.findById(data["journey"]).exec()
+        if (!journey) {
             return "journey not found"
         }
-        
         // Create the posting
         let newPosting = new Posting(data)
         let createdPosting = await newPosting.save()
@@ -149,16 +165,16 @@ class PostingService {
             return "posting not found"
         }
 
-        if (posting.author !== userId) {
+        if (posting.author !== userId.toString()) {
             return "unauthorized"
         }
 
         // Check if the input journey exist
-        let journey = await Journey.find({ "title": data["journey"], "author": userId }).exec()
-        if (journey.length === 0) {
+        //let journey = await Journey.find({ "title": data["journey"], "author": userId }).exec()
+        let journey = await Journey.findById(data["journey"]).exec()
+        if (!journey) {
             return "journey not found"
         }
-        
 
         // Update the posting
         let updatedPosting = await Posting.findByIdAndUpdate(postingId, data, { new: true }).exec()
@@ -195,7 +211,7 @@ class PostingService {
         if (deletedPosting.journey !== author.defaultJourney) {
             let allPosting = await Posting.find({"journey": deletedPosting.journey, "author": deletedPosting.author}).exec()
             if (allPosting.length === 0){
-                let journey = await Journey.findOneAndRemove({"title": deletedPosting.journey, "author": deletedPosting.author}).exec()
+                let journey = await Journey.findByIdAndRemove(deletedPosting.journey).exec()
                 logger.log(`Delete Journey [${journey.title}]`)
             }
 
