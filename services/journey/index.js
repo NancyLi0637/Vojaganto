@@ -89,7 +89,7 @@ class JourneyService {
         let deletedJourney = await Journey.findByIdAndRemove(journeyId).exec()
         let res = await this.getReturnedJourneyField(userId, deletedJourney)
         // Update all its journey postings to be in default journey
-        let posting = await Posting.find({ "journey": deletedJourney.journey, "author": deletedJourney.author }).exec()
+        let posting = await Posting.find({ "journey": deletedJourney._id}).exec()
         for (let eachPosting of posting) {
             // Find the default journey and set each posting to the default journey
             let currUser = await User.findById(eachPosting.author).exec()

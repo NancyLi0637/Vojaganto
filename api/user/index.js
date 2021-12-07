@@ -53,7 +53,6 @@ router.put("/:_id", authenticate, avatarReceiver , async (req, res) => {
 })
 
 router.post("/", avatarReceiver , async (req, res) => {
-    console.log(req)
     try {
         let user = await userController.createUser(req)
         res.status(200).send(user)

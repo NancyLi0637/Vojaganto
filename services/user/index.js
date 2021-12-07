@@ -46,9 +46,6 @@ class UserService {
      */
     async getUser(uid) {
         let user = await User.findById(uid).exec()
-        if (!user) {
-            throw { msg: "Not Found: User not found!", status: 404 }
-        }
         let result = this._returnStyle(user._doc)
         logger.log(`Get User [${user.username}]`)
         return result
