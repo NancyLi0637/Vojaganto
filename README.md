@@ -101,7 +101,7 @@ Posting, or *trip*, refers to an article that is posted by a user to record thei
 
 #### **View Individual Posting** `/trip/:pid`
 
-User can view the posting of the corresponding `pid`, e.g., accessing `/trip/1` will display the posting with pid 1; in mock, there is only one posting and will not be varied by pid. Note that there are images for a post, if there are multiple images... The client can click on the journey name to access the journey page and click on the author name to see the author's profile
+User can view the posting of the corresponding `pid`, e.g., accessing `/trip/1` will display the posting with pid 1; in mock, there is only one posting and will not be varied by pid. Note that there are images for a post, if there are multiple images there will be a scrollbar under images so that user can slide them horizontolly. The client can click on the journey name to access the journey page and click on the author name to see the author's profile
 
 #### **Edit Posting** `/edit`
 
