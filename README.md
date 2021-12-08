@@ -154,7 +154,7 @@ This page is the same as the users management page, but an admin will have the a
 On every page, a map will be shown on the right. The map can be moved around by holding and dragging the cursor. A user 
 can also zoom in or zoom out of the map by scrolling the mouse. The map contains different location markers corresponding 
 to each page. Each marker corresponds to a specific post. Clicking on any of the markers will show a popup box with the post's
-title and date. In the editing mode, a user can click on anywhere of the map to generate a new marker.
+title and date. In the editing mode, a user can click on anywhere of the map to generate a new marker. Note that map will be initialize on Toronto, for posts that has location not in Toronto, user needs to zoom out in order to see all of them. It is also possible for a post to not have a location, so the total number of marker on the map might be less than number of posts
 
 #### **Home Page**
 Contains the markers of all the public posts on the left side. Each marker corresponds to one post.
