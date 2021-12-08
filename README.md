@@ -41,7 +41,7 @@ npm run build-client
 npm start
 ```
 
-## **Test Credentials**
+## Test Credentials
 
 Client users (active) can login, view public journeys, and manage their own trips and journeys.
 
@@ -57,9 +57,9 @@ username: admin
 password: admin
 ```
 
-## **Views and Features**
+## Views and Features
 
-### **Authentication**
+### Authentication
 
 #### **Log in**
 
@@ -105,13 +105,13 @@ Posting, or *trip*, refers to an article that is posted by a user to record thei
 
 User can view the posting of the corresponding `pid`, e.g., accessing `/trip/1` will display the posting with pid 1. Note that there are images for a post, if there are multiple images there will be a scrollbar under images so that user can slide them horizontally. The client can click on the journey name to access the journey page and click on the author name to see the author's profile
 
+#### **Create Posting** `/new-posting`
+
+A logged-in user can create new posting by clicking the "pen" button on the navbar. Input the fields as they appear, (destination is user-defined input), and add a marker on the map by clicking the map.
+
 #### **Edit Posting** `/edit`
 
 The author of a posting will see an "Edit" button in the View Posting page. The old contents will be loaded to the editing page and user can update or delete the posting. The first image will be the cover image in Home Page.
-
-#### **Create Posting** `/new-posting`
-
-A logged-in user can create new posting by clicking the "pen" button on the navbar.
 
 ### **Journey Page** `/journey/:jid`
 
@@ -141,7 +141,7 @@ There are four pages for the admin dashboard: login, home, user management, and 
 
 #### **Admin Login** `/admin/login`
 
-The admin account has *admin* as both the username and the password. Login with other username or password will only show a warning.
+Only users with admin role can login here. Login with other username or password will only show a warning.
 
 #### **Admin Home Page** `/admin/home`
 
@@ -153,61 +153,58 @@ This page will have a table showing all users we have, and their info such as th
 
 #### **Postings Management Page** `/admin/postings`
 
-This page is the same as the users management page, but an admin will have the ability to remove an existing post. Note that private post will not show up here and can't be removed by admin
+This page is the same as the users management page, but an admin will have the ability to remove an existing post. Note that private post will not show up here and can't be removed by admin. "View content" will direct you to the posting page.
 
 ### **Map**
 
-On every page, a map will be shown on the right. The map can be moved around by holding and dragging the cursor. A user 
-can also zoom in or zoom out of the map by scrolling the mouse. The map contains different location markers corresponding 
-to each page. Each marker corresponds to a specific post. Clicking on any of the markers will show a popup box with the post's
+On every page, a map will be shown on the right. The map can be moved around by holding and dragging the cursor. A user can also zoom in or zoom out of the map by scrolling the mouse. The map contains different location markers corresponding to each page. Each marker corresponds to a specific post. Clicking on any of the markers will show a popup box with the post's
 title and date. In the editing mode, a user can click on anywhere of the map to generate a new marker. Note that map will be initialize on Toronto, for posts that has location not in Toronto, user needs to zoom out in order to see all of them. It is also possible for a post to not have a location, so the total number of marker on the map might be less than number of posts
 
-#### **Home Page**
+#### Home Page
+
 Contains the markers of all the public posts on the left side. Each marker corresponds to one post.
 
-#### **ViewPosting Page**
+#### ViewPosting Page
+
 Contains one marker of this specific post.
 
-#### **Profile Page**
+#### Profile Page
+
 Contains the markers of all posts under all journeys of this user. Each journey has a different marker. That is, all the 
 posts of one journey have one type of marker and are different from the posts of other journeys.
 
-#### **Journey Page**
+#### Journey Page
+
 Contains the markers of all posts under this journey.
 
-#### **EditPosting Page**
+#### EditPosting Page
+
 Existing Post - Contains the marker of the current location of this post. A user can click on anywhere on the map and a new
 marker will show. This will change the current location of this post.
 
 New Post - Contains no markers. A user can click on anywhere on this map and a new marker will show.
 
-## **External Libraries**
+## External Libraries
 
-### **Front End**
+### **Frontend**
 
 - react
-- react-dom
 - react-router
-- react-router-dom
-- react-scripts
 - node-sass
-- material UI: basically for icons.
 - leaflet
 - react-leaflet
-- web-vitals
-- jest
 
-### **Back End**
+### **Backend**
 
 - bcrypt
-- cloudinary
+- cloudinary: store images
+- mongodb
+- express-session
+- mongoose
 - connect-mongo
 - cors
 - dotenv
 - express
-- express-session
-- mongodb
-- mongoose
 - multer
 - nodemon
 - path
@@ -260,7 +257,7 @@ New Post - Contains no markers. A user can click on anywhere on this map and a n
     - [ ] Safe move postings to default
     - [ ] Cannot delete defaultJourney
 
-### **Admin Dashboard Features**
+### Admin Dashboard Features
 
 - [ ] Admin login
 - [ ] Admin logout
@@ -277,9 +274,9 @@ New Post - Contains no markers. A user can click on anywhere on this map and a n
   - [ ] Activate/Inactivate users
   - [ ] Change user role
 
-## **Server API**
+## Server API
 
-### **User**
+### User
 
 ### `POST /api/user/login`
 
@@ -335,7 +332,7 @@ return: The user in session without password field
 
 ### **Journey**
 
-### **Admin**
+### Admin
 
 ### `GET /api/admin/user`
 
