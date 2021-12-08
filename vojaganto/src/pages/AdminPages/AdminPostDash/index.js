@@ -29,7 +29,7 @@ class AdminPostDash extends React.Component {
                 <AdminNav />
                 <div className="admin-post-main">
                     <div className="table-search">
-                        <input type="text" className="table-search-input" name="search" placeholder="Search by ID, Title, Content, Author, Journey" onChange={(e) => handleInputChange(this, e)} />
+                        <input type="text" className="table-search-input" name="search" placeholder="Search by Title, Content, Author, Journey" onChange={(e) => handleInputChange(this, e)} />
                         <button className="table-search-btn" onClick={() => getPostings(this, { search: this.state.search })}>Search</button>
                     </div>
                     <AdminPostTable postings={this.state.postings} deletePosting={(post) => deletePosting(this, post)} />
