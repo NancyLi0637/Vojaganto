@@ -299,9 +299,9 @@ Get information about user with given _id.
 
 return: If _id exist, return a user object without password field
 
-### `PUT /api/user`
+### `PUT /api/user/:_id`
 
-Modify the user information of the current user. This API is protected by session.
+Modify the user information of the current user. Note that no matter what _id is given, the update will be applied on current login user. This API is protected by session.
 
 formbody: the new data for the current user, available fields are `password, name, description, avatar`
 
