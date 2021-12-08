@@ -1,13 +1,18 @@
 const logger = { log: console.log }
 const postingService = require("../../services/posting")
 const { ObjectId } = require('mongodb')
-const {getAndValidateObjectId, getAndValidateDataBody} = require("../../util/helper")
+const {getAndValidateObjectId, getAndValidateDataBody} = require("../../util/validateAndGet")
 
 class PostingController {
 
 
 
-    // Leave for now
+     /** Handle the API request input, and get all the public postings with their meta information according to the searching and paging (searching will search for "title", "destination", "author username", "author name", "journey title", "body")
+     * 
+     * @param {*} req The request object from API call
+     * @returns If success, return the rqeuested all posting inforamtion
+     *          If failed, return a error message object with status and error message in it
+     */
     async getAllPosting(req){
 
         let page = req.query.page
@@ -23,13 +28,15 @@ class PostingController {
             search = null
         }
         let postings = await postingService.getAllPosting(page, search)
-        if (postings === "not found"){
-            throw { status: 404, msg: `Not Found: Posting doesn't exist`}
-        }
         return postings
     }
 
-
+     /** Handle the API request input, and get one posting with its information according to the input posting id, and accroding to the priviledge level of the user
+     * 
+     * @param {*} req The request object from API call
+     * @returns If success, return the rqeuested posting inforamtion
+     *          If failed, return a error message object with status and error message in it
+     */
     async getOnePosting(req){
         const postingId = getAndValidateObjectId(req.params, "_id")
         let posting = await postingService.getOnePosting(req.session.user, postingId)
@@ -44,7 +51,12 @@ class PostingController {
     }
 
 
-
+     /** Handle the API request input, and create one posting for the current user according to the input posting infomation
+     * 
+     * @param {*} req The request object from API call
+     * @returns If success, return the created posting inforamtion
+     *          If failed, return a error message object with status and error message in it
+     */
     async createOnePosting(req){
         // Set the createdTime to the current time during the posting creation, and set the journey to default journey
         req.body["createdTime"] = new Date()
@@ -53,7 +65,7 @@ class PostingController {
         } else {
             getAndValidateObjectId(req.body, "journey")
         }
-        const data = getAndValidateDataBody(req.body, ["title", "createdTime"], ["journey", "date", "body", "public", "images", "longitude", "latitude"], req.session.user)
+        const data = getAndValidateDataBody(req.body, ["title", "createdTime"], ["journey", "date", "body", "public", "images", "longitude", "latitude", "destination"], req.session.user)
         let posting = await postingService.createOnePosting(req.session.user, data)
 
         if (!posting){
@@ -67,6 +79,12 @@ class PostingController {
     }
 
 
+    /** Handle the API request input, and update one posting according to the input posting infomation and the priviledge level of the user
+     * 
+     * @param {*} req The request object from API call
+     * @returns If success, return the updated posting inforamtion
+     *          If failed, return a error message object with status and error message in it
+     */
     async changeOnePosting(req){
         // Turn the "" journey input into the default journey
         if (req.body.journey === "" || !req.body.journey){
@@ -74,7 +92,7 @@ class PostingController {
         } else {
             getAndValidateObjectId(req.body, "journey")
         }
-        const data = getAndValidateDataBody(req.body, [], ["title", "journey", "date", "body", "public", "images", "longitude", "latitude", "createdTime"], req.session.user)
+        const data = getAndValidateDataBody(req.body, [], ["title", "journey", "date", "body", "public", "images", "longitude", "latitude", "createdTime", "destination"], req.session.user)
         const postingId = getAndValidateObjectId(req.params, "_id")
 
         let posting = await postingService.changeOnePosting(req.session.user, postingId, data)
@@ -93,6 +111,12 @@ class PostingController {
         return posting
     }
 
+     /** Handle the API request input, and delete one posting according to the input posting id
+     * 
+     * @param {*} req The request object from API call
+     * @returns If success, return the deleted posting inforamtion
+     *          If failed, return a error message object with status and error message in it
+     */
     async deleteOnePosting(req){
         const postingId = getAndValidateObjectId(req.params, "_id")
 

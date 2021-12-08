@@ -127,12 +127,16 @@ class UserService {
         let result = this._returnStyle(user._doc)
         return result
     }
-    // =========================================================New Journey Feature======================================
 
 
 
 
-
+    /**Get all the journeies of a user according to the user id input
+     * 
+     * @param {string} userId The id of the currently loggedin user (for priviledge check)
+     * @param {string} uid The id of the user whose journies are asked
+     * @returns An array of the object data of every journey of that user
+     */
     async getUserJourney(userId, uid){
         // Find all the journeys of the user
         let allJourney = await Journey.find({"author": uid}).exec()
@@ -147,6 +151,13 @@ class UserService {
 
     }
 
+    /**Create a journey for the current user
+     * 
+     * @param {string} userId The id of the currently logged in user (for priviledge check)
+     * @param {string} data The journey data
+     * @returns The object data of the createad journey
+     *          If the name of the journey already exists, return "repeat"
+     */
     async createUserJourney(userId, data){
         // Check if the journey name already exist
         let currJourney = await Journey.find({"title": data["title"], "author": data["author"]}).exec()
@@ -163,6 +174,12 @@ class UserService {
  
     }
 
+    /**Get all the postings of a user
+     * 
+     * @param {string} userId The id of the currently logged in user (for priviledge check)
+     * @param {string} uid The user id of the user whose postings are needed
+     * @returns An array of the object data of every postings (organized according to the journey) of that user
+     */
     async getUserPosting(userId, uid){
         // Get all the journey of the user
         let allJourney = await Journey.find({"author": uid}).exec()

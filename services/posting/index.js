@@ -14,9 +14,9 @@ const fs = require("fs")
 class PostingService {
     /**Helper function that turns the postings data to its returned form
      * 
-     * @param {*} posting 
-     * @param {*} meta 
-     * @returns 
+     * @param {*} posting The object data of the posting
+     * @param {*} meta If the returned data should be a meta data or a detailed data
+     * @returns The returned posting data in the appropriate structure
      */
     async getReturnedPostingField(posting, meta = false) {
         const res = {
@@ -51,7 +51,13 @@ class PostingService {
     }
 
 
-
+    /** Get all the postings according to the searching and sorting requiredment (The searching can search for posting title, destination, author username, author name, journey title, posting body)
+     * 
+     * @param {number} paging The paging specifying which page of the posting (sorted by default in the order of the time the posting is created, from longest time to most recent) needs to get returned if there is any requirement on that (Optional, and by default it will return all the postings found)
+     * @param {string} search The string specifying the searching word if there is any requirement on that (Optional)
+     * @param {object} sort The sort object of the getAllPosting if there is any requirement on that (Optional) 
+     * @returns 
+     */
     async getAllPosting(paging = null, search = null, sort = {}) {
 
         const pagingItemNum = 10
@@ -88,17 +94,11 @@ class PostingService {
             postings = await Posting.find({ public: true, $or: filter }).sort(sort).exec()
         }
 
-        // console.log(postings)
-        // let resPosting = postings.filter((posting) => {
-        //     return posting.public === true
 
-        // })
-        // let resPosting = postings
-        // console.log(resPosting)
         // Pagination
         if (paging !== null) {
             if (postings.length <= (paging - 1) * pagingItemNum) {
-                return "not found"
+                return []
             } else {
                 postings = postings.slice((paging - 1) * pagingItemNum, paging * pagingItemNum)
             }
@@ -106,20 +106,23 @@ class PostingService {
 
 
         let res = []
-        // let currPosting = {}
-        // currPosting["postings"] = []
-        // console.log(postings)
         for (let posting of postings) {
-            res.push(await this.getReturnedPostingField(posting, true))
+            res.push(await this.getReturnedPostingField(posting))
         }
-        // res.push(currPosting)
         logger.log("Get all postings")
         return res
     }
 
 
 
-
+    /** Get one posting according to the postingId input
+     * 
+     * @param {*} userId The id of the user currently logged in (for priviledge check)
+     * @param {*} postingId The postingId of the posting required
+     * @returns The required posting in the appropriate structure
+     *          If the posting is not found, return "posting not found"
+     *          If the current user does not have the priviledge to perform the action, return "unauthorized"
+     */
     async getOnePosting(userId, postingId) {
         // Get the posting
         let posting = await Posting.findById(postingId).exec()
@@ -132,14 +135,22 @@ class PostingService {
         }
 
         // Returning in appropriate data structure
-        let res = this.getReturnedPostingField(posting)
+        let res = await this.getReturnedPostingField(posting)
         logger.log(`Get Posting [${posting.title}]`)
         return res
     }
 
+
+    /**Create one posting according to the information given
+     * 
+     * @param {string} userId The user id of the currently logged in user
+     * @param {object} data The posting content
+     * @returns The object data of the created posting
+     *          If the journey does not exist, return "journey not found"
+     */
     async createOnePosting(userId, data) {
 
-        // Get the journey for priviledge check
+        // Get the journey for validation check
         
 
         //let journey = await Journey.find({ "title": data["journey"], "author": userId }).exec()
@@ -157,7 +168,16 @@ class PostingService {
 
     }
 
-
+    /**Update the posting according to the posting id input
+     * 
+     * @param {*} userId The user id of the currently logged in user (for priviledge check)
+     * @param {*} postingId The posting id of the posting that needs to get updated
+     * @param {*} data The new posting content of the posting
+     * @returns The object data of the updated posting
+     *          If posting not found, return "posting not found"
+     *          If the current user does not have priviledge to perform the action, return "unauthorized"
+     *          If journey not found, return "journey not found"
+     */
     async changeOnePosting(userId, postingId, data) {
         // Get the posting for priviledge check
         let posting = await Posting.findById(postingId).exec()
@@ -183,7 +203,14 @@ class PostingService {
         return res
     }
 
-
+    /**Delete the posting according to the provided posting id input
+     * 
+     * @param {object} user The user object of the currently logged in user
+     * @param {string} postingId The posting id of the posting that needs to get deleted 
+     * @returns The object data of the deleted posting
+     *          If the posting is not found, return "posting not found"
+     *          If the user does not have the priviledge of performing the action, return "unauthorized"
+     */
     async deleteOnePosting(user, postingId) {
         // Find the posting
         let posting = await Posting.findById(postingId).exec()

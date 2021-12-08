@@ -32,7 +32,6 @@ router.get("/posting", authenticate, checkAdmin, async(req, res) => {
     try{
         let postings = await postingController.getAllPosting(req)
         res.status(200).send(postings)
-        //TODO:Allow the admin to access all the postings regardless of public or private?
     } catch(error) {
         logger.log(error)
         error = errorProcess(error)

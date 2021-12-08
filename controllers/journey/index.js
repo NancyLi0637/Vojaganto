@@ -1,15 +1,16 @@
 const logger = { log: console.log }
 const journeyService = require("../../services/journey")
 const { ObjectId } = require('mongodb')
-const {getAndValidateObjectId, getAndValidateDataBody} = require("../../util/helper")
+const {getAndValidateObjectId, getAndValidateDataBody} = require("../../util/validateAndGet")
 
 class JourneyController {
 
 
-    /** Get one journey according to journey id
+    /** Handle the API request input, and get one journey according to journey id given
      * 
-     * @param {*} req 
-     * @returns 
+     * @param {*} req The request object from API call
+     * @returns If success, return the rqeuested journey inforamtion
+     *          If failed, return a error message object with status and error message in it
      */
     async getJourney(req){
         let journeyId = getAndValidateObjectId(req.params, "_id")
@@ -23,10 +24,11 @@ class JourneyController {
 
     
    
-    /** Update one journey (Only allows when the user is the journey author) 
+    /** Handle the API request input, and update one journey (Only allows when the user is the journey author) 
     * 
-    * @param {*} req 
-    * @returns 
+    * @param {*} req The request object from API call
+    * @returns If success, return the updated journey object information 
+    *          If failed, return a error message object with status and error message in it
     */
     async updateJourney(req){
         const data = getAndValidateDataBody(req.body, [], ["title", "color"], req.session.user)
@@ -45,10 +47,11 @@ class JourneyController {
 
     }
 
-    /** Delete a given journey according to id (Only allow when the user is the author)
+    /** Handle the API request input, and delete a given journey according to id (Only allow when the user is the author)
      * 
-     * @param {*} req 
-     * @returns 
+     * @param {*} req The request object from API call
+     * @returns If success, return the deleted journey object information 
+     *          If failed, return a error message object with status and error message in it
      */
     async deleteJourney(req){
         const journeyId = getAndValidateObjectId(req.params, "_id")
