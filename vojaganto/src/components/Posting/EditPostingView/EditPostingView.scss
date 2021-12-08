@@ -21,6 +21,9 @@
         .edit-input {
             @include my($margin: .3rem);
             border: none;
+            &:focus {
+                border-bottom: 2px solid $dark;
+            }
         }
 
         .edit-metadata-container {

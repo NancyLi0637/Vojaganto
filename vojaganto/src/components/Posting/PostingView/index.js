@@ -8,7 +8,7 @@ class PostingView extends React.Component {
 
     render() {
         const { currUser, posting } = this.props
-
+        console.log("Display Posting", posting)
         return (
             <div className="posting-view">
                 <div className="posting-metadata-container">
@@ -16,14 +16,12 @@ class PostingView extends React.Component {
 
                     {
                         // Display Edit Button when the logged-in user is the author of the article.
-                        (currUser && String(currUser._id) == String(posting.author._id)) ?
+                        (currUser && String(currUser._id) == String(posting.author._id)) &&
                             <div className="edit-container">
                                 <Link to={`/edit/${posting._id}`}>
                                     <button className="edit-btn">Edit</button>
                                 </Link>
                             </div>
-                            :
-                            null
                     }
 
                     <div className="posting-info-container">

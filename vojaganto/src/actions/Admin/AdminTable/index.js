@@ -10,7 +10,7 @@ export async function deletePosting(component, posting) {
     }
   } catch (err) {
     console.error(err)
-    alert(String(err))
+    // alert(String(err))
   }
 
 };
@@ -21,12 +21,13 @@ export async function getPostings(component, params = "") {
     console.log("Searching postings", params)
     const postings = await api.fetchPostings(params)
     if (postings) {
+      console.log("Admin fetch posting", postings)
       component.setState({ postings })
     }
 
   } catch (err) {
     console.error(err)
-    alert(String(err))
+    // alert(String(err))
   }
 }
 
@@ -42,7 +43,7 @@ export async function getUsers(component, params = "") {
 
   } catch (err) {
     console.error(err)
-    alert(String(err))
+    // alert(String(err))
   }
 }
 
@@ -68,7 +69,7 @@ export async function changeUserActive(component, user) {
     }
   } catch (err) {
     console.error(err)
-    alert(String(err))
+    // alert(String(err))
   }
 }
 
@@ -92,6 +93,6 @@ export async function changeUserRole(component, user) {
     }
   } catch (err) {
     console.error(err)
-    alert(String(err))
+    // alert(String(err))
   }
 }
