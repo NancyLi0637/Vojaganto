@@ -57,7 +57,7 @@ class EditPostingPage extends React.Component {
                         <Navbar currUser={currUser} />
                     </div>
                     <div className="map-view edit-posting-map">
-                        <Map parent="EditPosting" allPostings={this.state.posting}/>
+                        <Map parent="EditPosting" allPostings={this.state.posting} />
                     </div>
                 </div>
             )
@@ -66,15 +66,16 @@ class EditPostingPage extends React.Component {
         return (
             <div className="page edit-posting-page">
                 <div className="main-view edit-posting-main">
-                    <EditPostingView
-                        currUser={currUser}
-                        posting={this.state.posting}
-                        handleInputChange={(e) => action.handleInputChange(this, e)}
-                        submitPosting={() => action.submitPosting(this)}
-                        deletePosting={() => action.deletePosting(this, this.state.posting._id || undefined)}
-                        handleImageUpload={(e) => action.handleImageUpload(this, e)}
-                        handleDeleteImage={(idx) => action.handleDeleteImage(this, idx)}
-                    />
+                            <EditPostingView
+                                currUser={currUser}
+                                posting={this.state.posting}
+                                handleInputChange={(e) => action.handleInputChange(this, e)}
+                                submitPosting={() => action.submitPosting(this)}
+                                deletePosting={() => action.deletePosting(this, this.state.posting._id || undefined)}
+                                handleImageUpload={(e) => action.handleImageUpload(this, e)}
+                                handleDeleteImage={(idx) => action.handleDeleteImage(this, idx)}
+                            />
+
 
                     <Navbar currUser={currUser} />
                 </div>

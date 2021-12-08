@@ -15,15 +15,12 @@ class EditPostingView extends React.Component {
 
 
     componentDidMount() {
-        getUserJourneys(this, this.props.currUser._id)
-    }
-
-    handleSelect(e) {
-        console.log(e)
-        const target = e.target;
-        const value = target.value;
-        const name = target.name;
-        console.log(name, value)
+        getUserJourneys(this, this.props.currUser._id).then(() => {
+            // Set the default journey
+            if (!this.props.posting.journey._id) {
+                document.querySelector("#postingJourneySelect").value = this.state.userJourneys[0]._id
+            }
+        })
     }
 
     render() {
@@ -32,15 +29,6 @@ class EditPostingView extends React.Component {
         return (
             <div className="edit-posting-view">
                 <form className="posting-form" id="postingForm" >
-                    {/* <datalist id="user-journeys">
-                        {
-                            this.state.userJourneys.map((journey, i) => {
-                                return (
-                                    <option key={i} value={journey._id}>{journey.title}</option>
-                                )
-                            })
-                        }
-                    </datalist> */}
 
                     <div className="edit-metadata-container">
                         <input type="text"
@@ -53,21 +41,12 @@ class EditPostingView extends React.Component {
                         />
 
                         <div className="posting-info-container">
-                            {/* <input type="text"
-                                name="journey"
-                                className="edit-meta edit-input"
-                                list="user-journeys"
-
-                                id="postingJourneyInput"
-                                placeholder="JOURNEY"
-                                onChange={handleInputChange}
-                                value={posting.journey.title || posting.journey}
-                            /> */}
                             <select
                                 name="journey"
                                 className="edit-meta edit-input"
-                                onChange={this.handleSelect}
-                                value={this.state.userJourneys[0] ? this.state.userJourneys[0]._id : ""}
+                                id="postingJourneySelect"
+                                onChange={handleInputChange}
+                                value={posting.journey._id || ""}
                             >
                                 {
                                     this.state.userJourneys.map((journey, i) => {

@@ -89,6 +89,9 @@ class UserController {
         // Since we can only update the current user
         const uid = req.session.user
         const modifiedUser = await userService.updateUser(uid, data)
+        if (modifiedUser === "journey not found"){
+            throw { status: 404, msg: "Not Found: New Default Journey Not Found. Please create the journey first"}
+        }
         return modifiedUser
     }
 
@@ -122,7 +125,9 @@ class UserController {
         }
 
         let modifiedUser = await userService.updateUser(uid, data)
-
+        if (modifiedUser === "journey not found"){
+            throw { status: 404, msg: "Not Found: New Default Journey Not Found. Please create the journey first"}
+        }
         return modifiedUser
     }
 
@@ -197,7 +202,7 @@ class UserController {
 
     // =========================================================New Journey Feature======================================
     async getUserJourney(req){
-        let uid = getAndValidateObjectId(req, "_id")
+        let uid = getAndValidateObjectId(req.params, "_id")
         let journey = await userService.getUserJourney(req.session.user, uid)
 
         if (!journey){
@@ -224,7 +229,7 @@ class UserController {
     }
 
     async getUserPosting(req){
-        let uid = getAndValidateObjectId(req, "_id")
+        let uid = getAndValidateObjectId(req.params, "_id")
         // FIXME: should not require privilege, only check for private
         // if (uid !== req.session.user){
         //     throw { status: 403, msg: `Forbidden: The user does not have access to the posting`}

@@ -6,6 +6,7 @@ import "./style.scss";
 import UserIcon from "assets/icons/user.png";
 import HomeIcon from "assets/icons/home.png";
 import JournalIcon from "assets/icons/journal.png";
+import LogoutIcon from "assets/icons/logout.png";
 
 class AdminNav extends React.Component {
 
@@ -30,7 +31,7 @@ class AdminNav extends React.Component {
                     </Link>
 
                     <Link className="admin-nav-item" to={`/admin/login`}>
-                        {/* <img src={} alt="" /> */}
+                        <img src={LogoutIcon} alt="" />
                         Logout
                     </Link>
                 </div>

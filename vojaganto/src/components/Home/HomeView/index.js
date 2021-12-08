@@ -7,18 +7,11 @@ import UserLoginWindow from 'components/LoginRegister/UserLoginWindow';
 import "./style.scss";
 
 import { handleInputChange } from 'actions';
-import { setHomePostingColumns } from 'actions/Posting'
 
 class HomeView extends React.Component {
     state = {
-        // postingCardColumns: this.props.postingCardColumns,
         search: ""
     }
-
-    // componentDidMount() {
-    //     // TODO: UpdatePostingCardColumns
-    //     setHomePostingColumns(this, this.state.search)
-    // }
 
     render() {
         const { currUser, setCurrUser, postingCardColumns, setSearch } = this.props

@@ -6,17 +6,16 @@ export async function setHomePostingColumns(component, search) {
         console.log("Searching for", search)
         const homePostings = await api.getHomePostings({ search })
         if (homePostings) {
-            console.log(homePostings)
-            const postingCardColumns = [{ postings: [] }, { postings: [] }, { postings: [] }]
-
             // Add postings to three columns
+            const postingCardColumns = [{ postings: [] }, { postings: [] }, { postings: [] }]
             homePostings.forEach((posting, i) => {
                 postingCardColumns[i % 3].postings.push(posting)
             })
 
+            // Update view
             component.setState({ postingCardColumns })
         }
     } catch (err) {
-        alert(String(err))
+        console.error(err)
     }
 }

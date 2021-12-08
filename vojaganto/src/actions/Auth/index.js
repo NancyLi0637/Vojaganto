@@ -73,7 +73,6 @@ export async function registerUser(username, password, name) {
 
     } catch (err) {
         console.error(err)
-        alert(String(err))
         return null
     }
 }
@@ -90,7 +89,6 @@ export async function resumeSession() {
         }
     } catch (err) {
         console.error(err)
-        // alert(String(err))
         return null
     }
 }
@@ -101,7 +99,6 @@ export async function logoutUser() {
         return null
     } catch (err) {
         console.error(err)
-        alert(String(err))
         return null
     }
 }

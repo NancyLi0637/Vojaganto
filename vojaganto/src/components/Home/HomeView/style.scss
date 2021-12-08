@@ -49,6 +49,7 @@
   .posting-card-columns{
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
     @include px($padding: 32px);
   }
   

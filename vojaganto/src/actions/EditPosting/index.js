@@ -1,5 +1,6 @@
 import * as api from "api/posting"
 import { uploadPostingImage, deletePostingImage } from "api/image"
+import { redirectToPage } from "actions";
 
 /**
  * Handle setState when an input event occurs. 
@@ -28,7 +29,6 @@ function handleInputChange(component, event) {
             posting: {
                 ...prevState.posting,
                 [name]: value
-
             }
         }));
     }
@@ -49,9 +49,8 @@ async function handleImageUpload(component, event) {
     //     newFiles.push(URL.createObjectURL(f))
     // }
     const imageFile = files[0]
-    console.log("Loading a image file: ", imageFile)
 
-    // TODO: upload image
+    // Create file data
     const formData = new FormData();
     formData.append(
         "image",
@@ -63,8 +62,7 @@ async function handleImageUpload(component, event) {
         const uploadedImage = await uploadPostingImage(formData)
 
         if (uploadedImage) {
-            console.log("Uploaded image", uploadedImage)
-
+            console.log("Uploaded image")
             // A copy of the new state
             const newImages = [...component.state.posting.images, uploadedImage]
 
@@ -98,7 +96,7 @@ async function handleDeleteImage(component, index) {
         const result = await deletePostingImage({ image: delImage })
         if (result) {
             console.log("Deleted image", result)
-            
+
             // Update view
             const newImages = [...component.state.posting.images];
             newImages.splice(index, 1);
@@ -129,10 +127,19 @@ async function handleDeleteImage(component, index) {
 async function submitPosting(component) {
     // Collect inputs from state
     const data = component.state.posting
+    // Input Validation
+    if (data.title.length === 0) {
+        alert("Your trip should have a title!")
+        return
+    }
     // Post to server
     try {
         if (data._id !== undefined) {
             // Update a posting
+            if (typeof data.journey === "object") {
+                data.journey = data.journey._id
+            }
+
             console.log(`Submit edit posting ${data._id}`, data)
             const editedPosting = await api.updatePosting(data._id, data)
             if (editedPosting) {
@@ -173,7 +180,7 @@ async function deletePosting(component, pid) {
                 component.props.history.push(`/profile/${String(component.props.currUser._id)}`)
             }
         } catch (err) {
-            alert(String(err))
+            console.error(String(err))
         }
     } else {
         // Empty draft
@@ -187,15 +194,25 @@ async function deletePosting(component, pid) {
  * Fill the component state with old posting by pid.
  * @param {React.Component} component 
  * @param {*} pid 
+ * @param {*} journeyAsId Replace journey field with ID
  */
-async function setPostingData(component, pid) {
+async function setPostingData(component, pid, journeyAsId = false) {
     try {
         const oldPosting = await api.getPosting(pid)
-        console.log(`Get Posting ${pid}`, oldPosting)
-        component.setState({ new: false, posting: oldPosting })
+        if (journeyAsId) {
+            oldPosting.journey = oldPosting.journey._id
+        }
+        if (oldPosting) {
+            console.log(`Get Posting ${pid}`, oldPosting)
+            component.setState({ new: false, posting: oldPosting })
+        } else {
+            alert("Trip not found or not permitted to access!")
+            redirectToPage("/")
+        }
+
     } catch (err) {
         // throw err
-        alert(String(err))
+        console.error(String(err))
     }
 }
 
@@ -214,7 +231,7 @@ async function getUserJourneys(component, uid) {
 
     } catch (err) {
         // throw err
-        alert(String(err))
+        console.error(String(err))
     }
 }
 

@@ -1,6 +1,6 @@
 import * as api from "api/profile"
 import { getUserPostings } from "api/posting"
-import { reloadPage } from "actions"
+import { redirectToPage, reloadPage } from "actions"
 
 /**
  * Set component state.profileInfo to profile owner's info.
@@ -15,6 +15,7 @@ export async function setProfileInfo(component, uid) {
             component.setState({ profileInfo })
         } else {
             alert("Cannot find user")
+            redirectToPage("/")
         }
     } catch (err) {
         console.error(err)
@@ -77,6 +78,5 @@ export async function setProfileJourneys(component, uid) {
         }
     } catch (err) {
         console.error(err)
-        alert(String(err))
     }
 }

@@ -13,7 +13,8 @@ const Posting = mongoose.model('Posting', {
     destination: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        default: "Unknown Location"
     },
     // For map
     coordinates: {
@@ -42,7 +43,7 @@ const Posting = mongoose.model('Posting', {
     // User defined date
     date: {
         type: Date,
-        //TODO: default 
+        default: new Date() 
     },
     // Body/content
     body: {
