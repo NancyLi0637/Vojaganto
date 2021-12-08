@@ -1,25 +1,27 @@
 {
   "files": {
-    "main.css": "/static/css/main.4b5ceeaa.chunk.css",
-    "main.js": "/static/js/main.15e2a994.chunk.js",
-    "main.js.map": "/static/js/main.15e2a994.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.72674abf.js",
-    "runtime-main.js.map": "/static/js/runtime-main.72674abf.js.map",
-    "static/js/2.52e292cf.chunk.js": "/static/js/2.52e292cf.chunk.js",
-    "static/js/2.52e292cf.chunk.js.map": "/static/js/2.52e292cf.chunk.js.map",
-    "static/js/3.0ccf6f4e.chunk.js": "/static/js/3.0ccf6f4e.chunk.js",
-    "static/js/3.0ccf6f4e.chunk.js.map": "/static/js/3.0ccf6f4e.chunk.js.map",
+    "main.css": "/static/css/main.94e2ff0c.chunk.css",
+    "main.js": "/static/js/main.8f8ca21d.chunk.js",
+    "main.js.map": "/static/js/main.8f8ca21d.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.25a88409.js",
+    "runtime-main.js.map": "/static/js/runtime-main.25a88409.js.map",
+    "static/js/2.ba71ac47.chunk.js": "/static/js/2.ba71ac47.chunk.js",
+    "static/js/2.ba71ac47.chunk.js.map": "/static/js/2.ba71ac47.chunk.js.map",
+    "static/js/3.bda337bb.chunk.js": "/static/js/3.bda337bb.chunk.js",
+    "static/js/3.bda337bb.chunk.js.map": "/static/js/3.bda337bb.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.5dcb663b878246cec2af527a1c4f9382.js": "/precache-manifest.5dcb663b878246cec2af527a1c4f9382.js",
+    "precache-manifest.9aae9bce565237aac3f726a59779de94.js": "/precache-manifest.9aae9bce565237aac3f726a59779de94.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.4b5ceeaa.chunk.css.map": "/static/css/main.4b5ceeaa.chunk.css.map",
-    "static/js/2.52e292cf.chunk.js.LICENSE.txt": "/static/js/2.52e292cf.chunk.js.LICENSE.txt",
-    "static/media/style.scss": "/static/media/background.afe78909.jpg"
+    "static/css/main.94e2ff0c.chunk.css.map": "/static/css/main.94e2ff0c.chunk.css.map",
+    "static/js/2.ba71ac47.chunk.js.LICENSE.txt": "/static/js/2.ba71ac47.chunk.js.LICENSE.txt",
+    "static/media/avatar-placeholder.jpg": "/static/media/avatar-placeholder.d60692e6.jpg",
+    "static/media/style.scss": "/static/media/background.afe78909.jpg",
+    "static/media/trip-image-placeholder.jpg": "/static/media/trip-image-placeholder.ce96aac1.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.72674abf.js",
-    "static/js/2.52e292cf.chunk.js",
-    "static/css/main.4b5ceeaa.chunk.css",
-    "static/js/main.15e2a994.chunk.js"
+    "static/js/runtime-main.25a88409.js",
+    "static/js/2.ba71ac47.chunk.js",
+    "static/css/main.94e2ff0c.chunk.css",
+    "static/js/main.8f8ca21d.chunk.js"
   ]
 }
