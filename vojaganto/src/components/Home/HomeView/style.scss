@@ -2,8 +2,9 @@
 
 .home-view {
   
-  height: 100vh;
+  height: 90vh;
   overflow-y: auto;
+  overflow-x: hidden;
 
   .web-header{
     position: relative;
@@ -40,8 +41,6 @@
 
       .home-search-btn {
         @include button($px: .5rem, $radius: 10px, $shadow: 0px, $font-size: 1rem);
-
-        
       }
     }
   }
@@ -51,6 +50,23 @@
     flex-direction: row;
     justify-content: space-evenly;
     @include px($padding: 32px);
+    margin-bottom: 3rem;
   }
   
+
+  .pagination-container {
+    width: 40%;
+    margin-bottom: 5rem;
+    @include mx;
+    @include flex-display($dir: row);
+
+    .home-page-btn {
+      @include button($px: .5rem, $radius: 10px, $shadow: 0px, $font-size: 1rem);
+      @include mx($margin: 5px);
+
+      &:focus, &:active{
+        @include box-shadow;
+      }
+    }
+  }
 }  

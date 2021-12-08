@@ -54,7 +54,7 @@ class PostingService {
 
     async getAllPosting(paging = null, search = null, sort = {}) {
 
-        const pagingItemNum = 10
+        const pagingItemNum = 20
         const availableFields = ["title", "destination", "author", "journey", "body"]
 
         // Search postings
