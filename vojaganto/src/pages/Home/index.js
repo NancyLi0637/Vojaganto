@@ -11,7 +11,8 @@ class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            postingCardColumns: [],
+            postingCardColumns: [{ postings: [] }, { postings: [] }, { postings: [] }],
+            
         };
     }
 
@@ -31,7 +32,7 @@ class HomePage extends React.Component {
                             postingCardColumns={this.state.postingCardColumns}
                             currUser={currUser}
                             setCurrUser={setCurrUser}
-                            setSearch={(search) => { action.setHomePostingColumns(this, search) }}
+                            setSearch={(search, page) => { action.setHomePostingColumns(this, search, page) }}
                         />
 
                         : <div className="posting-placeholder">Loading Posting</div>

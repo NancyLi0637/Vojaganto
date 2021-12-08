@@ -10,7 +10,15 @@ import { handleInputChange } from 'actions';
 
 class HomeView extends React.Component {
     state = {
-        search: ""
+        search: "",
+        page: 1
+    }
+
+    setPage(incr = 1) {
+        const nextPage = this.state.page + incr
+        this.setState({ page: nextPage })
+        this.props.setSearch(this.state.search, nextPage)
+
     }
 
     render() {
@@ -24,7 +32,7 @@ class HomeView extends React.Component {
 
                     <div className="home-search">
                         <input type="text" className="home-search-input" name="search" placeholder="Search for trips!" onChange={(e) => handleInputChange(this, e)} />
-                        <button className="home-search-btn" onClick={() => setSearch(this.state.search)}>Search</button>
+                        <button className="home-search-btn" onClick={() => setSearch(this.state.search, this.state.page)}>Search</button>
 
                     </div>
 
@@ -39,6 +47,27 @@ class HomeView extends React.Component {
                         <PostingCardColumn key={idx} postingCardColumn={postingCardColumn} />
                     ))}
                 </div>
+
+
+                <div className="pagination-container">
+                    {
+                        this.state.page > 1 &&
+                        <button className="home-page-btn"
+                            onClick={() => this.setPage(-1)}
+                        >
+                            Previous Page
+                        </button>
+                    }
+                    {
+                        postingCardColumns[2].postings.length > 0 &&
+                        <button className="home-page-btn"
+                            onClick={() => this.setPage(1)}
+                        >
+                            Next Page
+                        </button>
+                    }
+                </div>
+
             </div>
 
         );

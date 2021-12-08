@@ -4,8 +4,24 @@
     // @include my($margin: 1rem);
 
     // Hide scroll bar
-    scrollbar-width: none;
+    // Reference: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_scrollbar
+    /* width */
     ::-webkit-scrollbar {
-        display: none;
+        width: 5px;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #ddd; 
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #ccc; 
     }
 }
