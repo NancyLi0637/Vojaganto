@@ -70,7 +70,7 @@ router.get("/session/resume", authenticate, async (req, res) => {
     user._id = req.user.convertedId
     res.status(200).send(user)
 })
-// =========================================================New Journey Feature======================================
+
 router.get("/:_id/journey", async(req, res) => {
     try{
         let journey = await userController.getUserJourney(req)

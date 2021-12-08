@@ -3,7 +3,7 @@ const userService = require("../../services/user")
 const imageProcess = require("../../util/imageProcess")
 const fs = require("fs")
 const { ObjectId } = require('mongodb')
-const {getAndValidateObjectId, getAndValidateDataBody} = require("../../util/helper")
+const {getAndValidateObjectId, getAndValidateDataBody} = require("../../util/validateAndGet")
 
 class UserController {
 
@@ -125,9 +125,7 @@ class UserController {
         }
 
         let modifiedUser = await userService.updateUser(uid, data)
-        if (modifiedUser === "journey not found"){
-            throw { status: 404, msg: "Not Found: New Default Journey Not Found. Please create the journey first"}
-        }
+
         return modifiedUser
     }
 
@@ -200,7 +198,14 @@ class UserController {
         return user
     }
 
-    // =========================================================New Journey Feature======================================
+
+     
+    /** Handle the API request input, and get all the journey information of a user according to the input user id and the priviledge level of the logged in user
+     * 
+     * @param {Object} req The request object from API call
+     * @returns If success, return the information of all the required journey information
+     *          If failed, return a error message object with status and error message in it
+     */
     async getUserJourney(req){
         let uid = getAndValidateObjectId(req.params, "_id")
         let journey = await userService.getUserJourney(req.session.user, uid)
@@ -214,7 +219,12 @@ class UserController {
         return journey
     }
 
-
+    /** Handle the API request input, and create a journey for the current logged in user according to the input journey information
+     * 
+     * @param {Object} req The request object from API call
+     * @returns If success, return the created journey information
+     *          If failed, return a error message object with status and error message in it
+     */
     async createUserJourney(req){
         const data = getAndValidateDataBody(req.body, ["title"], ["color"], req.session.user)
         let journey = await userService.createUserJourney(req.session.user, data)
@@ -228,6 +238,12 @@ class UserController {
 
     }
 
+    /** Handle the API request input, and get all the posting information of a user according to the input user id and the priviledge level of the logged in user
+     * 
+     * @param {Object} req The request object from API call
+     * @returns If success, return the information of all the required posting information
+     *          If failed, return a error message object with status and error message in it
+     */
     async getUserPosting(req){
         let uid = getAndValidateObjectId(req.params, "_id")
         // FIXME: should not require privilege, only check for private
