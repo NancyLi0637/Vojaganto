@@ -29,7 +29,7 @@ class AdminUserDash extends React.Component {
                 <AdminNav />
                 <div className="admin-user-main">
                     <div className="table-search">
-                        <input type="text" className="table-search-input" name="search" placeholder="Search by ID, Username, Name" onChange={(e) => handleInputChange(this, e)} />
+                        <input type="text" className="table-search-input" name="search" placeholder="Search by ID, Username, Nickname" onChange={(e) => handleInputChange(this, e)} />
                         <button className="table-search-btn" onClick={() => getUsers(this, { search: this.state.search })}>Search</button>
                     </div>
                     <AdminUserTable users={this.state.users} changeUserActive={(user) => changeUserActive(this, user)} changeUserRole={(user) => changeUserRole(this, user)} />

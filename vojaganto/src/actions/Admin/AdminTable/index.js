@@ -21,6 +21,7 @@ export async function getPostings(component, params = "") {
     console.log("Searching postings", params)
     const postings = await api.fetchPostings(params)
     if (postings) {
+      console.log("Admin fetch posting", postings)
       component.setState({ postings })
     }
 
