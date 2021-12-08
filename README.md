@@ -177,6 +177,8 @@ New Post - Contains no markers. A user can click on anywhere on this map and a n
 
 ## **External Libraries**
 
+### **Front End**
+
 - react
 - react-dom
 - react-router
@@ -188,6 +190,21 @@ New Post - Contains no markers. A user can click on anywhere on this map and a n
 - react-leaflet
 - web-vitals
 - jest
+
+### **Back End**
+
+- bcrypt
+- cloudinary
+- connect-mongo
+- cors
+- dotenv
+- express
+- express-session
+- mongodb
+- mongoose
+- multer
+- nodemon
+- path
 
 ## **Feature List**
 
