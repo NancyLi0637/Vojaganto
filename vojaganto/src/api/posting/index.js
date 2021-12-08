@@ -1,4 +1,5 @@
 import * as http from "utils/http"
+import { redirectToPage } from "actions"
 
 
 //*********************************  HOME PAGE ************************************//
@@ -49,6 +50,10 @@ async function createPosting(data) {
         const { response, body } = await http.post('/api/posting', data)
         if (response.status === 200) {
             return body
+        } else if (response.status === 401) {
+            alert("Session expired, please login again!")
+            redirectToPage('/')
+            return null
         } else {
             return null
         }
@@ -68,6 +73,10 @@ async function updatePosting(pid, data) {
         const { response, body } = await http.put(`/api/posting/${pid}`, data)
         if (response.status === 200) {
             return body
+        } else if (response.status === 401) {
+            alert("Session expired, please login again!")
+            redirectToPage('/')
+            return null
         } else {
             return null
         }
@@ -86,6 +95,10 @@ async function deletePosting(pid) {
         const { response, body } = await http.del(`/api/posting/${pid}`)
         if (response.status === 200) {
             return body
+        } else if (response.status === 401) {
+            alert("Session expired, please login again!")
+            redirectToPage('/')
+            return null
         } else {
             return null
         }
@@ -107,6 +120,10 @@ async function getUserJourneys(uid) {
         const { response, body } = await http.get(`/api/user/${uid}/journey`)
         if (response.status === 200) {
             return body
+        } else if (response.status === 401) {
+            alert("Session expired, please login again!")
+            redirectToPage('/')
+            return null
         } else {
             return null
         }

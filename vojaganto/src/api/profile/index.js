@@ -1,3 +1,4 @@
+import { redirectToPage } from "actions"
 import * as http from "utils/http"
 
 
@@ -27,6 +28,10 @@ export async function updateProfile(uid, formData) {
         })
         if (response.status === 200) {
             return await response.json()
+        } else if (response.status === 401) {
+            alert("Session expired, please login again!")
+            redirectToPage('/')
+            return null
         } else {
             throw "Request upload failed"
         }

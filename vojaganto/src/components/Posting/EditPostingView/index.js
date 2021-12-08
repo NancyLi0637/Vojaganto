@@ -17,7 +17,9 @@ class EditPostingView extends React.Component {
     componentDidMount() {
         getUserJourneys(this, this.props.currUser._id).then(() => {
             // Set the default journey
-            document.querySelector("#postingJourneySelect").value = this.state.userJourneys[0]._id
+            if (!this.props.posting.journey._id) {
+                document.querySelector("#postingJourneySelect").value = this.state.userJourneys[0]._id
+            }
         })
     }
 
@@ -44,7 +46,7 @@ class EditPostingView extends React.Component {
                                 className="edit-meta edit-input"
                                 id="postingJourneySelect"
                                 onChange={handleInputChange}
-                                // value={this.state.userJourneys[0] ? this.state.userJourneys[0]._id : ""}
+                                value={posting.journey._id || ""}
                             >
                                 {
                                     this.state.userJourneys.map((journey, i) => {
