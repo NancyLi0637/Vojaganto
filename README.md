@@ -75,7 +75,7 @@ View the public trips and their markers on the map.
 
 #### **View a public post**
 
-On the left side are all the public postings posted by all users. A user can click into any of the postings to view it without logging into an account.
+On the left side are all the public postings posted by all users. At most 20 posts will be on home page at same time, there is a switch page option at the bottom of posts, click it will show the next 20 posts. A user can click into any of the postings to view it without logging into an account.
 
 #### **Search public posts**
 
