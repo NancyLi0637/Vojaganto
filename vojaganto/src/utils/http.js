@@ -1,5 +1,5 @@
 const origin = process.env.REACT_APP_ORIGIN || window.location.protocol + "//" + window.location.host
-// const origin = "http://localhost:5000"
+
 async function get(route, params = {}) {
   const url = new URL(origin + route)
 

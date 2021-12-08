@@ -1,4 +1,5 @@
-
+import defaultAvatar from "assets/images/avatar-placeholder.jpg"
+import defaultCover from "assets/images/trip-image-placeholder.jpg"
 /**
 * Handle setState when an input event occurs. 
 * @param {React.Component} component 
@@ -31,6 +32,6 @@ export function redirectToPage(route = "/", newTab) {
 
 export const formatDate = (date) => date ?  new Date(date).toISOString().split('T')[0] : ""
 
-export const getAvatarUrl = (avatar) => (avatar) ? avatar.url : "https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fspecials-images.forbesimg.com%2Fdam%2Fimageserve%2F1171238184%2F960x0.jpg%3Ffit%3Dscale"
+export const getAvatarUrl = (avatar) => (avatar) ? avatar.url : defaultAvatar
 
-export const getImageUrl = (image) => (image) ? image.url : "https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/gray-background-7131-98db5e6ffc4972baa4087760291cbc3e@1x.jpg"
+export const getImageUrl = (image) => (image) ? image.url : defaultCover

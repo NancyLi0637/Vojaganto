@@ -3,6 +3,7 @@
 .edit-posting-view {
     height: 90vh;
     overflow-y: auto;
+    overflow-x: hidden;
 
     input:focus { 
         outline: none !important;
