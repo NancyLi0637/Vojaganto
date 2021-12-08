@@ -325,9 +325,109 @@ no body required
 
 return: The user in session without password field
 
+### `GET /api/user/:_id/journey`
+
+Get all the journey of the user specified by _id.
+
+no body required
+
+return: An array of journey that belongs to that user
+
+### `POST /api/user/:_id/journey`
+
+Create a journey for the user specified by _id (If the user is not the current user, then the new journey will be created to the current user, not the user specified). This API is protected by session.
+
+body: required field is `title`, optional fields is `color`. This API is protected by session.
+
+return: The created journey
+
+### `GET /api/user/:_id/posting`
+
+Get all the postings of the user specified by _id.
+
+no body required
+
+return: An array of postings that belongs to that user (organized according to the journey)
+
+
 ### **Posting**
+### `GET /api/posting`
+Get all the public postings in this application.
+
+query: `search, page`
+
+- seach: (Optional) a string such that if it is specified, only the postings whose posting title, destination, author username, author name, journey title,or posting body contains the given seach string will get returned
+- page: (Optional) which page of the postings can get returned 
+
+return: An array of postings with the information
+### `GET /api/posting/:_id`
+Get information about posting with given _id (if the user is allowed to access it).
+
+body: no body required
+
+return: If _id exist and the current user is allowed to access it, return a posting object containing its associated data
+### `POST /api/posting`
+
+Create a new posting
+
+body: required field is `title`, optional fields are `journey, date, body, public, images, longitude, latitude, destination`. This API is protected by session.
+
+return: The posting created
+
+### `PUT /api/posting`
+
+Modify the posting information (if the current user can access that posting). This API is protected by session.
+
+body: optional fields are `title, journey, date, body, public, images, longitude, latitude, createdTime, destination`. This API is protected by session.
+
+return: New posting created
+### `DELETE /api/posting/:_id`
+
+Delete the posting specified by _id (if the current user can aceess that posting). If the deleted posting is the last posting in the journey, and the journey is not the default journey for its author, delete that journey as well. This API is protected by session.
+
+no body required
+
+return: The deleted posting
+
+### `POST /api/posting/image`
+
+Upload an image
+
+form body: `{avatar: file}`
+
+return: `{ imageId, url }`
+
+### `DELETE /api/posting/image`
+
+Delete an image
+
+form body: `{ imageId, url }`
+
+return: if success, return `{ imageId, url }`
 
 ### **Journey**
+### `GET /api/journey/:_id`
+
+Get the journey according to the journey id _id.
+
+body: no body required
+
+return: The journey required if it exists
+
+### `PUT /api/journey/:_id`
+
+Update journey specified by the journey id _id (If the user is authorized to update it). This API is protected by session.
+
+body: optional fields is `title, color`. This API is protected by session.
+
+### `DELETE /api/journey/:_id`
+
+Deleted the journey specified by the journey id _id (If the user is authorized to delete it). All the postings under that journey will be changed to the default journey of the user. This API is protected by session.
+
+body: no body required.
+
+return: The deleted journey
+
 
 ### **Admin**
 
@@ -346,3 +446,32 @@ Modify the given user's role or active. This API is protected by session and the
 body: data to modify. availiable fields are role and active
 
 return updated user without password field
+
+### `GET /api/admin/posting`
+
+Get all the public postings in this application. This API is protected by session and the user in session needs to be admin
+
+query: `search, page`
+
+- seach: (Optional) a string such that if it is specified, only the postings whose posting title, destination, author username, author name, journey title,or posting body contains the given seach string will get returned
+- page: (Optional) which page of the postings can get returned 
+
+return: An array of postings with the information
+
+### `GET /api/admin/posting/:_id`
+
+Get information about posting with given _id. This API is protected by session and the user in session needs to be admin
+
+body: no body required
+
+return: If _id exist, return a posting object containing its associated data
+
+### `DEL /api/admin/posting/:_id`
+
+Delete the posting specified by _id. If the deleted posting is the last posting in the journey, and the journey is not the default journey for its author, delete that journey as well. This API is protected by session and the user in session needs to be admin
+
+no body required
+
+return: The deleted posting
+
+
