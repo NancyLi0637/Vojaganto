@@ -287,7 +287,7 @@ note: If the active field of the user is false, login will fail
 
 ### `PUT /api/user/logout`
 
-Log out the current user
+Log out the current user. This API is protected by session.
 
 No data needed
 
@@ -295,13 +295,13 @@ return: nothing but a 200 status code
 
 ### `GET /api/user/:_id`
 
-Get information about a user by the given _id parameter
+Get information about user with given _id.
 
-return: If _id exists, a user object without password field
+return: If _id exist, return a user object without password field
 
 ### `PUT /api/user`
 
-Modify the user information of the current user.
+Modify the user information of the current user. This API is protected by session.
 
 formbody: the new data for the current user, available fields are `password, name, description, avatar`
 
@@ -319,7 +319,7 @@ return: The user created without password field
 
 ### `GET /api/user/session/resume`
 
-Get the user stored in session
+Get the user stored in session. This API is protected by session.
 
 no body required
 
@@ -333,7 +333,7 @@ return: The user in session without password field
 
 ### `GET /api/admin/user`
 
-Get an array of users based on query
+Get an array of users based on query. This API is protected by session and the user in session needs to be admin
 
 query: `search: String`
 
@@ -341,8 +341,8 @@ return: Return an array of user objects without password field. Search will be a
 
 ### `PUT /api/admin/user/:_id`
 
-Modify the given user
+Modify the given user's role or active. This API is protected by session and the user in session needs to be admin
 
-body: data to modify
+body: data to modify. availiable fields are role and active
 
 return updated user without password field
