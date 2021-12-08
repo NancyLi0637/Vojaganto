@@ -110,7 +110,7 @@ class PostingService {
         // currPosting["postings"] = []
         // console.log(postings)
         for (let posting of postings) {
-            res.push(await this.getReturnedPostingField(posting, true))
+            res.push(await this.getReturnedPostingField(posting))
         }
         // res.push(currPosting)
         logger.log("Get all postings")
